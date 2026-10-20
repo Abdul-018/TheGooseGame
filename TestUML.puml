@@ -1,4 +1,4 @@
 @startuml
-Alice->Bob : Hello
-return ok
+Alice -> Bob : Hello
+Bob --> Alice : ok
 @enduml
