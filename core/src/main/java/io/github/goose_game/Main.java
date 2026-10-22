@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 
 public class Main extends ApplicationAdapter{
-    
+
     public Texture playerTexture;
     public Texture backgroundTexture;
 
@@ -48,7 +48,7 @@ public class Main extends ApplicationAdapter{
         input();
         logic();
         draw();
-        
+
     }
 
 
@@ -56,16 +56,31 @@ public class Main extends ApplicationAdapter{
         float speed = 4f;
         float delta = Gdx.graphics.getDeltaTime(); // Consistent across different machines
 
+        float xMovement = 0f;
+        float yMovement = 0f;
+
         if (Gdx.input.isKeyPressed(Keys.RIGHT)){
-            playerSprite.translateX(speed*delta);
-        } else if (Gdx.input.isKeyPressed(Keys.LEFT)){
-            playerSprite.translateX(-speed*delta);
-        } else if (Gdx.input.isKeyPressed(Keys.UP)){
-            playerSprite.translateY(speed*delta);
-        } else if (Gdx.input.isKeyPressed(Keys.DOWN)){
-            playerSprite.translateY(-speed*delta);
+            xMovement += 1f;
         }
-        
+        if (Gdx.input.isKeyPressed(Keys.LEFT)){
+            xMovement -= 1f;
+        }
+        if (Gdx.input.isKeyPressed(Keys.UP)){
+            yMovement += 1f;
+        }
+        if (Gdx.input.isKeyPressed(Keys.DOWN)){
+            yMovement -= 1f;
+        }
+        if (xMovement != 0f || yMovement != 0f) {
+            float length = (float) Math.sqrt(xMovement * xMovement + yMovement * yMovement);
+
+            xMovement /= length;
+            yMovement /= length;
+
+            playerSprite.translateX(xMovement * speed * delta);
+            playerSprite.translateY(yMovement * speed * delta);
+        }
+
 
     }
 
@@ -100,7 +115,7 @@ public class Main extends ApplicationAdapter{
 
     @Override
     public void dispose() {
-     
+
     }
 
 
