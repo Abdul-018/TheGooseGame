@@ -23,8 +23,8 @@ public class Main extends ApplicationAdapter{
     FitViewport viewport;
     Sprite playerSprite;
 
-    float mapWidth = 24f;
-    float mapHeight = 15f;
+    float mapWidth = 18f;
+    float mapHeight = 10f;
 
     @Override
     public void create() {
@@ -91,11 +91,11 @@ public class Main extends ApplicationAdapter{
         camera.position.x += (targetX - camera.position.x) * 5f * delta;
         camera.position.y += (targetY - camera.position.y) * 5f * delta;
 
-        float halfVw = viewport.getWorldWidth() / 2f;
-        float halfVh = viewport.getWorldHeight() / 2f;
+        float halfWidth = viewport.getWorldWidth() / 2f;
+        float halfHeight = viewport.getWorldHeight() / 2f;
 
-        camera.position.x = MathUtils.clamp(camera.position.x, halfVw, mapWidth - halfVw);
-        camera.position.y = MathUtils.clamp(camera.position.y, halfVh, mapHeight-halfVh);
+        camera.position.x = MathUtils.clamp(camera.position.x, halfWidth, mapWidth - halfWidth);
+        camera.position.y = MathUtils.clamp(camera.position.y, halfHeight, mapHeight-halfHeight);
 
         camera.update();
 

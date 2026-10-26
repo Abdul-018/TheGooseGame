@@ -1,1 +1,2 @@
 libgdx.png
+test_player.png
