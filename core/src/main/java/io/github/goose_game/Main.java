@@ -17,11 +17,13 @@ public class Main extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
-
-        Item a = new Item("Bread", 22, 0);
-        Item b = new Item("Baguette", 0, 5);
-        System.out.println("ID: " + a.getId() + " | Name: " + a.getType() + " | Position: " + a.getPosition());
-        System.out.println("ID: " + b.getId() + " | Name: " + b.getType() + " | Position: " + b.getPosition());
+        Inventory inventory = new Inventory();
+        Item Bread = new Item("Bread", 22, 0);
+        Item BreadGrenade = new Item("Bread Grenade", 0, 5);
+        inventory.addItem(BreadGrenade);
+        inventory.addItem(Bread);
+        inventory.PrintItems();
+        inventory.removeItem(BreadGrenade);
     }
 
     @Override

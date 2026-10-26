@@ -26,5 +26,4 @@ public class Item {
     public Vector2 getPosition() {
         return position;
     }
-
 }
