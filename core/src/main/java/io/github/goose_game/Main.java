@@ -5,7 +5,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
+/**
+ * {@link com.badlogic.gdx.ApplicationListener} implementation shared by all
+ * platforms.
+ */
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture image;
@@ -14,6 +17,11 @@ public class Main extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
+
+        Item a = new Item("Bread", 22, 0);
+        Item b = new Item("Baguette", 0, 5);
+        System.out.println("ID: " + a.getId() + " | Name: " + a.getType() + " | Position: " + a.getPosition());
+        System.out.println("ID: " + b.getId() + " | Name: " + b.getType() + " | Position: " + b.getPosition());
     }
 
     @Override
