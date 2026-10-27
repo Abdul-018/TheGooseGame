@@ -24,6 +24,7 @@ public class Main extends ApplicationAdapter {
         inventory.addItem(Bread);
         inventory.PrintItems();
         inventory.removeItem(BreadGrenade);
+        inventory.PrintItems();
     }
 
     @Override
