@@ -8,6 +8,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class Game {
 
+    private final float mapWidth = 24f;
+    private final float mapHeight = 15f;
+
     private Texture backgroundTexture;
 
     private SpriteBatch spriteBatch;
@@ -22,7 +25,7 @@ public class Game {
         spriteBatch = new SpriteBatch();
         viewport = new FitViewport(8, 5);
 
-        player = new Player();
+        player = new Player(mapWidth, mapHeight);
     }
 
     public void resize(int width, int height) {
@@ -30,7 +33,7 @@ public class Game {
     }
 
     public void render() {
-        player.update(viewport);
+        player.update(viewport, mapWidth, mapHeight);
         draw();
     }
 
@@ -40,10 +43,7 @@ public class Game {
         spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
         spriteBatch.begin();
 
-        float worldWidth = viewport.getWorldWidth();
-        float worldHeight = viewport.getWorldHeight();
-
-        spriteBatch.draw(backgroundTexture, 0, 0, worldWidth, worldHeight);
+        spriteBatch.draw(backgroundTexture, 0, 0, mapWidth, mapHeight);
         player.draw(spriteBatch);
 
         spriteBatch.end();
