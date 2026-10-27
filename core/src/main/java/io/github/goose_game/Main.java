@@ -44,6 +44,8 @@ public class Main extends ApplicationAdapter{
     public void resize(int width, int height) {
         viewport.update(width, height, true);
     }
+    
+    private Rectangle mouseHitbox = new Rectangle(0, 0, 32, 32);
 
 
 
