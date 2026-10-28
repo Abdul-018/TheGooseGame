@@ -1,11 +1,12 @@
 package io.github.goose_game;
 
-public class Item extends Entity{
+public class Item extends Entity{ // Is there any point in extending here?
     
-    public static int ItemId;
+    public static int itemId;
     public boolean inInventory;
     public boolean itemUsed = false;
- 
+    public static float effectDuration;
+
 
     public void pickUp() throws InvalidItemException{
         if (!this.inInventory){
@@ -44,7 +45,14 @@ public class Item extends Entity{
     }
 
     public void itemAction(){
-        ;
+
     }
 
+    public void renderItem(int xCoord, int yCoord){
+
+    }
+
+    public void endEffect(){
+        
+    }
 }

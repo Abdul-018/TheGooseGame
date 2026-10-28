@@ -1,3 +1,4 @@
+goose.png
 libgdx.png
 test_background.png
 test_player.png

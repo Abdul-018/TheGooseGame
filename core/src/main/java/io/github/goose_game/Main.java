@@ -11,6 +11,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Rectangle;
+
 
 
 
@@ -38,6 +40,7 @@ public class Main extends ApplicationAdapter{
         playerSprite.setSize(1,1);
 
         playerSprite.setPosition(mapWidth/2f, mapHeight/2f);
+
     }
 
     @Override
