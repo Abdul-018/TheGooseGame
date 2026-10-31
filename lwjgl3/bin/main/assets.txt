@@ -1,3 +1,4 @@
+bread.png
 goose.png
 libgdx.png
 test_background.png
