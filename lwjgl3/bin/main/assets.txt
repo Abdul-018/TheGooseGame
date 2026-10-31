@@ -1,1 +1,6 @@
+Goose.png
+gooseSheet.png
 libgdx.png
+studentSheet.png
+test_background.png
+test_player.png
