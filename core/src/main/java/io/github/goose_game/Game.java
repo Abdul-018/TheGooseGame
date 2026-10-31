@@ -1,8 +1,10 @@
 package io.github.goose_game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -17,7 +19,8 @@ public class Game {
     private FitViewport viewport;
 
     private Player player;
-    private Timer Timer;
+    private Timer timer;
+    private Array<Goose> geese = new Array<>();
 
     public void create() {
         backgroundTexture = new Texture("test_background.png");
@@ -26,6 +29,7 @@ public class Game {
         viewport = new FitViewport(8, 5);
 
         player = new Player(mapWidth, mapHeight);
+        geese.add(new Goose("goose.png", 2f, 2f, 3));
     }
 
     public void resize(int width, int height) {
@@ -33,7 +37,9 @@ public class Game {
     }
 
     public void render() {
+        float delta = Gdx.graphics.getDeltaTime();
         player.update(viewport, mapWidth, mapHeight);
+        for (Goose g : geese) g.update(delta, player.getPosition());
         draw();
     }
 
@@ -45,6 +51,7 @@ public class Game {
 
         spriteBatch.draw(backgroundTexture, 0, 0, mapWidth, mapHeight);
         player.draw(spriteBatch);
+        for (Goose g : geese) g.draw(spriteBatch);
 
         spriteBatch.end();
     }
@@ -53,5 +60,6 @@ public class Game {
         spriteBatch.dispose();
         backgroundTexture.dispose();
         player.dispose();
+        for (Goose g : geese) g.dispose();
     }
 }
