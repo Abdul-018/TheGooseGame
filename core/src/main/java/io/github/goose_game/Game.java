@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -20,7 +21,7 @@ public class Game {
     private FitViewport viewport;
 
     private Player player;
-    private Timer timer;
+    private GooseSprites gooseSprites;
     private Array<Goose> geese = new Array<>();
     private GooseSwarmEvent swarmEvent;
     private NightEvent nightEvent;
@@ -32,9 +33,11 @@ public class Game {
         viewport = new FitViewport(8, 5);
 
         player = new Player(mapWidth, mapHeight);
-        geese.add(new Goose("goose.png", 2f, 2f, 3));
+        gooseSprites = new GooseSprites();
+        geese.add(new Goose(gooseSprites, 2f, 2f, 3));
 
-        swarmEvent = new GooseSwarmEvent(18f, 10f, 2f, 2f); // placeholder spot until we have the map
+        // placeholder zone on the test background, needs a real spot once the map is ready
+        swarmEvent = new GooseSwarmEvent(18f, 10f, 2f, 2f, gooseSprites);
         nightEvent = new NightEvent();
     }
 
@@ -45,11 +48,13 @@ public class Game {
     public void render() {
         float delta = Gdx.graphics.getDeltaTime();
         player.update(viewport, mapWidth, mapHeight);
-        swarmEvent.update(player.getPosition(), geese, mapWidth, mapHeight);
+
+        Vector2 playerCenter = player.getCenter();
+        swarmEvent.update(playerCenter, geese, mapWidth, mapHeight);
         nightEvent.update(delta);
         for (Goose g : geese) {
             g.setRedEyes(nightEvent.isNight());
-            g.update(delta, player.getPosition());
+            g.update(delta, playerCenter, geese);
         }
         draw();
     }
@@ -60,7 +65,7 @@ public class Game {
         spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
         spriteBatch.begin();
 
-        // geese are drawn without the tint so the red eyes stand out
+        // geese skip the night tint so the red eyes stand out
         spriteBatch.setColor(nightEvent.isNight() ? nightTint : Color.WHITE);
         spriteBatch.draw(backgroundTexture, 0, 0, mapWidth, mapHeight);
         player.draw(spriteBatch);
@@ -75,5 +80,6 @@ public class Game {
         backgroundTexture.dispose();
         player.dispose();
         for (Goose g : geese) g.dispose();
+        gooseSprites.dispose();
     }
 }

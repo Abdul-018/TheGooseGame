@@ -7,31 +7,33 @@ import com.badlogic.gdx.utils.Array;
 
 public class GooseSwarmEvent {
 
+    // placeholder values, still need tuning
     private static final int SWARM_SIZE = 6;
     private static final float SPAWN_DISTANCE = 4f;
 
     private final Rectangle triggerArea;
+    private final GooseSprites gooseSprites;
     private boolean triggered = false;
 
-    public GooseSwarmEvent(float x, float y, float width, float height) {
-        triggerArea = new Rectangle(x, y, width, height);
+    public GooseSwarmEvent(float x, float y, float width, float height, GooseSprites gooseSprites) {
+        this.triggerArea = new Rectangle(x, y, width, height);
+        this.gooseSprites = gooseSprites;
     }
 
-    // only goes off once, the first time the player walks into the area
-    public void update(Vector2 playerPosition, Array<Goose> geese, float mapWidth, float mapHeight) {
-        if (triggered || !triggerArea.contains(playerPosition)) return;
+    public void update(Vector2 playerCenter, Array<Goose> geese, float mapWidth, float mapHeight) {
+        if (triggered || !triggerArea.contains(playerCenter)) {
+            return;
+        }
         triggered = true;
 
-        // spawn them in a circle so the player gets surrounded
+        // TODO: check spawn spots against walls once the map and collisions are in
         for (int i = 0; i < SWARM_SIZE; i++) {
             float angle = i * 360f / SWARM_SIZE;
-            float x = playerPosition.x + MathUtils.cosDeg(angle) * SPAWN_DISTANCE;
-            float y = playerPosition.y + MathUtils.sinDeg(angle) * SPAWN_DISTANCE;
-            geese.add(new Goose("goose.png", MathUtils.clamp(x, 0, mapWidth - 1), MathUtils.clamp(y, 0, mapHeight - 1), 3));
+            float x = playerCenter.x + MathUtils.cosDeg(angle) * SPAWN_DISTANCE - Goose.SIZE / 2f;
+            float y = playerCenter.y + MathUtils.sinDeg(angle) * SPAWN_DISTANCE - Goose.SIZE / 2f;
+            x = MathUtils.clamp(x, 0, mapWidth - Goose.SIZE);
+            y = MathUtils.clamp(y, 0, mapHeight - Goose.SIZE);
+            geese.add(new Goose(gooseSprites, x, y, 3));
         }
-    }
-
-    public boolean isTriggered() {
-        return triggered;
     }
 }

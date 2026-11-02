@@ -17,16 +17,26 @@ public class Entity {
         this.health = health;
     }
 
+    // for entities that draw from a shared texture instead of loading their own
+    protected Entity(int health) {
+        this.sprite = new Sprite();
+        this.health = health;
+    }
+
     public void draw(SpriteBatch spriteBatch) {
         sprite.draw(spriteBatch);
     }
 
     public void onCollision() {
-        // this will be inherited by the player and goose? maybe also item?
+        // overridden by entities that react to being hit, e.g. Goose
     }
 
     public Vector2 getPosition() {
         return new Vector2(sprite.getX(), sprite.getY());
+    }
+
+    public Vector2 getCenter() {
+        return new Vector2(sprite.getX() + sprite.getWidth() / 2f, sprite.getY() + sprite.getHeight() / 2f);
     }
 
     public Sprite getSprite() {
@@ -38,6 +48,8 @@ public class Entity {
     }
 
     public void dispose() {
-        texture.dispose();
+        if (texture != null) {
+            texture.dispose();
+        }
     }
 }

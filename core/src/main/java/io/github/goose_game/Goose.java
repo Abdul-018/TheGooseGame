@@ -1,169 +1,175 @@
 package io.github.goose_game;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 
 public class Goose extends Entity {
 
-    public enum GooseState{
+    public enum GooseState {
         Chasing,
         Distracted,
         Dispersed
     }
-    // I used enum because its the quickest and easiest way to manage geese states
 
+    public static final float SIZE = 1f;
+
+    private static final float STOP_DISTANCE = 0.1f;
+    private static final float SEPARATION_DISTANCE = 1f;
+    private static final float SEPARATION_STRENGTH = 3f;
+    private static final float MIN_MOVE = 0.2f;
+
+    private final GooseSprites sprites;
     private GooseState state;
     private float speed;
     private Vector2 direction;
-    private float distractionTimer; // COuntdown for how long the goose stays distracted for
-
-    private Texture spriteSheet;
-    private Animation<TextureRegion> walkRight;
-    private Animation<TextureRegion> walkLeft;
-    private TextureRegion standRight;
-    private TextureRegion standLeft;
-
-    // same layout as the normal sheet but with red eyes, used during the night event
-    private Texture nightSheet;
-    private Animation<TextureRegion> nightWalkRight;
-    private Animation<TextureRegion> nightWalkLeft;
-    private TextureRegion nightStandRight;
-    private TextureRegion nightStandLeft;
-    private boolean redEyes = false;
+    private float distractionTimer; // seconds left until the goose goes back to chasing
 
     private float stateTime = 0f;
     private boolean facingRight = true;
     private boolean moving = false;
+    private boolean redEyes = false;
 
-    public Goose(String texturePath, float x, float y, int health)
-    {
-        /*
-        This line is basically just an inheritance bridge
-        It calls on the entity class so we can load health and assets
-        I've put the documentation for it on the resources channel
-        */
-        super(texturePath, health);
-
-        spriteSheet = new Texture("gooseSheet.png");
-        TextureRegion[][] frames = TextureRegion.split(spriteSheet, 128, 128);
-
-        // row 2 (index 1) = walk right, row 5 (index 4) = walk left. other rows for blinking and mouth
-        walkRight = new Animation<>(0.15f, frames[1]);
-        walkRight.setPlayMode(Animation.PlayMode.LOOP);
-        walkLeft = new Animation<>(0.15f, frames[4]);
-        walkLeft.setPlayMode(Animation.PlayMode.LOOP);
-
-        standRight = frames[1][0];
-        standLeft = frames[4][0];
-
-        nightSheet = new Texture("gooseSheetNight.png");
-        TextureRegion[][] nightFrames = TextureRegion.split(nightSheet, 128, 128);
-        nightWalkRight = new Animation<>(0.15f, nightFrames[1]);
-        nightWalkRight.setPlayMode(Animation.PlayMode.LOOP);
-        nightWalkLeft = new Animation<>(0.15f, nightFrames[4]);
-        nightWalkLeft.setPlayMode(Animation.PlayMode.LOOP);
-        nightStandRight = nightFrames[1][0];
-        nightStandLeft = nightFrames[4][0];
-
-        this.sprite.setSize(1f, 1f);
+    public Goose(GooseSprites sprites, float x, float y, int health) {
+        super(health);
+        this.sprites = sprites;
+        this.sprite.setSize(SIZE, SIZE);
         this.sprite.setPosition(x, y);
         this.speed = 3f;
         this.direction = new Vector2();
-        this.state = GooseState.Chasing; // The goose has to be in a chasing state when it spawns
+        this.state = GooseState.Chasing;
         this.distractionTimer = 0f;
-
     }
-    //targetPosition is gonna be the coordinates of the player
-    //This method basically runs every frame to update what the goose is doing/where its going
-    public void update(float delta, Vector2 targetPosition){
-        switch (state)
-        {
+
+    // targetPosition is the centre of the player
+    public void update(float delta, Vector2 targetPosition, Array<Goose> geese) {
+        switch (state) {
             case Dispersed:
-                //No updates if goose is "dead"
                 moving = false;
                 break;
             case Distracted:
                 moving = false;
-                distractionTimer = distractionTimer - delta; //essentially decreasing the timer since the last frame
-                if (distractionTimer <= 0){
-                    state = GooseState.Chasing; // So the goose starts chasing the player again
-                }
-                return;
-            case Chasing:
-                if (targetPosition == null) return;
-                float currentX = sprite.getX() + (sprite.getWidth() / 2f);
-                float currentY = sprite.getY() + (sprite.getHeight() / 2f);
-
-                float distance = Vector2.dst(currentX, currentY, targetPosition.x, targetPosition.y);
-                if (distance > 0.1f) {
-                    direction.set(targetPosition.x - currentX, targetPosition.y - currentY).nor();
-                    sprite.translate(direction.x * speed * delta, direction.y * speed * delta);
-
-                    moving = true;
-                    if (direction.x > 0f) facingRight = true;
-                    else if (direction.x < 0f) facingRight = false;
-                    stateTime += delta;
-                } else {
-                    moving = false;
+                distractionTimer -= delta;
+                if (distractionTimer <= 0) {
+                    state = GooseState.Chasing;
                 }
                 break;
+            case Chasing:
+                if (targetPosition != null) {
+                    chase(delta, targetPosition, geese);
+                }
+                break;
+        }
+    }
+
+    private void chase(float delta, Vector2 targetPosition, Array<Goose> geese) {
+        float centerX = centerX();
+        float centerY = centerY();
+
+        direction.set(targetPosition.x - centerX, targetPosition.y - centerY);
+        float distance = direction.len();
+        if (distance > STOP_DISTANCE) {
+            direction.scl(1f / distance);
+        } else {
+            direction.setZero();
+        }
+        addSeparation(centerX, centerY, geese);
+
+        // Ignore small movements to reduce jitter.
+        float strength = direction.len();
+        if (strength < MIN_MOVE) {
+            moving = false;
+            return;
+        }
+
+        float step = speed * delta * Math.min(strength, 1f);
+        if (distance > STOP_DISTANCE) {
+            step = Math.min(step, distance); // a long frame could otherwise carry the goose past the player
+        }
+        direction.scl(1f / strength);
+        sprite.translate(direction.x * step, direction.y * step);
+
+        moving = true;
+        if (direction.x > 0f) {
+            facingRight = true;
+        } else if (direction.x < 0f) {
+            facingRight = false;
+        }
+        stateTime += delta;
+    }
+
+    // Pushes this goose away from nearby geese so a swarm doesn't merge into one sprite.
+    // Index loop because Game is already iterating geese and libGDX iterators can't be nested.
+    private void addSeparation(float centerX, float centerY, Array<Goose> geese) {
+        for (int i = 0; i < geese.size; i++) {
+            Goose other = geese.get(i);
+            if (other == this || other.state == GooseState.Dispersed) {
+                continue;
             }
 
+            float awayX = centerX - other.centerX();
+            float awayY = centerY - other.centerY();
+            float distance = Vector2.len(awayX, awayY);
+            if (distance >= SEPARATION_DISTANCE) {
+                continue;
+            }
+
+            // geese on the exact same spot have no direction to push in, so pick one at random
+            if (distance == 0f) {
+                float angle = MathUtils.random(360f);
+                awayX = MathUtils.cosDeg(angle);
+                awayY = MathUtils.sinDeg(angle);
+            } else {
+                awayX /= distance;
+                awayY /= distance;
+            }
+            float push = (1f - distance / SEPARATION_DISTANCE) * SEPARATION_STRENGTH;
+            direction.add(awayX * push, awayY * push);
+        }
+    }
+
+    private float centerX() {
+        return sprite.getX() + sprite.getWidth() / 2f;
+    }
+
+    private float centerY() {
+        return sprite.getY() + sprite.getHeight() / 2f;
     }
 
     @Override
-    public void draw(SpriteBatch spriteBatch){
-        if (state != GooseState.Dispersed){
-            TextureRegion frame;
-            if (moving) {
-                Animation<TextureRegion> right = redEyes ? nightWalkRight : walkRight;
-                Animation<TextureRegion> left = redEyes ? nightWalkLeft : walkLeft;
-                frame = facingRight ? right.getKeyFrame(stateTime) : left.getKeyFrame(stateTime);
-            } else if (redEyes) {
-                frame = facingRight ? nightStandRight : nightStandLeft;
-            } else {
-                frame = facingRight ? standRight : standLeft;
-            }
-            spriteBatch.draw(frame, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
+    public void draw(SpriteBatch spriteBatch) {
+        if (state != GooseState.Dispersed) {
+            spriteBatch.draw(sprites.getFrame(redEyes, moving, facingRight, stateTime),
+                sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
         }
     }
 
     @Override
-    public void onCollision(){
+    public void onCollision() {
         health--;
-        if (health<=0){
+        if (health <= 0) {
             disperse();
         }
     }
 
-    public void disperse()
-    {
+    public void disperse() {
         this.state = GooseState.Dispersed;
     }
 
-    public void distract(float duration){
+    public void distract(float duration) {
+        if (state == GooseState.Dispersed) {
+            return;
+        }
         this.state = GooseState.Distracted;
         this.distractionTimer = duration;
     }
 
-    public GooseState getState(){
+    public GooseState getState() {
         return state;
     }
 
     public void setRedEyes(boolean redEyes) {
         this.redEyes = redEyes;
     }
-
-    @Override
-    public void dispose() {
-        super.dispose();
-        spriteSheet.dispose();
-        nightSheet.dispose();
-    }
-
-    //collision detection
-
 }
