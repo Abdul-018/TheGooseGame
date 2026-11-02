@@ -1,1 +1,2 @@
+goose.png
 libgdx.png

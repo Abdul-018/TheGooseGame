@@ -43,7 +43,8 @@ public class Goose extends Entity {
                 break;
             case Distracted:
                 distractionTimer = distractionTimer - delta; //essentially decreasing the timer since the last frame
-                if (distractionTimer <= 0){
+                if (distractionTimer <= 0)
+                {
                     state = GooseState.Chasing; // So the goose starts chasing the player again
                 }
                 return;
