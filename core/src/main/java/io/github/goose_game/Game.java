@@ -12,6 +12,7 @@ public class Game {
 
     private final float mapWidth = 24f;
     private final float mapHeight = 15f;
+    private final Color nightTint = new Color(0.25f, 0.25f, 0.45f, 1f);
 
     private Texture backgroundTexture;
 
@@ -21,6 +22,8 @@ public class Game {
     private Player player;
     private Timer timer;
     private Array<Goose> geese = new Array<>();
+    private GooseSwarmEvent swarmEvent;
+    private NightEvent nightEvent;
 
     public void create() {
         backgroundTexture = new Texture("test_background.png");
@@ -30,6 +33,9 @@ public class Game {
 
         player = new Player(mapWidth, mapHeight);
         geese.add(new Goose("goose.png", 2f, 2f, 3));
+
+        swarmEvent = new GooseSwarmEvent(18f, 10f, 2f, 2f); // placeholder spot until we have the map
+        nightEvent = new NightEvent();
     }
 
     public void resize(int width, int height) {
@@ -39,7 +45,12 @@ public class Game {
     public void render() {
         float delta = Gdx.graphics.getDeltaTime();
         player.update(viewport, mapWidth, mapHeight);
-        for (Goose g : geese) g.update(delta, player.getPosition());
+        swarmEvent.update(player.getPosition(), geese, mapWidth, mapHeight);
+        nightEvent.update(delta);
+        for (Goose g : geese) {
+            g.setRedEyes(nightEvent.isNight());
+            g.update(delta, player.getPosition());
+        }
         draw();
     }
 
@@ -49,8 +60,11 @@ public class Game {
         spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
         spriteBatch.begin();
 
+        // geese are drawn without the tint so the red eyes stand out
+        spriteBatch.setColor(nightEvent.isNight() ? nightTint : Color.WHITE);
         spriteBatch.draw(backgroundTexture, 0, 0, mapWidth, mapHeight);
         player.draw(spriteBatch);
+        spriteBatch.setColor(Color.WHITE);
         for (Goose g : geese) g.draw(spriteBatch);
 
         spriteBatch.end();

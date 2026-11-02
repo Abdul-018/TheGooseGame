@@ -25,6 +25,15 @@ public class Goose extends Entity {
     private Animation<TextureRegion> walkLeft;
     private TextureRegion standRight;
     private TextureRegion standLeft;
+
+    // same layout as the normal sheet but with red eyes, used during the night event
+    private Texture nightSheet;
+    private Animation<TextureRegion> nightWalkRight;
+    private Animation<TextureRegion> nightWalkLeft;
+    private TextureRegion nightStandRight;
+    private TextureRegion nightStandLeft;
+    private boolean redEyes = false;
+
     private float stateTime = 0f;
     private boolean facingRight = true;
     private boolean moving = false;
@@ -49,6 +58,15 @@ public class Goose extends Entity {
 
         standRight = frames[1][0];
         standLeft = frames[4][0];
+
+        nightSheet = new Texture("gooseSheetNight.png");
+        TextureRegion[][] nightFrames = TextureRegion.split(nightSheet, 128, 128);
+        nightWalkRight = new Animation<>(0.15f, nightFrames[1]);
+        nightWalkRight.setPlayMode(Animation.PlayMode.LOOP);
+        nightWalkLeft = new Animation<>(0.15f, nightFrames[4]);
+        nightWalkLeft.setPlayMode(Animation.PlayMode.LOOP);
+        nightStandRight = nightFrames[1][0];
+        nightStandLeft = nightFrames[4][0];
 
         this.sprite.setSize(1f, 1f);
         this.sprite.setPosition(x, y);
@@ -101,7 +119,11 @@ public class Goose extends Entity {
         if (state != GooseState.Dispersed){
             TextureRegion frame;
             if (moving) {
-                frame = facingRight ? walkRight.getKeyFrame(stateTime) : walkLeft.getKeyFrame(stateTime);
+                Animation<TextureRegion> right = redEyes ? nightWalkRight : walkRight;
+                Animation<TextureRegion> left = redEyes ? nightWalkLeft : walkLeft;
+                frame = facingRight ? right.getKeyFrame(stateTime) : left.getKeyFrame(stateTime);
+            } else if (redEyes) {
+                frame = facingRight ? nightStandRight : nightStandLeft;
             } else {
                 frame = facingRight ? standRight : standLeft;
             }
@@ -131,10 +153,15 @@ public class Goose extends Entity {
         return state;
     }
 
+    public void setRedEyes(boolean redEyes) {
+        this.redEyes = redEyes;
+    }
+
     @Override
     public void dispose() {
         super.dispose();
         spriteSheet.dispose();
+        nightSheet.dispose();
     }
 
     //collision detection
