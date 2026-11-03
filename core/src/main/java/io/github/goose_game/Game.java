@@ -20,7 +20,7 @@ public class Game {
 
     private Player player;
     private Timer timer;
-    private Array<Goose> geese = new Array<>();
+    public Array<Goose> geese = new Array<>();
 
     public void create() {
         backgroundTexture = new Texture("test_background.png");
@@ -38,7 +38,7 @@ public class Game {
 
     public void render() {
         float delta = Gdx.graphics.getDeltaTime();
-        player.update(viewport, mapWidth, mapHeight);
+        player.update(viewport, mapWidth, mapHeight, this);
         for (Goose g : geese) g.update(delta, player.getPosition());
         draw();
     }
@@ -62,4 +62,9 @@ public class Game {
         player.dispose();
         for (Goose g : geese) g.dispose();
     }
+
+    public Array<Goose> getGeese(){
+        return this.geese;
+    }
+
 }

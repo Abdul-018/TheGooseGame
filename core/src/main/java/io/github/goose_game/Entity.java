@@ -21,7 +21,7 @@ public class Entity {
         sprite.draw(spriteBatch);
     }
 
-    public void onCollision() {
+    public void onCollision(Entity other_Entity) {
         // this will be inherited by the player and goose? maybe also item?
     }
 

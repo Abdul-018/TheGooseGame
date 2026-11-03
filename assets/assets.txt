@@ -1,4 +1,6 @@
 Goose.png
+bread.png
+feather.png
 gooseSheet.png
 libgdx.png
 studentSheet.png

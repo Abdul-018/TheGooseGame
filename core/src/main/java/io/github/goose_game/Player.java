@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Player extends Entity {
 
@@ -22,6 +24,9 @@ public class Player extends Entity {
     private float stateTime = 0f;
     private boolean facingRight = true;
     private boolean moving = false;
+    private float flashTimer = 0f;
+    public Rectangle playerBounds = new Rectangle();
+    private boolean isFlashing = false;
 
     public Player(float mapWidth, float mapHeight) {
         super("test_player.png", 100);
@@ -39,11 +44,33 @@ public class Player extends Entity {
 
         sprite.setSize(1, 1);
         sprite.setPosition((mapWidth - sprite.getWidth()) / 2f, (mapHeight - sprite.getHeight()) / 2f);
+        playerBounds.setSize(sprite.getWidth(), sprite.getHeight());
+        playerBounds.setPosition(sprite.getX(), sprite.getY());
+
+        
     }
 
-    public void update(FitViewport viewport, float mapWidth, float mapHeight) {
+    public void update(FitViewport viewport, float mapWidth, float mapHeight, Game game) {
         input();
         playerGameLogic(viewport, mapWidth, mapHeight);
+
+        for (Goose g : game.getGeese()){
+            if (playerBounds.overlaps(g.gooseBounds)){
+                onCollision(g);
+            }
+        }
+        if (isFlashing){
+            sprite.setColor(Color.RED);
+            flashTimer -= Gdx.graphics.getDeltaTime();
+
+            if (flashTimer <=0){
+                isFlashing = false;
+                sprite.setColor(Color.WHITE);
+            }
+        
+        }
+
+        
     }
 
     private void input() {
@@ -87,12 +114,21 @@ public class Player extends Entity {
     @Override
     public void draw(SpriteBatch spriteBatch) {
         TextureRegion frame;
+
+
         if (moving) {
             frame = facingRight ? walkRight.getKeyFrame(stateTime) : walkLeft.getKeyFrame(stateTime);
         } else {
             frame = facingRight ? standRight : standLeft;
         }
+
+        spriteBatch.setColor(sprite.getColor());
+
+
         spriteBatch.draw(frame, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
+
+        spriteBatch.setColor(Color.WHITE);
+        
     }
 
     private void playerGameLogic(FitViewport viewport, float mapWidth, float mapHeight) {
@@ -101,6 +137,9 @@ public class Player extends Entity {
 
         sprite.setX(MathUtils.clamp(sprite.getX(), 0, mapWidth - playerWidth));
         sprite.setY(MathUtils.clamp(sprite.getY(), 0, mapHeight - playerHeight));
+
+        playerBounds.setPosition(sprite.getX(), sprite.getY());
+
 
         OrthographicCamera camera = (OrthographicCamera) viewport.getCamera();
         float targetX = sprite.getX() + playerWidth / 2f;
@@ -131,9 +170,22 @@ public class Player extends Entity {
     }
 
     @Override
-    public void onCollision() {
-        // we can do this later
+    public void onCollision(Entity other_Entity) {
+        if (other_Entity instanceof Goose){
+            gooseHit();
+
+        }
     }
+
+    private void gooseHit(){
+        this.health -= 1; // Change this as needed
+
+        if (!isFlashing){
+            isFlashing = true;
+            flashTimer = 0.5f;
+        }
+    }
+
 
     @Override
     public void dispose() {

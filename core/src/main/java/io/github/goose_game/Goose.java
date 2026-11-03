@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Goose extends Entity {
 
@@ -28,6 +29,9 @@ public class Goose extends Entity {
     private float stateTime = 0f;
     private boolean facingRight = true;
     private boolean moving = false;
+
+    public Rectangle gooseBounds = new Rectangle();
+
 
     public Goose(String texturePath, float x, float y, int health)
     {
@@ -56,6 +60,11 @@ public class Goose extends Entity {
         this.direction = new Vector2();
         this.state = GooseState.Chasing; // The goose has to be in a chasing state when it spawns
         this.distractionTimer = 0f;
+
+        gooseBounds.setSize(sprite.getWidth(), sprite.getHeight());
+        gooseBounds.setPosition(sprite.getX(), sprite.getY());
+
+      
 
     }
     //targetPosition is gonna be the coordinates of the player
@@ -93,11 +102,12 @@ public class Goose extends Entity {
                 }
                 break;
             }
-
+        gooseBounds.setPosition(sprite.getX(), sprite.getY());
     }
 
     @Override
     public void draw(SpriteBatch spriteBatch){
+
         if (state != GooseState.Dispersed){
             TextureRegion frame;
             if (moving) {
@@ -110,7 +120,7 @@ public class Goose extends Entity {
     }
 
     @Override
-    public void onCollision(){
+    public void onCollision(Entity other_Entity){
         health--;
         if (health<=0){
             disperse();

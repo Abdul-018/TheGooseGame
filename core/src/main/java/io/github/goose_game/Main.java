@@ -4,7 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 
 public class Main extends ApplicationAdapter {
 
-    private Game game;
+    public Game game;
 
     @Override
     public void create() {
