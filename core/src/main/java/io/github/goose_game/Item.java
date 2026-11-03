@@ -24,6 +24,7 @@ public class Item extends Entity{ // Is there any point in extending here?
         }
 
         this.itemAction();
+        score += 10;
 
         this.inInventory = false;
         this.itemUsed = true;
