@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 
 public class Goose extends Entity {
 
@@ -30,7 +32,9 @@ public class Goose extends Entity {
     private boolean facingRight = true;
     private boolean moving = false;
 
-    public Rectangle gooseBounds = new Rectangle();
+    private Rectangle gooseBounds = new Rectangle();
+    private float orbitAngle;
+    private float orbitSpeed;
 
 
     public Goose(String texturePath, float x, float y, int health)
@@ -54,22 +58,24 @@ public class Goose extends Entity {
         standRight = frames[1][0];
         standLeft = frames[4][0];
 
-        this.sprite.setSize(1f, 1f);
+        this.sprite.setSize(0.8f, 0.8f);
         this.sprite.setPosition(x, y);
-        this.speed = 3f;
+        this.speed = 2f;
         this.direction = new Vector2();
         this.state = GooseState.Chasing; // The goose has to be in a chasing state when it spawns
         this.distractionTimer = 0f;
 
         gooseBounds.setSize(sprite.getWidth(), sprite.getHeight());
         gooseBounds.setPosition(sprite.getX(), sprite.getY());
+        this.orbitAngle = MathUtils.random(360f);
+        this.orbitSpeed = MathUtils.random(10f, 30f);
 
-      
+
 
     }
     //targetPosition is gonna be the coordinates of the player
     //This method basically runs every frame to update what the goose is doing/where its going
-    public void update(float delta, Vector2 targetPosition){
+    public void update(float delta, Vector2 targetPosition, Array<Goose> geese){
         switch (state)
         {
             case Dispersed:
@@ -88,9 +94,17 @@ public class Goose extends Entity {
                 float currentX = sprite.getX() + (sprite.getWidth() / 2f);
                 float currentY = sprite.getY() + (sprite.getHeight() / 2f);
 
-                float distance = Vector2.dst(currentX, currentY, targetPosition.x, targetPosition.y);
+                // geese target a point near the player based on its relative angle
+                float orbitRadius = 0.8f;
+                float targetX = targetPosition.x + MathUtils.cosDeg(orbitAngle) * orbitRadius;
+                float targetY = targetPosition.y + MathUtils.sinDeg(orbitAngle) * orbitRadius;
+
+                // rotates the orbit angle randomly so geese move differently from each other and drift around
+                orbitAngle += orbitSpeed * delta;
+
+                float distance = Vector2.dst(currentX, currentY, targetX, targetY);
                 if (distance > 0.1f) {
-                    direction.set(targetPosition.x - currentX, targetPosition.y - currentY).nor();
+                    direction.set(targetX - currentX, targetY - currentY).nor();
                     sprite.translate(direction.x * speed * delta, direction.y * speed * delta);
 
                     moving = true;
@@ -102,6 +116,7 @@ public class Goose extends Entity {
                 }
                 break;
             }
+
         gooseBounds.setPosition(sprite.getX(), sprite.getY());
     }
 
@@ -139,6 +154,10 @@ public class Goose extends Entity {
 
     public GooseState getState(){
         return state;
+    }
+
+    public Rectangle getGooseBounds(){
+        return gooseBounds;
     }
 
     @Override

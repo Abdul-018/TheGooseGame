@@ -20,7 +20,7 @@ public class Game {
 
     private Player player;
     private Timer timer;
-    public Array<Goose> geese = new Array<>();
+    private Array<Goose> geese = new Array<>();
 
     public void create() {
         backgroundTexture = new Texture("test_background.png");
@@ -29,7 +29,11 @@ public class Game {
         viewport = new FitViewport(8, 5);
 
         player = new Player(mapWidth, mapHeight);
-        geese.add(new Goose("goose.png", 2f, 2f, 3));
+        for (int i = 0; i < 3; i++) {
+            float x = (float)(Math.random() * mapWidth);
+            float y = (float)(Math.random() * mapHeight);
+            geese.add(new Goose("goose.png", x, y, 3));
+        }
     }
 
     public void resize(int width, int height) {
@@ -39,7 +43,7 @@ public class Game {
     public void render() {
         float delta = Gdx.graphics.getDeltaTime();
         player.update(viewport, mapWidth, mapHeight, this);
-        for (Goose g : geese) g.update(delta, player.getPosition());
+        for (Goose g : geese) g.update(delta, player.getPosition(), geese);
         draw();
     }
 

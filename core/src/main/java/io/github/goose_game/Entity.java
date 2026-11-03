@@ -26,7 +26,7 @@ public class Entity {
     }
 
     public Vector2 getPosition() {
-        return new Vector2(sprite.getX(), sprite.getY());
+        return new Vector2(sprite.getX() + sprite.getWidth() / 2f, sprite.getY() + sprite.getHeight() / 2f);
     }
 
     public Sprite getSprite() {
