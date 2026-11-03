@@ -11,6 +11,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+
+
 
 public class Player extends Entity {
 
@@ -27,6 +30,9 @@ public class Player extends Entity {
     private float flashTimer = 0f;
     public Rectangle playerBounds = new Rectangle();
     private boolean isFlashing = false;
+    private BitmapFont collisionFont;
+    private SpriteBatch fontBatch;
+     
 
     public Player(float mapWidth, float mapHeight) {
         super("test_player.png", 100);
@@ -47,6 +53,10 @@ public class Player extends Entity {
         playerBounds.setSize(sprite.getWidth(), sprite.getHeight());
         playerBounds.setPosition(sprite.getX(), sprite.getY());
 
+        collisionFont = new BitmapFont();
+        collisionFont.setColor(Color.WHITE);
+        fontBatch = new SpriteBatch();
+
         
     }
 
@@ -56,11 +66,13 @@ public class Player extends Entity {
 
         for (Goose g : game.getGeese()){
             if (playerBounds.overlaps(g.gooseBounds)){
-                onCollision(g);
+            onCollision(g);
+
             }
         }
         if (isFlashing){
-            sprite.setColor(Color.RED);
+
+            sprite.setColor(Color.GRAY);
             flashTimer -= Gdx.graphics.getDeltaTime();
 
             if (flashTimer <=0){
@@ -191,5 +203,7 @@ public class Player extends Entity {
     public void dispose() {
         super.dispose();
         spriteSheet.dispose();
+        collisionFont.dispose();
+        fontBatch.dispose();
     }
 }
