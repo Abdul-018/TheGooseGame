@@ -12,6 +12,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+
+
 
 public class Player extends Entity {
 
@@ -29,6 +32,8 @@ public class Player extends Entity {
     private Rectangle playerBounds = new Rectangle();
     private boolean isFlashing = false;
     private static final float FLASH_BLINK_RATE = 0.08f;
+    private BitmapFont collisionFont;
+    private SpriteBatch fontBatch;
 
     public Player(float mapWidth, float mapHeight) {
         super("test_player.png", 100);
@@ -49,7 +54,9 @@ public class Player extends Entity {
         playerBounds.setSize(sprite.getWidth(), sprite.getHeight());
         playerBounds.setPosition(sprite.getX(), sprite.getY());
 
-
+        collisionFont = new BitmapFont();
+        collisionFont.setColor(Color.WHITE);
+        fontBatch = new SpriteBatch();
     }
 
     public void update(FitViewport viewport, float mapWidth, float mapHeight, Game game) {
@@ -201,5 +208,7 @@ public class Player extends Entity {
     public void dispose() {
         super.dispose();
         spriteSheet.dispose();
+        collisionFont.dispose();
+        fontBatch.dispose();
     }
 }
