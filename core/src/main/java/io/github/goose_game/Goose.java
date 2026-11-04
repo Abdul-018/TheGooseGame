@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
+import java.util.Random;
 
 public class Goose extends Entity {
 
@@ -24,6 +25,8 @@ public class Goose extends Entity {
     private float distractionTimer; // COuntdown for how long the goose stays distracted for
 
     private Texture spriteSheet;
+    private Texture spriteSheet2;
+    private Texture spriteSheet3;
     private Animation<TextureRegion> walkRight;
     private Animation<TextureRegion> walkLeft;
     private TextureRegion standRight;
@@ -47,7 +50,17 @@ public class Goose extends Entity {
         super(texturePath, health);
 
         spriteSheet = new Texture("gooseSheet.png");
-        TextureRegion[][] frames = TextureRegion.split(spriteSheet, 128, 128);
+        spriteSheet2 = new Texture("gooseSheet2.png");
+        spriteSheet3 = new Texture("gooseSheet3.png");
+
+        Random random = new Random();
+
+        Texture[] textures = {spriteSheet, spriteSheet2, spriteSheet3};
+
+        Texture selectedTexture = textures[random.nextInt(textures.length)];
+
+
+        TextureRegion[][] frames = TextureRegion.split(selectedTexture, 128, 128);
 
         // row 2 (index 1) = walk right, row 5 (index 4) = walk left. other rows for blinking and mouth
         walkRight = new Animation<>(0.15f, frames[1]);
