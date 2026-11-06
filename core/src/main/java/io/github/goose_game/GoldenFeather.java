@@ -11,11 +11,14 @@ public class GoldenFeather extends Item {
     public Texture featherTexture;
     Sprite featherSprite;
 
-    public GoldenFeather(){
-        super("feather.png", 0.05f);
+    public GoldenFeather(float xCoord, float yCoord){
+        super("feather.png", 0.03f);
         this.itemId = 2;
         this.inInventory = false;
         this.effectDuration = 10f;
+
+        sprite.setPosition(xCoord, yCoord);
+        sprite.setScale(scale);
     }
 
     @Override

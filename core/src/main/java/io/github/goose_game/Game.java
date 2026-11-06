@@ -38,10 +38,17 @@ public class Game {
         }
 
         for (int i = 0; i < 100; i++){
-            float x = (float)(Math.random() * mapWidth);
-            float y = (float)(Math.random() * mapHeight);
+            float x = (float)(Math.random() * (mapWidth-  0.2f));
+            float y = (float)(Math.random() * (mapHeight-0.2f));
             items.add(new Bread(x,y));
         }
+
+        for (int i = 0; i < 5; i++){
+            float x = (float)(Math.random() * (mapWidth-  0.2f));
+            float y = (float)(Math.random() * (mapHeight-0.2f));
+            items.add(new GoldenFeather(x,y));
+        }
+
         
 
     }
@@ -78,6 +85,7 @@ public class Game {
         backgroundTexture.dispose();
         player.dispose();
         for (Goose g : geese) g.dispose();
+        for (Item i : items) i.dispose();
     }
 
     public Array<Goose> getGeese(){
