@@ -34,9 +34,11 @@ public class Player extends Entity {
     private static final float FLASH_BLINK_RATE = 0.08f;
     private BitmapFont collisionFont;
     private SpriteBatch fontBatch;
+    private int score;
 
+    
     public Player(float mapWidth, float mapHeight) {
-        super("test_player.png", 100);
+        super("test_player.png", 100, 1);
 
         spriteSheet = new Texture("studentSheet.png");
         TextureRegion[][] frames = TextureRegion.split(spriteSheet, 128, 128);
@@ -57,6 +59,7 @@ public class Player extends Entity {
         collisionFont = new BitmapFont();
         collisionFont.setColor(Color.WHITE);
         fontBatch = new SpriteBatch();
+
     }
 
     public void update(FitViewport viewport, float mapWidth, float mapHeight, Game game) {
@@ -201,6 +204,14 @@ public class Player extends Entity {
             knockback.set(0, 1.5f);
         }
         sprite.translate(knockback.x, knockback.y);
+    }
+
+    public int getScore(){
+        return score;
+    }
+
+    public void setScore(int newScore){
+        this.score = newScore;
     }
 
 

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GoldenFeather extends Item {
     float timeRemaining = effectDuration;
@@ -11,14 +12,14 @@ public class GoldenFeather extends Item {
     Sprite featherSprite;
 
     public GoldenFeather(){
-        super("feather.png");
+        super("feather.png", 0.05f);
         this.itemId = 2;
         this.inInventory = false;
         this.effectDuration = 10f;
     }
 
     @Override
-    public void itemAction(Player player, Array<Goose> geese) {
+    public void itemAction(Player player, Array<Goose> geese, SpriteBatch spriteBatch) {
 
         float delta = Gdx.graphics.getDeltaTime();
 
@@ -42,7 +43,7 @@ public class GoldenFeather extends Item {
     }
 
     @Override
-    public void renderItem(int xCoord, int yCoord) {
+    public void renderItem(float xCoord, float yCoord) {
         featherTexture = new Texture("feather.png");
         featherSprite = new Sprite(featherTexture);
         featherSprite.setSize(1,1);

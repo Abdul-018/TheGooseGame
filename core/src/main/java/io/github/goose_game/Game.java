@@ -21,6 +21,7 @@ public class Game {
     private Player player;
     private Timer timer;
     private Array<Goose> geese = new Array<>();
+    private Array<Item> items = new Array<>();
 
     public void create() {
         backgroundTexture = new Texture("test_background.png");
@@ -29,11 +30,20 @@ public class Game {
         viewport = new FitViewport(8, 5);
 
         player = new Player(mapWidth, mapHeight);
+        player.setScore(0);
         for (int i = 0; i < 3; i++) {
             float x = (float)(Math.random() * mapWidth);
             float y = (float)(Math.random() * mapHeight);
-            geese.add(new Goose("goose.png", x, y, 3));
+            geese.add(new Goose("goose.png", x, y, 3, player));
         }
+
+        for (int i = 0; i < 100; i++){
+            float x = (float)(Math.random() * mapWidth);
+            float y = (float)(Math.random() * mapHeight);
+            items.add(new Bread(x,y));
+        }
+        
+
     }
 
     public void resize(int width, int height) {
@@ -45,6 +55,7 @@ public class Game {
         player.update(viewport, mapWidth, mapHeight, this);
         for (Goose g : geese) g.update(delta, player.getPosition(), geese);
         draw();
+
     }
 
     private void draw() {
@@ -54,6 +65,8 @@ public class Game {
         spriteBatch.begin();
 
         spriteBatch.draw(backgroundTexture, 0, 0, mapWidth, mapHeight);
+        for (Item i : items) i.draw(spriteBatch);
+
         player.draw(spriteBatch);
         for (Goose g : geese) g.draw(spriteBatch);
 

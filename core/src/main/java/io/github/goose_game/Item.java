@@ -1,6 +1,7 @@
 package io.github.goose_game;
 
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Item extends Entity { // Is there any point in extending here? - yeah, even if we arent pulling anything it fits the class structure and allows us to later on
 
@@ -8,9 +9,15 @@ public class Item extends Entity { // Is there any point in extending here? - ye
     public boolean inInventory;
     public boolean itemUsed = false;
     public static float effectDuration;
+    private Player player;
+    private SpriteBatch spriteBatch;
+    public float xCoord;
+    public float yCoord;
 
-    public Item(String texturePath) {
-        super(texturePath, 1);
+
+    public Item(String texturePath, float scale) {
+        super(texturePath, 1, scale);
+
     }
 
     public void pickUp() throws InvalidItemException{
@@ -28,7 +35,10 @@ public class Item extends Entity { // Is there any point in extending here? - ye
             throw new InvalidItemException("Item not found in inventory");
         }
 
-        this.itemAction(null, null);
+        this.itemAction(null, null, spriteBatch);
+
+        int currentScore = player.getScore();
+        player.setScore(currentScore + 10);
 
         this.inInventory = false;
         this.itemUsed = true;
@@ -49,13 +59,14 @@ public class Item extends Entity { // Is there any point in extending here? - ye
         }
     }
 
-    public void itemAction(Player player, Array<Goose> geese){
+    public void itemAction(Player player, Array<Goose> geese, SpriteBatch spriteBatch){
 
     }
 
-    public void renderItem(int xCoord, int yCoord){
+    public void renderItem(float xCoord, float yCoord){
 
     }
+
 
     public void endEffect(){
 

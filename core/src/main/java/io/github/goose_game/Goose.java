@@ -39,15 +39,17 @@ public class Goose extends Entity {
     private float orbitAngle;
     private float orbitSpeed;
 
+    private Player player;
 
-    public Goose(String texturePath, float x, float y, int health)
+
+    public Goose(String texturePath, float x, float y, int health, Player player)
     {
         /*
         This line is basically just an inheritance bridge
         It calls on the entity class so we can load health and assets
         I've put the documentation for it on the resources channel
         */
-        super(texturePath, health);
+        super(texturePath, health, 1);
 
         spriteSheet = new Texture("gooseSheet.png");
         spriteSheet2 = new Texture("gooseSheet2.png");
@@ -83,7 +85,7 @@ public class Goose extends Entity {
         this.orbitAngle = MathUtils.random(360f);
         this.orbitSpeed = MathUtils.random(10f, 30f);
 
-
+        this.player = player;
 
     }
     //targetPosition is gonna be the coordinates of the player
@@ -158,6 +160,9 @@ public class Goose extends Entity {
     public void disperse()
     {
         this.state = GooseState.Dispersed;
+        int currentScore = player.getScore();
+        player.setScore(currentScore + 20);
+
     }
 
     public void distract(float duration){
