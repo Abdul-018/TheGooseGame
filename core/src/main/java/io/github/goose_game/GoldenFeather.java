@@ -17,6 +17,8 @@ public class GoldenFeather extends Item {
         this.inInventory = false;
         this.effectDuration = 10f;
 
+        this.collected = false;
+
         sprite.setPosition(xCoord, yCoord);
         sprite.setScale(scale);
     }
@@ -40,17 +42,9 @@ public class GoldenFeather extends Item {
     public void endEffect(Player player){
         player.getSprite().setSize(1,1);
         player.setSpeed(4f);
-        if (featherTexture != null) {
-            featherTexture.dispose();
-        }
+        
     }
 
-    @Override
-    public void renderItem(float xCoord, float yCoord) {
-        featherTexture = new Texture("feather.png");
-        featherSprite = new Sprite(featherTexture);
-        featherSprite.setSize(1,1);
-        featherSprite.setPosition(xCoord, yCoord);
-    }
+
 
 }

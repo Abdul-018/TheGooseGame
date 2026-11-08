@@ -16,6 +16,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 
 
+
+
 public class Player extends Entity {
 
     private float speed = 3f;
@@ -62,7 +64,7 @@ public class Player extends Entity {
 
     }
 
-    public void update(FitViewport viewport, float mapWidth, float mapHeight, Game game) {
+    public void update(FitViewport viewport, float mapWidth, float mapHeight, Game game){
         input();
         playerGameLogic(viewport, mapWidth, mapHeight);
 
@@ -71,6 +73,15 @@ public class Player extends Entity {
                 onCollision(g);
             }
         }
+        for (Item i : game.getItems()){ 
+            if (playerBounds.overlaps(i.getItemBounds())){
+                if (!i.inInventory){
+                    i.pickUp();
+                }
+            }
+
+        }
+
         if (isFlashing){
             flashTimer -= Gdx.graphics.getDeltaTime();
             boolean visible = ((int)(flashTimer / FLASH_BLINK_RATE)) % 2 == 0;

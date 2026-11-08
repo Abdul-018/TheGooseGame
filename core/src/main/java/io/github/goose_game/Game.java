@@ -43,7 +43,7 @@ public class Game {
             items.add(new Bread(x,y));
         }
 
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < 20; i++){
             float x = (float)(Math.random() * (mapWidth-  0.2f));
             float y = (float)(Math.random() * (mapHeight-0.2f));
             items.add(new GoldenFeather(x,y));
@@ -72,11 +72,15 @@ public class Game {
         spriteBatch.begin();
 
         spriteBatch.draw(backgroundTexture, 0, 0, mapWidth, mapHeight);
-        for (Item i : items) i.draw(spriteBatch);
-
+        for (Item i : items){
+            if (!i.collected){
+                i.draw(spriteBatch);
+            }
+        }
         player.draw(spriteBatch);
-        for (Goose g : geese) g.draw(spriteBatch);
-
+        for (Goose g : geese) {
+            g.draw(spriteBatch);
+        }
         spriteBatch.end();
     }
 
@@ -90,6 +94,10 @@ public class Game {
 
     public Array<Goose> getGeese(){
         return this.geese;
+    }
+
+    public Array<Item> getItems(){
+        return this.items;
     }
 
 }

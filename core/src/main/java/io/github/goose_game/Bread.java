@@ -17,6 +17,7 @@ public class Bread extends Item {
         this.itemId = 1; // Do we need this? - weren't we gonna have individual ids for each instance but just compare types for each type of item?
         this.inInventory = false;
         this.effectDuration = 10f;
+        this.collected = false;
     
         sprite.setPosition(xCoord, yCoord);
         sprite.setScale(scale);
