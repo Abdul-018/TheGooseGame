@@ -12,7 +12,7 @@ public class GoldenFeather extends Item {
     Sprite featherSprite;
 
     public GoldenFeather(float xCoord, float yCoord){
-        super("feather.png", 0.03f);
+        super("feather.png", 0.4f);
         this.itemId = 2;
         this.inInventory = false;
         this.effectDuration = 10f;
@@ -20,7 +20,8 @@ public class GoldenFeather extends Item {
         this.collected = false;
 
         sprite.setPosition(xCoord, yCoord);
-        sprite.setScale(scale);
+        //sprite.setScale(scale);
+        updateBounds();
     }
 
     @Override

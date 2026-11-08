@@ -13,14 +13,15 @@ public class Bread extends Item {
     private Sprite breadSprite;
 
     public Bread(float xCoord, float yCoord){
-        super("bread.png", 0.04f);
+        super("bread.png", 0.4f);
         this.itemId = 1; // Do we need this? - weren't we gonna have individual ids for each instance but just compare types for each type of item?
         this.inInventory = false;
         this.effectDuration = 10f;
         this.collected = false;
     
         sprite.setPosition(xCoord, yCoord);
-        sprite.setScale(scale);
+        //sprite.setScale(scale);
+        updateBounds();
 
     }
 

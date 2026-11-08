@@ -49,8 +49,6 @@ public class Game {
             items.add(new GoldenFeather(x,y));
         }
 
-        
-
     }
 
     public void resize(int width, int height) {

@@ -20,6 +20,10 @@ public class Item extends Entity { // Is there any point in extending here? - ye
 
     public Item(String texturePath, float scale) {
         super(texturePath, 1, scale);
+        sprite.setSize(scale,scale);
+    }
+
+    public void updateBounds(){
         itemBounds.setSize(sprite.getWidth(), sprite.getHeight());
         itemBounds.setPosition(sprite.getX(), sprite.getY());
     }
@@ -60,6 +64,8 @@ public class Item extends Entity { // Is there any point in extending here? - ye
     //public void renderItem(float xCoord, float yCoord){
 
     //}
+
+
 
 
     public void endEffect(){

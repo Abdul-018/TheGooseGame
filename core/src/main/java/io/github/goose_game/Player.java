@@ -79,7 +79,6 @@ public class Player extends Entity {
                     i.pickUp();
                 }
             }
-
         }
 
         if (isFlashing){
