@@ -20,7 +20,7 @@ public class GoldenFeather extends Item {
         this.collected = false;
 
         sprite.setPosition(xCoord, yCoord);
-        //sprite.setScale(scale);
+        
         updateBounds();
     }
 
