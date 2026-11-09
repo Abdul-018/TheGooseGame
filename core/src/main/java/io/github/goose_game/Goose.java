@@ -1,7 +1,9 @@
 package io.github.goose_game;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+
 
 public class Goose extends Entity {
     
@@ -15,7 +17,8 @@ public class Goose extends Entity {
     private GooseState state;
     private float speed;
     private Vector2 direction;
-    private float distractionTimer; // COuntdown for how long the goose stays distracted for
+    private float distractionTimer;// COuntdown for how long the goose stays distracted for
+    private Sound collisionSound;
 
     public Goose(String texturePath, float x, float y, int health)
     {
@@ -31,6 +34,7 @@ public class Goose extends Entity {
         this.direction = new Vector2();
         this.state = GooseState.Chasing; // The goose has to be in a chasing state when it spawns
         this.distractionTimer = 0f;
+        collisionSound = Gdx.audio.newSound(Gdx.files.internal("collision.wav"));
 
     }
     //targetPosition is gonna be the coordinates of the player
@@ -72,6 +76,7 @@ public class Goose extends Entity {
     @Override 
     public void onCollision(){
         health--;
+        collisionSound.play(1.0f);
         if (health<=0){
             disperse();
         }
@@ -90,6 +95,9 @@ public class Goose extends Entity {
     public GooseState getState(){
         return state;
     }
+     public void dispose() {
+        super.dispose();
+        collisionSound.dispose();
 
     //collision detection 
 
