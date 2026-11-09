@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -25,6 +26,11 @@ public class Main extends ApplicationAdapter{
 
     float mapWidth = 18f;
     float mapHeight = 10f;
+    
+    private float time = 300f;
+    private BitmapFont font;
+    private boolean gameOver = false;
+    private boolean win = false;
 
     @Override
     public void create() {
@@ -38,6 +44,9 @@ public class Main extends ApplicationAdapter{
         playerSprite.setSize(1,1);
 
         playerSprite.setPosition(mapWidth/2f, mapHeight/2f);
+
+        font = new BitmapFont();
+        font.getData().setScale(0.04f);
     }
 
     @Override
@@ -72,13 +81,27 @@ public class Main extends ApplicationAdapter{
         } else if (Gdx.input.isKeyPressed(Keys.DOWN)){
             playerSprite.translateY(-speed*delta);
         }
+        if (Gdx.input.isKeyJustPressed(Keys.W)) {
+            win = true;
+        }
         
 
     }
 
     private void logic(){
 
+        if (gameOver || win) return;
+
         float delta = Gdx.graphics.getDeltaTime();
+        
+        if (time > 0) {
+            time -= delta;
+            if (time <= 0) {
+                time = 0;
+                gameOver = true; // Trigger lose state when time runs out
+            }
+        }
+        
         float playerWidth = playerSprite.getWidth();
         float playerHeight = playerSprite.getHeight();
 
@@ -114,6 +137,18 @@ public class Main extends ApplicationAdapter{
         spriteBatch.draw(backgroundTexture, 0,0,mapWidth,mapHeight);
         playerSprite.draw(spriteBatch);
 
+        if (win) {
+            font.draw(spriteBatch, "YOU WIN! (placeholder)", 2.5f, 3f);
+        } else if (gameOver) {
+            font.draw(spriteBatch, "GAME OVER - OUT OF TIME", 2.3f, 3f);
+        }
+        else {
+            int minutes = (int) (time / 60);
+            int seconds = (int) (time % 60);
+            String timeText = String.format("Time: %02d:%02d", minutes, seconds);
+            font.draw(spriteBatch, timeText, 0.5f, 4.5f);
+        }
+
 
         spriteBatch.end();
     }
@@ -124,6 +159,7 @@ public class Main extends ApplicationAdapter{
         playerTexture.dispose();
         backgroundTexture.dispose();
         spriteBatch.dispose();
+        font.dispose();
 
     }
 
