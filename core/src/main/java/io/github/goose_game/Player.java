@@ -2,17 +2,17 @@ package io.github.goose_game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 
 
@@ -36,7 +36,8 @@ public class Player extends Entity {
     private static final float FLASH_BLINK_RATE = 0.08f;
     private BitmapFont collisionFont;
     private SpriteBatch fontBatch;
-    private int score;
+    private static int score;
+    private int maxHealth = 10;
 
     
     public Player(float mapWidth, float mapHeight) {
@@ -94,7 +95,13 @@ public class Player extends Entity {
 
 
     }
-
+    public void setHealth(int healthInput) {
+        if (healthInput < maxHealth) {
+            health = healthInput;
+        }else {
+            health = maxHealth;
+        }
+    }
     private void input() {
         float delta = Gdx.graphics.getDeltaTime();
 
