@@ -14,10 +14,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
-
-
-
-
 public class Player extends Entity {
 
     private float speed = 3f;
@@ -38,7 +34,6 @@ public class Player extends Entity {
     private SpriteBatch fontBatch;
     private int score;
 
-    
     public Player(float mapWidth, float mapHeight) {
         super("test_player.png", 100, 1);
 
@@ -64,34 +59,33 @@ public class Player extends Entity {
 
     }
 
-    public void update(FitViewport viewport, float mapWidth, float mapHeight, Game game){
+    public void update(FitViewport viewport, float mapWidth, float mapHeight, Game game) {
         input();
         playerGameLogic(viewport, mapWidth, mapHeight);
 
-        for (Goose g : game.getGeese()){
-            if (playerBounds.overlaps(g.getGooseBounds())){
+        for (Goose g : game.getGeese()) {
+            if (playerBounds.overlaps(g.getGooseBounds())) {
                 onCollision(g);
             }
         }
-        for (Item i : game.getItems()){ 
-            if (playerBounds.overlaps(i.getItemBounds())){
-                if (!i.inInventory){
+        for (Item i : game.getItems()) {
+            if (playerBounds.overlaps(i.getItemBounds())) {
+                if (!i.inInventory) {
                     i.pickUp();
                 }
             }
         }
 
-        if (isFlashing){
+        if (isFlashing) {
             flashTimer -= Gdx.graphics.getDeltaTime();
-            boolean visible = ((int)(flashTimer / FLASH_BLINK_RATE)) % 2 == 0;
+            boolean visible = ((int) (flashTimer / FLASH_BLINK_RATE)) % 2 == 0;
             sprite.setColor(visible ? Color.WHITE : Color.CLEAR);
 
-            if (flashTimer <= 0){
+            if (flashTimer <= 0) {
                 isFlashing = false;
                 sprite.setColor(Color.WHITE);
             }
         }
-
 
     }
 
@@ -101,16 +95,16 @@ public class Player extends Entity {
         float xMovement = 0f;
         float yMovement = 0f;
 
-        if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+        if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)) {
             xMovement += 1f;
         }
-        if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+        if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)) {
             xMovement -= 1f;
         }
-        if (Gdx.input.isKeyPressed(Keys.UP)) {
+        if (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)) {
             yMovement += 1f;
         }
-        if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+        if (Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)) {
             yMovement -= 1f;
         }
 
@@ -124,8 +118,10 @@ public class Player extends Entity {
             sprite.translateY(yMovement * speed * delta);
 
             moving = true;
-            if (xMovement > 0f) facingRight = true;
-            else if (xMovement < 0f) facingRight = false;
+            if (xMovement > 0f)
+                facingRight = true;
+            else if (xMovement < 0f)
+                facingRight = false;
             stateTime += delta;
         } else {
             moving = false;
@@ -137,7 +133,6 @@ public class Player extends Entity {
     public void draw(SpriteBatch spriteBatch) {
         TextureRegion frame;
 
-
         if (moving) {
             frame = facingRight ? walkRight.getKeyFrame(stateTime) : walkLeft.getKeyFrame(stateTime);
         } else {
@@ -145,7 +140,6 @@ public class Player extends Entity {
         }
 
         spriteBatch.setColor(sprite.getColor());
-
 
         spriteBatch.draw(frame, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
 
@@ -161,7 +155,6 @@ public class Player extends Entity {
         sprite.setY(MathUtils.clamp(sprite.getY(), 0, mapHeight - playerHeight));
 
         playerBounds.setPosition(sprite.getX(), sprite.getY());
-
 
         OrthographicCamera camera = (OrthographicCamera) viewport.getCamera();
         float targetX = sprite.getX() + playerWidth / 2f;
@@ -193,13 +186,14 @@ public class Player extends Entity {
 
     @Override
     public void onCollision(Entity other_Entity) {
-        if (other_Entity instanceof Goose){
+        if (other_Entity instanceof Goose) {
             gooseHit((Goose) other_Entity);
         }
     }
 
-    private void gooseHit(Goose goose){
-        if (isFlashing) return;
+    private void gooseHit(Goose goose) {
+        if (isFlashing)
+            return;
 
         this.health -= 1;
         isFlashing = true;
@@ -216,14 +210,13 @@ public class Player extends Entity {
         sprite.translate(knockback.x, knockback.y);
     }
 
-    public int getScore(){
+    public int getScore() {
         return score;
     }
 
-    public void setScore(int newScore){
+    public void setScore(int newScore) {
         this.score = newScore;
     }
-
 
     @Override
     public void dispose() {
