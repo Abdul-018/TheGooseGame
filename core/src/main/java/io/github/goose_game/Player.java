@@ -24,7 +24,15 @@ public class Player extends Entity {
     private TextureRegion standRight;
     private TextureRegion standLeft;
     private float stateTime = 0f;
-    private boolean facingRight = true;
+
+    private enum Direction {
+        UP, DOWN, LEFT, RIGHT
+    };
+
+    private Animation<TextureRegion> walkUp;
+    private Animation<TextureRegion> walkDown;
+    private TextureRegion standUp;
+    private TextureRegion standDown;
     private boolean moving = false;
     private float flashTimer = 0f;
     private Rectangle playerBounds = new Rectangle();
@@ -37,18 +45,31 @@ public class Player extends Entity {
     public Player(float mapWidth, float mapHeight) {
         super("test_player.png", 100, 1);
 
-        spriteSheet = new Texture("studentSheet.png");
-        TextureRegion[][] frames = TextureRegion.split(spriteSheet, 128, 128);
+        spriteSheet = new Texture("StudentSheet2.png");
+        TextureRegion[][] frames = TextureRegion.split(spriteSheet, 32, 32);
 
-        walkRight = new Animation<>(0.15f, frames[1]);
+        TextureRegion[] walkingDirection = { frames[4][0], frames[4][1], frames[4][2] };
+        TextureRegion[] walkingDirectionReversed = new TextureRegion[3];
+        for (int i = 0; i < 3; i++) {
+            walkingDirectionReversed[i] = new TextureRegion(walkingDirection[i]);
+            walkingDirectionReversed[i].flip(true, false);
+        }
+        walkUp = new Animation<>(0.15f, frames[3][0], frames[3][1], frames[3][2]);
+        walkUp.setPlayMode(Animation.PlayMode.LOOP);
+        walkDown = new Animation<>(0.15f, frames[5][0], frames[5][1], frames[5][2]);
+        walkDown.setPlayMode(Animation.PlayMode.LOOP);
+        walkRight = new Animation<>(0.15f, walkingDirection);
         walkRight.setPlayMode(Animation.PlayMode.LOOP);
-        walkLeft = new Animation<>(0.15f, frames[4]);
+        walkLeft = new Animation<>(0.15f, walkingDirectionReversed);
         walkLeft.setPlayMode(Animation.PlayMode.LOOP);
 
         standRight = frames[1][0];
-        standLeft = frames[4][0];
+        standLeft = new TextureRegion(frames[1][0]);
+        standLeft.flip(true, false);
+        standUp = frames[0][0];
+        standDown = frames[2][0];
 
-        sprite.setSize(0.8f, 0.8f);
+        sprite.setSize(1f, 1f);
         sprite.setPosition((mapWidth - sprite.getWidth()) / 2f, (mapHeight - sprite.getHeight()) / 2f);
         playerBounds.setSize(sprite.getWidth(), sprite.getHeight());
         playerBounds.setPosition(sprite.getX(), sprite.getY());
