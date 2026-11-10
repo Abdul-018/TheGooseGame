@@ -29,6 +29,8 @@ public class Player extends Entity {
         UP, DOWN, LEFT, RIGHT
     };
 
+    private Direction facing = Direction.DOWN;
+
     private Animation<TextureRegion> walkUp;
     private Animation<TextureRegion> walkDown;
     private TextureRegion standUp;
@@ -69,7 +71,7 @@ public class Player extends Entity {
         standUp = frames[0][0];
         standDown = frames[2][0];
 
-        sprite.setSize(1f, 1f);
+        sprite.setSize(2f, 2f);
         sprite.setPosition((mapWidth - sprite.getWidth()) / 2f, (mapHeight - sprite.getHeight()) / 2f);
         playerBounds.setSize(sprite.getWidth(), sprite.getHeight());
         playerBounds.setPosition(sprite.getX(), sprite.getY());
@@ -139,10 +141,11 @@ public class Player extends Entity {
             sprite.translateY(yMovement * speed * delta);
 
             moving = true;
-            if (xMovement > 0f)
-                facingRight = true;
-            else if (xMovement < 0f)
-                facingRight = false;
+            if (Math.abs(xMovement) >= Math.abs(yMovement)) {
+                facing = xMovement > 0f ? Direction.RIGHT : Direction.LEFT;
+            } else {
+                facing = yMovement > 0f ? Direction.UP : Direction.DOWN;
+            }
             stateTime += delta;
         } else {
             moving = false;
@@ -154,10 +157,19 @@ public class Player extends Entity {
     public void draw(SpriteBatch spriteBatch) {
         TextureRegion frame;
 
-        if (moving) {
-            frame = facingRight ? walkRight.getKeyFrame(stateTime) : walkLeft.getKeyFrame(stateTime);
-        } else {
-            frame = facingRight ? standRight : standLeft;
+        switch (facing) {
+            case UP:
+                frame = moving ? walkUp.getKeyFrame(stateTime) : standUp;
+                break;
+            case DOWN:
+                frame = moving ? walkDown.getKeyFrame(stateTime) : standDown;
+                break;
+            case LEFT:
+                frame = moving ? walkLeft.getKeyFrame(stateTime) : standLeft;
+                break;
+            default:
+                frame = moving ? walkRight.getKeyFrame(stateTime) : standRight;
+                break;
         }
 
         spriteBatch.setColor(sprite.getColor());
