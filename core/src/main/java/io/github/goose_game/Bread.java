@@ -14,7 +14,6 @@ public class Bread extends Item {
 
     public Bread(float xCoord, float yCoord){
         super("bread.png", 0.4f);
-        this.itemId = 1; // Do we need this? - weren't we gonna have individual ids for each instance but just compare types for each type of item?
         this.inInventory = false;
         this.effectDuration = 10f;
         this.collected = false;

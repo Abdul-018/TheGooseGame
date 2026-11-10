@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Item extends Entity { // Is there any point in extending here? - yeah, even if we arent pulling anything it fits the class structure and allows us to later on
 
-    public static int itemId;
     public boolean inInventory;
     public boolean itemUsed = false;
     public static float effectDuration;

@@ -13,7 +13,6 @@ public class GoldenFeather extends Item {
 
     public GoldenFeather(float xCoord, float yCoord){
         super("feather.png", 0.4f);
-        this.itemId = 2;
         this.inInventory = false;
         this.effectDuration = 10f;
 
