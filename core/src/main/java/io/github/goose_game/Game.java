@@ -34,7 +34,11 @@ public class Game {
 
         player = new Player(mapWidth, mapHeight);
         gooseSprites = new GooseSprites();
-        geese.add(new Goose(gooseSprites, 2f, 2f, 3));
+        for (int i = 0; i < 3; i++) {
+            float x = (float)(Math.random() * mapWidth);
+            float y = (float)(Math.random() * mapHeight);
+            geese.add(new Goose(gooseSprites, x, y, 3));
+        }
 
         // placeholder zone on the test background, needs a real spot once the map is ready
         swarmEvent = new GooseSwarmEvent(18f, 10f, 2f, 2f, gooseSprites);
@@ -47,14 +51,14 @@ public class Game {
 
     public void render() {
         float delta = Gdx.graphics.getDeltaTime();
-        player.update(viewport, mapWidth, mapHeight);
+        player.update(viewport, mapWidth, mapHeight, this);
 
-        Vector2 playerCenter = player.getCenter();
-        swarmEvent.update(playerCenter, geese, mapWidth, mapHeight);
+        Vector2 playerPosition = player.getPosition();
+        swarmEvent.update(playerPosition, geese, mapWidth, mapHeight);
         nightEvent.update(delta);
         for (Goose g : geese) {
-            g.setRedEyes(nightEvent.isNight());
-            g.update(delta, playerCenter, geese);
+            g.setNight(nightEvent.isNight());
+            g.update(delta, playerPosition, geese);
         }
         draw();
     }
@@ -82,4 +86,9 @@ public class Game {
         for (Goose g : geese) g.dispose();
         gooseSprites.dispose();
     }
+
+    public Array<Goose> getGeese(){
+        return this.geese;
+    }
+
 }

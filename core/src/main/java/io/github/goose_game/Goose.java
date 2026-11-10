@@ -2,6 +2,7 @@ package io.github.goose_game;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
@@ -13,33 +14,45 @@ public class Goose extends Entity {
         Dispersed
     }
 
-    public static final float SIZE = 1f;
+    public static final float SIZE = 0.8f;
 
     private static final float STOP_DISTANCE = 0.1f;
-    private static final float SEPARATION_DISTANCE = 1f;
+    private static final float SEPARATION_DISTANCE = SIZE;
     private static final float SEPARATION_STRENGTH = 3f;
     private static final float MIN_MOVE = 0.2f;
+    private static final float NIGHT_SPEED_MULTIPLIER = 1.3f; // placeholder, still needs tuning
 
     private final GooseSprites sprites;
+    private final int variant;
     private GooseState state;
     private float speed;
     private Vector2 direction;
     private float distractionTimer; // seconds left until the goose goes back to chasing
 
+    private Rectangle gooseBounds = new Rectangle();
+    private float orbitAngle;
+    private float orbitSpeed;
+
     private float stateTime = 0f;
     private boolean facingRight = true;
     private boolean moving = false;
-    private boolean redEyes = false;
+    private boolean night = false;
 
     public Goose(GooseSprites sprites, float x, float y, int health) {
         super(health);
         this.sprites = sprites;
+        this.variant = MathUtils.random(sprites.getVariantCount() - 1);
         this.sprite.setSize(SIZE, SIZE);
         this.sprite.setPosition(x, y);
-        this.speed = 3f;
+        this.speed = 2f;
         this.direction = new Vector2();
         this.state = GooseState.Chasing;
         this.distractionTimer = 0f;
+
+        gooseBounds.setSize(sprite.getWidth(), sprite.getHeight());
+        gooseBounds.setPosition(sprite.getX(), sprite.getY());
+        this.orbitAngle = MathUtils.random(360f);
+        this.orbitSpeed = MathUtils.random(10f, 30f);
     }
 
     // targetPosition is the centre of the player
@@ -61,13 +74,22 @@ public class Goose extends Entity {
                 }
                 break;
         }
+        gooseBounds.setPosition(sprite.getX(), sprite.getY());
     }
 
     private void chase(float delta, Vector2 targetPosition, Array<Goose> geese) {
         float centerX = centerX();
         float centerY = centerY();
 
-        direction.set(targetPosition.x - centerX, targetPosition.y - centerY);
+        // geese target a point near the player based on its relative angle
+        float orbitRadius = 0.8f;
+        float targetX = targetPosition.x + MathUtils.cosDeg(orbitAngle) * orbitRadius;
+        float targetY = targetPosition.y + MathUtils.sinDeg(orbitAngle) * orbitRadius;
+
+        // rotates the orbit angle randomly so geese move differently from each other and drift around
+        orbitAngle += orbitSpeed * delta;
+
+        direction.set(targetX - centerX, targetY - centerY);
         float distance = direction.len();
         if (distance > STOP_DISTANCE) {
             direction.scl(1f / distance);
@@ -83,9 +105,10 @@ public class Goose extends Entity {
             return;
         }
 
-        float step = speed * delta * Math.min(strength, 1f);
+        float currentSpeed = night ? speed * NIGHT_SPEED_MULTIPLIER : speed;
+        float step = currentSpeed * delta * Math.min(strength, 1f);
         if (distance > STOP_DISTANCE) {
-            step = Math.min(step, distance); // a long frame could otherwise carry the goose past the player
+            step = Math.min(step, distance); // a long frame could otherwise carry the goose past its target
         }
         direction.scl(1f / strength);
         sprite.translate(direction.x * step, direction.y * step);
@@ -140,13 +163,13 @@ public class Goose extends Entity {
     @Override
     public void draw(SpriteBatch spriteBatch) {
         if (state != GooseState.Dispersed) {
-            spriteBatch.draw(sprites.getFrame(redEyes, moving, facingRight, stateTime),
+            spriteBatch.draw(sprites.getFrame(variant, night, moving, facingRight, stateTime),
                 sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
         }
     }
 
     @Override
-    public void onCollision() {
+    public void onCollision(Entity other_Entity) {
         health--;
         if (health <= 0) {
             disperse();
@@ -169,7 +192,12 @@ public class Goose extends Entity {
         return state;
     }
 
-    public void setRedEyes(boolean redEyes) {
-        this.redEyes = redEyes;
+    public Rectangle getGooseBounds() {
+        return gooseBounds;
+    }
+
+    // night gives the geese red eyes and makes them faster
+    public void setNight(boolean night) {
+        this.night = night;
     }
 }

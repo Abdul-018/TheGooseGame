@@ -4,14 +4,27 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-// Loads the goose sheets once so every goose shares them. Game owns this and disposes it.
+// Loads every goose sheet once so all geese share them. Game owns this and disposes it.
 public class GooseSprites {
 
-    private final Sheet day = new Sheet("gooseSheet.png");
-    private final Sheet night = new Sheet("gooseSheetNight.png");
+    // night sheets are the same as the day ones but with red eyes, in the same order
+    private final Sheet[] daySheets = {
+        new Sheet("gooseSheet.png"),
+        new Sheet("gooseSheet2.png"),
+        new Sheet("gooseSheet3.png")
+    };
+    private final Sheet[] nightSheets = {
+        new Sheet("gooseSheetNight.png"),
+        new Sheet("gooseSheet2Night.png"),
+        new Sheet("gooseSheet3Night.png")
+    };
 
-    public TextureRegion getFrame(boolean redEyes, boolean moving, boolean facingRight, float stateTime) {
-        Sheet sheet = redEyes ? night : day;
+    public int getVariantCount() {
+        return daySheets.length;
+    }
+
+    public TextureRegion getFrame(int variant, boolean night, boolean moving, boolean facingRight, float stateTime) {
+        Sheet sheet = night ? nightSheets[variant] : daySheets[variant];
         if (moving) {
             return facingRight ? sheet.walkRight.getKeyFrame(stateTime) : sheet.walkLeft.getKeyFrame(stateTime);
         }
@@ -19,8 +32,12 @@ public class GooseSprites {
     }
 
     public void dispose() {
-        day.texture.dispose();
-        night.texture.dispose();
+        for (Sheet sheet : daySheets) {
+            sheet.texture.dispose();
+        }
+        for (Sheet sheet : nightSheets) {
+            sheet.texture.dispose();
+        }
     }
 
     private static class Sheet {

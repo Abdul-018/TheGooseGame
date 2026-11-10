@@ -27,15 +27,11 @@ public class Entity {
         sprite.draw(spriteBatch);
     }
 
-    public void onCollision() {
-        // overridden by entities that react to being hit, e.g. Goose
+    public void onCollision(Entity other_Entity) {
+        // overridden by entities that react to a collision, e.g. Player and Goose
     }
 
     public Vector2 getPosition() {
-        return new Vector2(sprite.getX(), sprite.getY());
-    }
-
-    public Vector2 getCenter() {
         return new Vector2(sprite.getX() + sprite.getWidth() / 2f, sprite.getY() + sprite.getHeight() / 2f);
     }
 
