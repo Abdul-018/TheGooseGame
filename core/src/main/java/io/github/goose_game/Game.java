@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import io.github.goose_game.Menus.MainMenu;
 import io.github.goose_game.Menus.PauseMenu;
@@ -22,26 +21,28 @@ public class Game {
     private Texture backgroundTexture;
     public static ExtendViewport menuViewport;
     private SpriteBatch spriteBatch;
-    private FitViewport viewport;
+    private ExtendViewport viewport;
     public static Player currentPlayer;
     private Player player;
     private Timer timer;
     private Array<Goose> geese = new Array<>();
     private Array<Item> items = new Array<>();
     public boolean isPaused = true;
+    public static boolean gameOver = false;
 
     public void create() {
         backgroundTexture = new Texture("test_background.png");
         spriteBatch = new SpriteBatch();
-        viewport = new FitViewport(8, 5);
+        viewport = new ExtendViewport(8, 5);
         menuViewport = new ExtendViewport(16,9);
         player = new Player(mapWidth, mapHeight);
         player.setScore(0);
+        player.setHealth(10);
         currentPlayer = player;
         for (int i = 0; i < 3; i++) {
             float x = (float)(Math.random() * mapWidth);
             float y = (float)(Math.random() * mapHeight);
-            geese.add(new Goose("goose.png", x, y, 3, player));
+            geese.add(new Goose("goose2.png", x, y, 3, player));
         }
 
         for (int i = 0; i < 100; i++){
@@ -72,6 +73,9 @@ public class Game {
             player.update(viewport, mapWidth, mapHeight, this);
             for (Goose g : geese) g.update(delta, player.getPosition(), geese);
         }
+        System.out.println("instance health"+player.getHealth());
+        System.out.println("static health"+currentPlayer.getHealth());
+        Menu.Updateall();
         draw();
     }
 

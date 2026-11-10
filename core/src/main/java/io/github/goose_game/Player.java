@@ -12,7 +12,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+
+import io.github.goose_game.Menus.LoseScreenMenu;
+import io.github.goose_game.Menus.PauseMenu;
 
 
 
@@ -65,7 +68,7 @@ public class Player extends Entity {
 
     }
 
-    public void update(FitViewport viewport, float mapWidth, float mapHeight, Game game){
+    public void update(Viewport viewport, float mapWidth, float mapHeight, Game game){
         input();
         playerGameLogic(viewport, mapWidth, mapHeight);
 
@@ -108,16 +111,16 @@ public class Player extends Entity {
         float xMovement = 0f;
         float yMovement = 0f;
 
-        if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+        if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)) {
             xMovement += 1f;
         }
-        if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+        if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)) {
             xMovement -= 1f;
         }
-        if (Gdx.input.isKeyPressed(Keys.UP)) {
+        if (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)) {
             yMovement += 1f;
         }
-        if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+        if (Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)) {
             yMovement -= 1f;
         }
 
@@ -160,7 +163,7 @@ public class Player extends Entity {
 
     }
 
-    private void playerGameLogic(FitViewport viewport, float mapWidth, float mapHeight) {
+    private void playerGameLogic(Viewport viewport, float mapWidth, float mapHeight) {
         float playerWidth = sprite.getWidth();
         float playerHeight = sprite.getHeight();
 
@@ -207,8 +210,13 @@ public class Player extends Entity {
 
     private void gooseHit(Goose goose){
         if (isFlashing) return;
-
         this.health -= 1;
+        if (health <= 0) {
+            Game.gameOver = true;
+            PauseMenu.pauseMenu.Close();
+            LoseScreenMenu.loseMenu.Open();
+            return;
+        }
         isFlashing = true;
         flashTimer = 1.5f;
 

@@ -63,7 +63,10 @@ public class MainMenu {
                 @Override 
                 public boolean OnClick(){
                     mainMenu.Close();
-                    Game.currentPlayer.setHealth(10);
+                    //replace with game start function
+                    if (Game.gameOver)Game.currentPlayer.setHealth(10);
+                    Game.gameOver = false;
+                    //replace with game start function
                     System.out.println("clicked");
                     return true;
                 }

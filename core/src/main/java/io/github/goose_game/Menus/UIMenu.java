@@ -99,7 +99,7 @@ public class UIMenu {
             gameUIElements.add(new Uielement(healthBook,new float[]{1090,healthy},Uielement.Align.RIGHT,1f,4f,1){
                 @Override 
                 public void Update(){
-                    int health = Game.currentPlayer.getScore()-2;
+                    int health = Game.currentPlayer.getHealth()-2;
                     if (health > 1){
                         this.setTexture(healthBook);
                     }else if(health>0){
@@ -112,7 +112,7 @@ public class UIMenu {
             gameUIElements.add(new Uielement(healthBook,new float[]{974,healthy},Uielement.Align.RIGHT,1f,4f,1){
                 @Override 
                 public void Update(){
-                    int health = Game.currentPlayer.getScore()-4;
+                    int health = Game.currentPlayer.getHealth()-4;
                     if (health > 1){
                         this.setTexture(healthBook);
                     }else if(health>0){
@@ -125,7 +125,7 @@ public class UIMenu {
             gameUIElements.add(new Uielement(healthBook,new float[]{974-116,healthy},Uielement.Align.RIGHT,1f,4f,1){
                 @Override 
                 public void Update(){
-                    int health = Game.currentPlayer.getScore()-6;
+                    int health = Game.currentPlayer.getHealth()-6;
                     if (health > 1){
                         this.setTexture(healthBook);
                     }else if(health>0){
@@ -138,7 +138,7 @@ public class UIMenu {
             gameUIElements.add(new Uielement(healthBook,new float[]{974-116*2,healthy},Uielement.Align.RIGHT,1f,4f,1){
                 @Override 
                 public void Update(){
-                    int health = Game.currentPlayer.getScore()-8;
+                    int health = Game.currentPlayer.getHealth()-8;
                     if (health > 1){
                         this.setTexture(healthBook);
                     }else if(health>0){
