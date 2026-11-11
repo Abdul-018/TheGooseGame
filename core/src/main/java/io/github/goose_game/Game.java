@@ -71,8 +71,7 @@ public class Game {
         currentPlayer = player;
 
         // Initialize Goose Wave Manager (from Code 2) instead of raw array
-        waveManager = new GooseWaveManager("goose.png", worldMapWidth, worldMapHeight, mapCollision, pathfinder);
-
+        waveManager = new GooseWaveManager("goose.png", worldMapWidth, worldMapHeight, mapCollision, pathfinder, player);
         // Spawn Items (from Code 1)
         for (int i = 0; i < 100; i++) {
             float x = (float)(Math.random() * (worldMapWidth - 0.2f));

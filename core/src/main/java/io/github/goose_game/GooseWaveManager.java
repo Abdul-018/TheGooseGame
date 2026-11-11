@@ -14,6 +14,7 @@ public class GooseWaveManager {
     
     private MapCollision mapCollision;
     private PathFinder pathfinder;
+    private Player player; // Added player reference
 
     private float spawnTimer = 0f;
     private float waveTimer = 0f;
@@ -24,14 +25,16 @@ public class GooseWaveManager {
     private int geeseDispersed = 0;
     private boolean gameOver = false;
 
-    public GooseWaveManager(String texturePath, float worldMapWidth, float worldMapHeight, MapCollision mapCollision, PathFinder pathfinder) {
+    // Added Player parameter to constructor
+    public GooseWaveManager(String texturePath, float worldMapWidth, float worldMapHeight, MapCollision mapCollision, PathFinder pathfinder, Player player) {
         this.texturePath = texturePath;
         this.worldMapWidth = worldMapWidth;
         this.worldMapHeight = worldMapHeight;
         this.mapCollision = mapCollision;
         this.pathfinder = pathfinder;
+        this.player = player;
 
-        // Spawn initial 3 geese on the bridge
+        // Spawn initial 3 geese
         spawnGeese(3);
     }
 
@@ -50,7 +53,6 @@ public class GooseWaveManager {
         for (int i = activeGeese.size - 1; i >= 0; i--) {
             Goose goose = activeGeese.get(i);
             
-            // Pass the required pathfinding and collision references
             goose.update(delta, playerPosition, activeGeese, mapCollision, pathfinder);
 
             if (goose.getState() == Goose.GooseState.Dispersed) {
@@ -72,7 +74,6 @@ public class GooseWaveManager {
             }
         }
 
-        // next wave if all active geese are defeated OR 30 second wave limit expires
         boolean waveCleared = (spawnedInWave >= maxForWave) && activeGeese.isEmpty();
         boolean waveTimedOut = waveTimer >= 30f;
 
@@ -92,11 +93,11 @@ public class GooseWaveManager {
 
     private void spawnGeese(int count) {
         for (int i = 0; i < count; i++) {
-            // Spawn randomly clustered on the left bridge (around X:14.5 to 15.5, Y:22.8 to 23.8)
             float spawnX = 10.5f + MathUtils.random(1.0f);
             float spawnY = 5.8f + MathUtils.random(1.0f);
 
-            activeGeese.add(new Goose(texturePath, spawnX, spawnY, 3));
+            // Pass the player reference to the Goose constructor
+            activeGeese.add(new Goose(texturePath, spawnX, spawnY, 3, player));
             spawnedInWave++;
         }
     }
