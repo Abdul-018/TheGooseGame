@@ -109,6 +109,16 @@ public class Game {
         // }
         spriteBatch.end();
 
+        // Making her visible through the foreground
+        int px = (int) player.getPosition().x;
+        int py = (int) player.getPosition().y;
+        boolean covered = foreground1.getCell(px, py) != null || foreground2.getCell(px, py) != null
+                || foreground3.getCell(px, py) != null;
+        float alpha = covered ? 0.5f : 1f;
+        foreground1.setOpacity(alpha);
+        foreground2.setOpacity(alpha);
+        foreground3.setOpacity(alpha);
+
         mapRenderer.getBatch().begin();
         mapRenderer.renderTileLayer(foreground3);
         mapRenderer.renderTileLayer(foreground2);
