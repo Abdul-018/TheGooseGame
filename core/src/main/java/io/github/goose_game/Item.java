@@ -1,11 +1,17 @@
 package io.github.goose_game;
 
-public class Item extends Entity{
-    
-    public static int ItemId;
+import com.badlogic.gdx.utils.Array;
+
+public class Item extends Entity { // Is there any point in extending here? - yeah, even if we arent pulling anything it fits the class structure and allows us to later on
+
+    public static int itemId;
     public boolean inInventory;
     public boolean itemUsed = false;
- 
+    public static float effectDuration;
+
+    public Item(String texturePath) {
+        super(texturePath, 1);
+    }
 
     public void pickUp() throws InvalidItemException{
         if (!this.inInventory){
@@ -22,7 +28,7 @@ public class Item extends Entity{
             throw new InvalidItemException("Item not found in inventory");
         }
 
-        this.itemAction();
+        this.itemAction(null, null);
 
         this.inInventory = false;
         this.itemUsed = true;
@@ -43,8 +49,15 @@ public class Item extends Entity{
         }
     }
 
-    public void itemAction(){
-        ;
+    public void itemAction(Player player, Array<Goose> geese){
+
     }
 
+    public void renderItem(int xCoord, int yCoord){
+
+    }
+
+    public void endEffect(){
+
+    }
 }

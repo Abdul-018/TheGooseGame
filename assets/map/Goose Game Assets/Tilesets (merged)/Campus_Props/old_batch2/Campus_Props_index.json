@@ -1,0 +1,1989 @@
+[
+ {
+  "tile_id": 0,
+  "name": "bike_stand_empty",
+  "group": "bike stands and bikes",
+  "tile_x": 0,
+  "tile_y": 0,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   0
+  ]
+ },
+ {
+  "tile_id": 1,
+  "name": "bike_stand_red",
+  "group": "bike stands and bikes",
+  "tile_x": 1,
+  "tile_y": 0,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   1
+  ]
+ },
+ {
+  "tile_id": 2,
+  "name": "bike_stand_blue",
+  "group": "bike stands and bikes",
+  "tile_x": 2,
+  "tile_y": 0,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   2
+  ]
+ },
+ {
+  "tile_id": 3,
+  "name": "bike_stand_yellow",
+  "group": "bike stands and bikes",
+  "tile_x": 3,
+  "tile_y": 0,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   3
+  ]
+ },
+ {
+  "tile_id": 4,
+  "name": "bike_red",
+  "group": "bike stands and bikes",
+  "tile_x": 4,
+  "tile_y": 0,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   4
+  ]
+ },
+ {
+  "tile_id": 5,
+  "name": "bike_blue",
+  "group": "bike stands and bikes",
+  "tile_x": 5,
+  "tile_y": 0,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   5
+  ]
+ },
+ {
+  "tile_id": 6,
+  "name": "bike_yellow_basket",
+  "group": "bike stands and bikes",
+  "tile_x": 6,
+  "tile_y": 0,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   6
+  ]
+ },
+ {
+  "tile_id": 7,
+  "name": "escooter",
+  "group": "bike stands and bikes",
+  "tile_x": 7,
+  "tile_y": 0,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   7
+  ]
+ },
+ {
+  "tile_id": 8,
+  "name": "bike_green_lying_L",
+  "group": "bike stands and bikes",
+  "tile_x": 8,
+  "tile_y": 0,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   8
+  ]
+ },
+ {
+  "tile_id": 9,
+  "name": "bike_green_lying_R",
+  "group": "bike stands and bikes",
+  "tile_x": 9,
+  "tile_y": 0,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   9
+  ]
+ },
+ {
+  "tile_id": 10,
+  "name": "bike_abandoned_L",
+  "group": "bike stands and bikes",
+  "tile_x": 10,
+  "tile_y": 0,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   10
+  ]
+ },
+ {
+  "tile_id": 11,
+  "name": "bike_abandoned_R",
+  "group": "bike stands and bikes",
+  "tile_x": 11,
+  "tile_y": 0,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   11
+  ]
+ },
+ {
+  "tile_id": 16,
+  "name": "bench_facing_down",
+  "group": "benches",
+  "tile_x": 0,
+  "tile_y": 1,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   16
+  ]
+ },
+ {
+  "tile_id": 17,
+  "name": "bench_facing_up",
+  "group": "benches",
+  "tile_x": 1,
+  "tile_y": 1,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   17
+  ]
+ },
+ {
+  "tile_id": 18,
+  "name": "bench_facing_left",
+  "group": "benches",
+  "tile_x": 2,
+  "tile_y": 1,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   18
+  ]
+ },
+ {
+  "tile_id": 19,
+  "name": "bench_facing_right",
+  "group": "benches",
+  "tile_x": 3,
+  "tile_y": 1,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   19
+  ]
+ },
+ {
+  "tile_id": 20,
+  "name": "bench_metal_green",
+  "group": "benches",
+  "tile_x": 4,
+  "tile_y": 1,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   20
+  ]
+ },
+ {
+  "tile_id": 21,
+  "name": "picnic_table",
+  "group": "benches",
+  "tile_x": 5,
+  "tile_y": 1,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   21
+  ]
+ },
+ {
+  "tile_id": 22,
+  "name": "tree_ring_bench",
+  "group": "benches",
+  "tile_x": 6,
+  "tile_y": 1,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   22
+  ]
+ },
+ {
+  "tile_id": 32,
+  "name": "litter_bin_black",
+  "group": "bins",
+  "tile_x": 0,
+  "tile_y": 2,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   32
+  ]
+ },
+ {
+  "tile_id": 33,
+  "name": "litter_bin_green",
+  "group": "bins",
+  "tile_x": 1,
+  "tile_y": 2,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   33
+  ]
+ },
+ {
+  "tile_id": 34,
+  "name": "wheelie_bin_green",
+  "group": "bins",
+  "tile_x": 2,
+  "tile_y": 2,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   34
+  ]
+ },
+ {
+  "tile_id": 35,
+  "name": "wheelie_bin_blue",
+  "group": "bins",
+  "tile_x": 3,
+  "tile_y": 2,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   35
+  ]
+ },
+ {
+  "tile_id": 36,
+  "name": "dumpster",
+  "group": "bins",
+  "tile_x": 4,
+  "tile_y": 2,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   36
+  ]
+ },
+ {
+  "tile_id": 37,
+  "name": "grit_bin",
+  "group": "bins",
+  "tile_x": 5,
+  "tile_y": 2,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   37
+  ]
+ },
+ {
+  "tile_id": 38,
+  "name": "bin_station",
+  "group": "bins",
+  "tile_x": 6,
+  "tile_y": 2,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   38
+  ]
+ },
+ {
+  "tile_id": 48,
+  "name": "bollard",
+  "group": "posts and barriers",
+  "tile_x": 0,
+  "tile_y": 3,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   48
+  ]
+ },
+ {
+  "tile_id": 49,
+  "name": "bollard_light",
+  "group": "posts and barriers",
+  "tile_x": 1,
+  "tile_y": 3,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   49
+  ]
+ },
+ {
+  "tile_id": 50,
+  "name": "traffic_cone",
+  "group": "posts and barriers",
+  "tile_x": 2,
+  "tile_y": 3,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   50
+  ]
+ },
+ {
+  "tile_id": 51,
+  "name": "post_box",
+  "group": "posts and barriers",
+  "tile_x": 3,
+  "tile_y": 3,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   51
+  ]
+ },
+ {
+  "tile_id": 52,
+  "name": "phone_box",
+  "group": "posts and barriers",
+  "tile_x": 4,
+  "tile_y": 3,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   52
+  ]
+ },
+ {
+  "tile_id": 53,
+  "name": "ticket_machine",
+  "group": "posts and barriers",
+  "tile_x": 5,
+  "tile_y": 3,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   53
+  ]
+ },
+ {
+  "tile_id": 54,
+  "name": "chain_left",
+  "group": "posts and barriers",
+  "tile_x": 6,
+  "tile_y": 3,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   54
+  ]
+ },
+ {
+  "tile_id": 55,
+  "name": "chain_middle",
+  "group": "posts and barriers",
+  "tile_x": 7,
+  "tile_y": 3,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   55
+  ]
+ },
+ {
+  "tile_id": 56,
+  "name": "chain_right",
+  "group": "posts and barriers",
+  "tile_x": 8,
+  "tile_y": 3,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   56
+  ]
+ },
+ {
+  "tile_id": 57,
+  "name": "barrier_left",
+  "group": "posts and barriers",
+  "tile_x": 9,
+  "tile_y": 3,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   57
+  ]
+ },
+ {
+  "tile_id": 58,
+  "name": "barrier_middle",
+  "group": "posts and barriers",
+  "tile_x": 10,
+  "tile_y": 3,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   58
+  ]
+ },
+ {
+  "tile_id": 59,
+  "name": "barrier_right",
+  "group": "posts and barriers",
+  "tile_x": 11,
+  "tile_y": 3,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   59
+  ]
+ },
+ {
+  "tile_id": 64,
+  "name": "lamp_victorian",
+  "group": "lamps",
+  "tile_x": 0,
+  "tile_y": 4,
+  "w": 1,
+  "h": 2,
+  "tile_ids": [
+   64,
+   80
+  ],
+  "solid_tiles": [
+   80
+  ],
+  "above_tiles": [
+   64
+  ]
+ },
+ {
+  "tile_id": 65,
+  "name": "lamp_modern",
+  "group": "lamps",
+  "tile_x": 1,
+  "tile_y": 4,
+  "w": 1,
+  "h": 2,
+  "tile_ids": [
+   65,
+   81
+  ],
+  "solid_tiles": [
+   81
+  ],
+  "above_tiles": [
+   65
+  ]
+ },
+ {
+  "tile_id": 66,
+  "name": "lamp_double",
+  "group": "lamps",
+  "tile_x": 2,
+  "tile_y": 4,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   66,
+   67,
+   82,
+   83
+  ],
+  "solid_tiles": [
+   82,
+   83
+  ],
+  "above_tiles": [
+   66,
+   67
+  ]
+ },
+ {
+  "tile_id": 68,
+  "name": "light_bollard",
+  "group": "lamps",
+  "tile_x": 4,
+  "tile_y": 4,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   68
+  ],
+  "solid_tiles": [
+   68
+  ],
+  "above_tiles": []
+ },
+ {
+  "tile_id": 69,
+  "name": "brick_pillar_lamp",
+  "group": "lamps",
+  "tile_x": 5,
+  "tile_y": 4,
+  "w": 1,
+  "h": 2,
+  "tile_ids": [
+   69,
+   85
+  ],
+  "solid_tiles": [
+   85
+  ],
+  "above_tiles": [
+   69
+  ]
+ },
+ {
+  "tile_id": 70,
+  "name": "festoon_posts",
+  "group": "lamps",
+  "tile_x": 6,
+  "tile_y": 4,
+  "w": 3,
+  "h": 2,
+  "tile_ids": [
+   70,
+   71,
+   72,
+   86,
+   87,
+   88
+  ],
+  "solid_tiles": [
+   86,
+   87,
+   88
+  ],
+  "above_tiles": [
+   70,
+   71,
+   72
+  ]
+ },
+ {
+  "tile_id": 73,
+  "name": "cafe_table",
+  "group": "cafe",
+  "tile_x": 9,
+  "tile_y": 4,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   73,
+   74,
+   89,
+   90
+  ],
+  "solid_tiles": [
+   89,
+   90
+  ],
+  "above_tiles": [
+   73,
+   74
+  ]
+ },
+ {
+  "tile_id": 75,
+  "name": "cafe_parasol_red",
+  "group": "cafe",
+  "tile_x": 11,
+  "tile_y": 4,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   75,
+   76,
+   91,
+   92
+  ],
+  "solid_tiles": [
+   91,
+   92
+  ],
+  "above_tiles": [
+   75,
+   76
+  ]
+ },
+ {
+  "tile_id": 77,
+  "name": "cafe_parasol_purple",
+  "group": "cafe",
+  "tile_x": 13,
+  "tile_y": 4,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   77,
+   78,
+   93,
+   94
+  ],
+  "solid_tiles": [
+   93,
+   94
+  ],
+  "above_tiles": [
+   77,
+   78
+  ]
+ },
+ {
+  "tile_id": 96,
+  "name": "cafe_parasol_teal",
+  "group": "cafe",
+  "tile_x": 0,
+  "tile_y": 6,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   96,
+   97,
+   112,
+   113
+  ],
+  "solid_tiles": [
+   112,
+   113
+  ],
+  "above_tiles": [
+   96,
+   97
+  ]
+ },
+ {
+  "tile_id": 98,
+  "name": "trestle_table",
+  "group": "cafe",
+  "tile_x": 2,
+  "tile_y": 6,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   98,
+   99,
+   114,
+   115
+  ],
+  "solid_tiles": [
+   114,
+   115
+  ],
+  "above_tiles": [
+   98,
+   99
+  ]
+ },
+ {
+  "tile_id": 100,
+  "name": "picnic_blanket",
+  "group": "cafe",
+  "tile_x": 4,
+  "tile_y": 6,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   100,
+   101,
+   116,
+   117
+  ],
+  "solid_tiles": [
+   116,
+   117
+  ],
+  "above_tiles": [
+   100,
+   101
+  ]
+ },
+ {
+  "tile_id": 102,
+  "name": "fountain_grand",
+  "group": "fountains",
+  "tile_x": 6,
+  "tile_y": 6,
+  "w": 4,
+  "h": 4,
+  "tile_ids": [
+   102,
+   103,
+   104,
+   105,
+   118,
+   119,
+   120,
+   121,
+   134,
+   135,
+   136,
+   137,
+   150,
+   151,
+   152,
+   153
+  ],
+  "solid_tiles": [
+   150,
+   151,
+   152,
+   153
+  ],
+  "above_tiles": [
+   102,
+   103,
+   104,
+   105,
+   118,
+   119,
+   120,
+   121,
+   134,
+   135,
+   136,
+   137
+  ]
+ },
+ {
+  "tile_id": 106,
+  "name": "fountain_grand_drained",
+  "group": "fountains",
+  "tile_x": 10,
+  "tile_y": 6,
+  "w": 4,
+  "h": 4,
+  "tile_ids": [
+   106,
+   107,
+   108,
+   109,
+   122,
+   123,
+   124,
+   125,
+   138,
+   139,
+   140,
+   141,
+   154,
+   155,
+   156,
+   157
+  ],
+  "solid_tiles": [
+   154,
+   155,
+   156,
+   157
+  ],
+  "above_tiles": [
+   106,
+   107,
+   108,
+   109,
+   122,
+   123,
+   124,
+   125,
+   138,
+   139,
+   140,
+   141
+  ]
+ },
+ {
+  "tile_id": 110,
+  "name": "fountain_small",
+  "group": "fountains",
+  "tile_x": 14,
+  "tile_y": 6,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   110,
+   111,
+   126,
+   127
+  ],
+  "solid_tiles": [
+   126,
+   127
+  ],
+  "above_tiles": [
+   110,
+   111
+  ]
+ },
+ {
+  "tile_id": 128,
+  "name": "fountain_plaza",
+  "group": "fountains",
+  "tile_x": 0,
+  "tile_y": 8,
+  "w": 3,
+  "h": 3,
+  "tile_ids": [
+   128,
+   129,
+   130,
+   144,
+   145,
+   146,
+   160,
+   161,
+   162
+  ],
+  "solid_tiles": [
+   160,
+   161,
+   162
+  ],
+  "above_tiles": [
+   128,
+   129,
+   130,
+   144,
+   145,
+   146
+  ]
+ },
+ {
+  "tile_id": 131,
+  "name": "drinking_fountain",
+  "group": "fountains",
+  "tile_x": 3,
+  "tile_y": 8,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   131
+  ],
+  "solid_tiles": [
+   131
+  ],
+  "above_tiles": []
+ },
+ {
+  "tile_id": 163,
+  "name": "pool_reflecting",
+  "group": "pools",
+  "tile_x": 3,
+  "tile_y": 10,
+  "w": 5,
+  "h": 3,
+  "tile_ids": [
+   163,
+   164,
+   165,
+   166,
+   167,
+   179,
+   180,
+   181,
+   182,
+   183,
+   195,
+   196,
+   197,
+   198,
+   199
+  ],
+  "solid_tiles": [
+   195,
+   196,
+   197,
+   198,
+   199
+  ],
+  "above_tiles": [
+   163,
+   164,
+   165,
+   166,
+   167,
+   179,
+   180,
+   181,
+   182,
+   183
+  ]
+ },
+ {
+  "tile_id": 168,
+  "name": "pond_lilies",
+  "group": "pools",
+  "tile_x": 8,
+  "tile_y": 10,
+  "w": 5,
+  "h": 3,
+  "tile_ids": [
+   168,
+   169,
+   170,
+   171,
+   172,
+   184,
+   185,
+   186,
+   187,
+   188,
+   200,
+   201,
+   202,
+   203,
+   204
+  ],
+  "solid_tiles": [
+   200,
+   201,
+   202,
+   203,
+   204
+  ],
+  "above_tiles": [
+   168,
+   169,
+   170,
+   171,
+   172,
+   184,
+   185,
+   186,
+   187,
+   188
+  ]
+ },
+ {
+  "tile_id": 208,
+  "name": "water_channel_h",
+  "group": "pools",
+  "tile_x": 0,
+  "tile_y": 13,
+  "w": 4,
+  "h": 1,
+  "tile_ids": [
+   208,
+   209,
+   210,
+   211
+  ],
+  "solid_tiles": [
+   208,
+   209,
+   210,
+   211
+  ],
+  "above_tiles": []
+ },
+ {
+  "tile_id": 142,
+  "name": "water_channel_v",
+  "group": "pools",
+  "tile_x": 14,
+  "tile_y": 8,
+  "w": 1,
+  "h": 3,
+  "tile_ids": [
+   142,
+   158,
+   174
+  ],
+  "solid_tiles": [
+   174
+  ],
+  "above_tiles": [
+   142,
+   158
+  ]
+ },
+ {
+  "tile_id": 189,
+  "name": "stepping_stone_pool",
+  "group": "pools",
+  "tile_x": 13,
+  "tile_y": 11,
+  "w": 3,
+  "h": 3,
+  "tile_ids": [
+   189,
+   190,
+   191,
+   205,
+   206,
+   207,
+   221,
+   222,
+   223
+  ],
+  "solid_tiles": [
+   221,
+   222,
+   223
+  ],
+  "above_tiles": [
+   189,
+   190,
+   191,
+   205,
+   206,
+   207
+  ]
+ },
+ {
+  "tile_id": 212,
+  "name": "fingerpost",
+  "group": "signs",
+  "tile_x": 4,
+  "tile_y": 13,
+  "w": 1,
+  "h": 2,
+  "tile_ids": [
+   212,
+   228
+  ],
+  "solid_tiles": [
+   228
+  ],
+  "above_tiles": [
+   212
+  ]
+ },
+ {
+  "tile_id": 213,
+  "name": "campus_map_board",
+  "group": "signs",
+  "tile_x": 5,
+  "tile_y": 13,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   213,
+   214,
+   229,
+   230
+  ],
+  "solid_tiles": [
+   229,
+   230
+  ],
+  "above_tiles": [
+   213,
+   214
+  ]
+ },
+ {
+  "tile_id": 215,
+  "name": "monolith_stone",
+  "group": "signs",
+  "tile_x": 7,
+  "tile_y": 13,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   215,
+   216,
+   231,
+   232
+  ],
+  "solid_tiles": [
+   231,
+   232
+  ],
+  "above_tiles": [
+   215,
+   216
+  ]
+ },
+ {
+  "tile_id": 217,
+  "name": "monolith_brick",
+  "group": "signs",
+  "tile_x": 9,
+  "tile_y": 13,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   217,
+   218,
+   233,
+   234
+  ],
+  "solid_tiles": [
+   233,
+   234
+  ],
+  "above_tiles": [
+   217,
+   218
+  ]
+ },
+ {
+  "tile_id": 219,
+  "name": "noticeboard",
+  "group": "signs",
+  "tile_x": 11,
+  "tile_y": 13,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   219,
+   220,
+   235,
+   236
+  ],
+  "solid_tiles": [
+   235,
+   236
+  ],
+  "above_tiles": [
+   219,
+   220
+  ]
+ },
+ {
+  "tile_id": 224,
+  "name": "sign_geese_warning",
+  "group": "signs",
+  "tile_x": 0,
+  "tile_y": 14,
+  "w": 1,
+  "h": 2,
+  "tile_ids": [
+   224,
+   240
+  ],
+  "solid_tiles": [
+   240
+  ],
+  "above_tiles": [
+   224
+  ]
+ },
+ {
+  "tile_id": 225,
+  "name": "sign_goose_crossing",
+  "group": "signs",
+  "tile_x": 1,
+  "tile_y": 14,
+  "w": 1,
+  "h": 2,
+  "tile_ids": [
+   225,
+   241
+  ],
+  "solid_tiles": [
+   241
+  ],
+  "above_tiles": [
+   225
+  ]
+ },
+ {
+  "tile_id": 226,
+  "name": "coffee_kiosk",
+  "group": "kiosks",
+  "tile_x": 2,
+  "tile_y": 14,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   226,
+   227,
+   242,
+   243
+  ],
+  "solid_tiles": [
+   242,
+   243
+  ],
+  "above_tiles": [
+   226,
+   227
+  ]
+ },
+ {
+  "tile_id": 237,
+  "name": "ice_cream_cart",
+  "group": "kiosks",
+  "tile_x": 13,
+  "tile_y": 14,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   237,
+   238,
+   253,
+   254
+  ],
+  "solid_tiles": [
+   253,
+   254
+  ],
+  "above_tiles": [
+   237,
+   238
+  ]
+ },
+ {
+  "tile_id": 244,
+  "name": "food_truck",
+  "group": "kiosks",
+  "tile_x": 4,
+  "tile_y": 15,
+  "w": 3,
+  "h": 2,
+  "tile_ids": [
+   244,
+   245,
+   246,
+   260,
+   261,
+   262
+  ],
+  "solid_tiles": [
+   260,
+   261,
+   262
+  ],
+  "above_tiles": [
+   244,
+   245,
+   246
+  ]
+ },
+ {
+  "tile_id": 239,
+  "name": "vending_drinks",
+  "group": "kiosks",
+  "tile_x": 15,
+  "tile_y": 14,
+  "w": 1,
+  "h": 2,
+  "tile_ids": [
+   239,
+   255
+  ],
+  "solid_tiles": [
+   255
+  ],
+  "above_tiles": [
+   239
+  ]
+ },
+ {
+  "tile_id": 247,
+  "name": "vending_snacks",
+  "group": "kiosks",
+  "tile_x": 7,
+  "tile_y": 15,
+  "w": 1,
+  "h": 2,
+  "tile_ids": [
+   247,
+   263
+  ],
+  "solid_tiles": [
+   263
+  ],
+  "above_tiles": [
+   247
+  ]
+ },
+ {
+  "tile_id": 248,
+  "name": "hot_dog_cart",
+  "group": "kiosks",
+  "tile_x": 8,
+  "tile_y": 15,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   248,
+   249,
+   264,
+   265
+  ],
+  "solid_tiles": [
+   264,
+   265
+  ],
+  "above_tiles": [
+   248,
+   249
+  ]
+ },
+ {
+  "tile_id": 250,
+  "name": "stall_purple",
+  "group": "freshers",
+  "tile_x": 10,
+  "tile_y": 15,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   250,
+   251,
+   266,
+   267
+  ],
+  "solid_tiles": [
+   266,
+   267
+  ],
+  "above_tiles": [
+   250,
+   251
+  ]
+ },
+ {
+  "tile_id": 256,
+  "name": "stall_teal",
+  "group": "freshers",
+  "tile_x": 0,
+  "tile_y": 16,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   256,
+   257,
+   272,
+   273
+  ],
+  "solid_tiles": [
+   272,
+   273
+  ],
+  "above_tiles": [
+   256,
+   257
+  ]
+ },
+ {
+  "tile_id": 258,
+  "name": "stall_orange",
+  "group": "freshers",
+  "tile_x": 2,
+  "tile_y": 16,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   258,
+   259,
+   274,
+   275
+  ],
+  "solid_tiles": [
+   274,
+   275
+  ],
+  "above_tiles": [
+   258,
+   259
+  ]
+ },
+ {
+  "tile_id": 268,
+  "name": "bouncy_castle",
+  "group": "freshers",
+  "tile_x": 12,
+  "tile_y": 16,
+  "w": 3,
+  "h": 3,
+  "tile_ids": [
+   268,
+   269,
+   270,
+   284,
+   285,
+   286,
+   300,
+   301,
+   302
+  ],
+  "solid_tiles": [
+   300,
+   301,
+   302
+  ],
+  "above_tiles": [
+   268,
+   269,
+   270,
+   284,
+   285,
+   286
+  ]
+ },
+ {
+  "tile_id": 276,
+  "name": "inflatable_goose",
+  "group": "freshers",
+  "tile_x": 4,
+  "tile_y": 17,
+  "w": 3,
+  "h": 3,
+  "tile_ids": [
+   276,
+   277,
+   278,
+   292,
+   293,
+   294,
+   308,
+   309,
+   310
+  ],
+  "solid_tiles": [
+   308,
+   309,
+   310
+  ],
+  "above_tiles": [
+   276,
+   277,
+   278,
+   292,
+   293,
+   294
+  ]
+ },
+ {
+  "tile_id": 279,
+  "name": "bunting",
+  "group": "freshers",
+  "tile_x": 7,
+  "tile_y": 17,
+  "w": 3,
+  "h": 1,
+  "tile_ids": [
+   279,
+   280,
+   281
+  ],
+  "solid_tiles": [
+   279,
+   280,
+   281
+  ],
+  "above_tiles": []
+ },
+ {
+  "tile_id": 288,
+  "name": "grad_stage",
+  "group": "graduation",
+  "tile_x": 0,
+  "tile_y": 18,
+  "w": 4,
+  "h": 3,
+  "tile_ids": [
+   288,
+   289,
+   290,
+   291,
+   304,
+   305,
+   306,
+   307,
+   320,
+   321,
+   322,
+   323
+  ],
+  "solid_tiles": [
+   320,
+   321,
+   322,
+   323
+  ],
+  "above_tiles": [
+   288,
+   289,
+   290,
+   291,
+   304,
+   305,
+   306,
+   307
+  ]
+ },
+ {
+  "tile_id": 271,
+  "name": "folding_chair",
+  "group": "graduation",
+  "tile_x": 15,
+  "tile_y": 16,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   271
+  ],
+  "solid_tiles": [
+   271
+  ],
+  "above_tiles": []
+ },
+ {
+  "tile_id": 282,
+  "name": "red_carpet_v",
+  "group": "graduation",
+  "tile_x": 10,
+  "tile_y": 17,
+  "w": 1,
+  "h": 3,
+  "tile_ids": [
+   282,
+   298,
+   314
+  ],
+  "solid_tiles": [
+   314
+  ],
+  "above_tiles": [
+   282,
+   298
+  ]
+ },
+ {
+  "tile_id": 295,
+  "name": "flower_arch",
+  "group": "graduation",
+  "tile_x": 7,
+  "tile_y": 18,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   295,
+   296,
+   311,
+   312
+  ],
+  "solid_tiles": [
+   311,
+   312
+  ],
+  "above_tiles": [
+   295,
+   296
+  ]
+ },
+ {
+  "tile_id": 315,
+  "name": "marquee",
+  "group": "graduation",
+  "tile_x": 11,
+  "tile_y": 19,
+  "w": 4,
+  "h": 3,
+  "tile_ids": [
+   315,
+   316,
+   317,
+   318,
+   331,
+   332,
+   333,
+   334,
+   347,
+   348,
+   349,
+   350
+  ],
+  "solid_tiles": [
+   347,
+   348,
+   349,
+   350
+  ],
+  "above_tiles": [
+   315,
+   316,
+   317,
+   318,
+   331,
+   332,
+   333,
+   334
+  ]
+ },
+ {
+  "tile_id": 287,
+  "name": "lectern",
+  "group": "graduation",
+  "tile_x": 15,
+  "tile_y": 17,
+  "w": 1,
+  "h": 1,
+  "tile_ids": [
+   287
+  ],
+  "solid_tiles": [
+   287
+  ],
+  "above_tiles": []
+ },
+ {
+  "tile_id": 324,
+  "name": "car_blue",
+  "group": "cars",
+  "tile_x": 4,
+  "tile_y": 20,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   324,
+   325,
+   340,
+   341
+  ],
+  "solid_tiles": [
+   340,
+   341
+  ],
+  "above_tiles": [
+   324,
+   325
+  ]
+ },
+ {
+  "tile_id": 326,
+  "name": "car_red",
+  "group": "cars",
+  "tile_x": 6,
+  "tile_y": 20,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   326,
+   327,
+   342,
+   343
+  ],
+  "solid_tiles": [
+   342,
+   343
+  ],
+  "above_tiles": [
+   326,
+   327
+  ]
+ },
+ {
+  "tile_id": 328,
+  "name": "car_white",
+  "group": "cars",
+  "tile_x": 8,
+  "tile_y": 20,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   328,
+   329,
+   344,
+   345
+  ],
+  "solid_tiles": [
+   344,
+   345
+  ],
+  "above_tiles": [
+   328,
+   329
+  ]
+ },
+ {
+  "tile_id": 336,
+  "name": "car_side_blue",
+  "group": "cars",
+  "tile_x": 0,
+  "tile_y": 21,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   336,
+   337,
+   352,
+   353
+  ],
+  "solid_tiles": [
+   352,
+   353
+  ],
+  "above_tiles": [
+   336,
+   337
+  ]
+ },
+ {
+  "tile_id": 354,
+  "name": "minibus",
+  "group": "cars",
+  "tile_x": 2,
+  "tile_y": 22,
+  "w": 3,
+  "h": 2,
+  "tile_ids": [
+   354,
+   355,
+   356,
+   370,
+   371,
+   372
+  ],
+  "solid_tiles": [
+   370,
+   371,
+   372
+  ],
+  "above_tiles": [
+   354,
+   355,
+   356
+  ]
+ },
+ {
+  "tile_id": 357,
+  "name": "campus_bus",
+  "group": "cars",
+  "tile_x": 5,
+  "tile_y": 22,
+  "w": 5,
+  "h": 3,
+  "tile_ids": [
+   357,
+   358,
+   359,
+   360,
+   361,
+   373,
+   374,
+   375,
+   376,
+   377,
+   389,
+   390,
+   391,
+   392,
+   393
+  ],
+  "solid_tiles": [
+   389,
+   390,
+   391,
+   392,
+   393
+  ],
+  "above_tiles": [
+   357,
+   358,
+   359,
+   360,
+   361,
+   373,
+   374,
+   375,
+   376,
+   377
+  ]
+ },
+ {
+  "tile_id": 362,
+  "name": "security_buggy",
+  "group": "cars",
+  "tile_x": 10,
+  "tile_y": 22,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   362,
+   363,
+   378,
+   379
+  ],
+  "solid_tiles": [
+   378,
+   379
+  ],
+  "above_tiles": [
+   362,
+   363
+  ]
+ },
+ {
+  "tile_id": 364,
+  "name": "parking_bay",
+  "group": "carpark",
+  "tile_x": 12,
+  "tile_y": 22,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   364,
+   365,
+   380,
+   381
+  ],
+  "solid_tiles": [
+   380,
+   381
+  ],
+  "above_tiles": [
+   364,
+   365
+  ]
+ },
+ {
+  "tile_id": 366,
+  "name": "disabled_bay",
+  "group": "carpark",
+  "tile_x": 14,
+  "tile_y": 22,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   366,
+   367,
+   382,
+   383
+  ],
+  "solid_tiles": [
+   382,
+   383
+  ],
+  "above_tiles": [
+   366,
+   367
+  ]
+ },
+ {
+  "tile_id": 368,
+  "name": "zebra_crossing",
+  "group": "carpark",
+  "tile_x": 0,
+  "tile_y": 23,
+  "w": 2,
+  "h": 2,
+  "tile_ids": [
+   368,
+   369,
+   384,
+   385
+  ],
+  "solid_tiles": [
+   384,
+   385
+  ],
+  "above_tiles": [
+   368,
+   369
+  ]
+ },
+ {
+  "tile_id": 394,
+  "name": "speed_bump",
+  "group": "carpark",
+  "tile_x": 10,
+  "tile_y": 24,
+  "w": 4,
+  "h": 1,
+  "tile_ids": [
+   394,
+   395,
+   396,
+   397
+  ],
+  "solid_tiles": [
+   394,
+   395,
+   396,
+   397
+  ],
+  "above_tiles": []
+ },
+ {
+  "tile_id": 386,
+  "name": "floor_arrow",
+  "group": "carpark",
+  "tile_x": 2,
+  "tile_y": 24,
+  "w": 2,
+  "h": 1,
+  "tile_ids": [
+   386,
+   387
+  ],
+  "solid_tiles": [
+   386,
+   387
+  ],
+  "above_tiles": []
+ },
+ {
+  "tile_id": 400,
+  "name": "car_park_barrier",
+  "group": "carpark",
+  "tile_x": 0,
+  "tile_y": 25,
+  "w": 4,
+  "h": 2,
+  "tile_ids": [
+   400,
+   401,
+   402,
+   403,
+   416,
+   417,
+   418,
+   419
+  ],
+  "solid_tiles": [
+   416,
+   417,
+   418,
+   419
+  ],
+  "above_tiles": [
+   400,
+   401,
+   402,
+   403
+  ]
+ },
+ {
+  "tile_id": 388,
+  "name": "ev_charger",
+  "group": "carpark",
+  "tile_x": 4,
+  "tile_y": 24,
+  "w": 1,
+  "h": 2,
+  "tile_ids": [
+   388,
+   404
+  ],
+  "solid_tiles": [
+   404
+  ],
+  "above_tiles": [
+   388
+  ]
+ }
+]
