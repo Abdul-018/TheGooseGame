@@ -1,0 +1,268 @@
+[
+ {
+  "tile_id": 0,
+  "name": "bike_stand_empty",
+  "group": "bike stands and bikes",
+  "tile_x": 0,
+  "tile_y": 0
+ },
+ {
+  "tile_id": 1,
+  "name": "bike_stand_red",
+  "group": "bike stands and bikes",
+  "tile_x": 1,
+  "tile_y": 0
+ },
+ {
+  "tile_id": 2,
+  "name": "bike_stand_blue",
+  "group": "bike stands and bikes",
+  "tile_x": 2,
+  "tile_y": 0
+ },
+ {
+  "tile_id": 3,
+  "name": "bike_stand_yellow",
+  "group": "bike stands and bikes",
+  "tile_x": 3,
+  "tile_y": 0
+ },
+ {
+  "tile_id": 4,
+  "name": "bike_red",
+  "group": "bike stands and bikes",
+  "tile_x": 4,
+  "tile_y": 0
+ },
+ {
+  "tile_id": 5,
+  "name": "bike_blue",
+  "group": "bike stands and bikes",
+  "tile_x": 5,
+  "tile_y": 0
+ },
+ {
+  "tile_id": 6,
+  "name": "bike_yellow_basket",
+  "group": "bike stands and bikes",
+  "tile_x": 6,
+  "tile_y": 0
+ },
+ {
+  "tile_id": 7,
+  "name": "escooter",
+  "group": "bike stands and bikes",
+  "tile_x": 7,
+  "tile_y": 0
+ },
+ {
+  "tile_id": 8,
+  "name": "bike_green_lying_L",
+  "group": "bike stands and bikes",
+  "tile_x": 8,
+  "tile_y": 0
+ },
+ {
+  "tile_id": 9,
+  "name": "bike_green_lying_R",
+  "group": "bike stands and bikes",
+  "tile_x": 9,
+  "tile_y": 0
+ },
+ {
+  "tile_id": 10,
+  "name": "bike_abandoned_L",
+  "group": "bike stands and bikes",
+  "tile_x": 10,
+  "tile_y": 0
+ },
+ {
+  "tile_id": 11,
+  "name": "bike_abandoned_R",
+  "group": "bike stands and bikes",
+  "tile_x": 11,
+  "tile_y": 0
+ },
+ {
+  "tile_id": 16,
+  "name": "bench_facing_down",
+  "group": "benches",
+  "tile_x": 0,
+  "tile_y": 1
+ },
+ {
+  "tile_id": 17,
+  "name": "bench_facing_up",
+  "group": "benches",
+  "tile_x": 1,
+  "tile_y": 1
+ },
+ {
+  "tile_id": 18,
+  "name": "bench_facing_left",
+  "group": "benches",
+  "tile_x": 2,
+  "tile_y": 1
+ },
+ {
+  "tile_id": 19,
+  "name": "bench_facing_right",
+  "group": "benches",
+  "tile_x": 3,
+  "tile_y": 1
+ },
+ {
+  "tile_id": 20,
+  "name": "bench_metal_green",
+  "group": "benches",
+  "tile_x": 4,
+  "tile_y": 1
+ },
+ {
+  "tile_id": 21,
+  "name": "picnic_table",
+  "group": "benches",
+  "tile_x": 5,
+  "tile_y": 1
+ },
+ {
+  "tile_id": 22,
+  "name": "tree_ring_bench",
+  "group": "benches",
+  "tile_x": 6,
+  "tile_y": 1
+ },
+ {
+  "tile_id": 32,
+  "name": "litter_bin_black",
+  "group": "bins",
+  "tile_x": 0,
+  "tile_y": 2
+ },
+ {
+  "tile_id": 33,
+  "name": "litter_bin_green",
+  "group": "bins",
+  "tile_x": 1,
+  "tile_y": 2
+ },
+ {
+  "tile_id": 34,
+  "name": "wheelie_bin_green",
+  "group": "bins",
+  "tile_x": 2,
+  "tile_y": 2
+ },
+ {
+  "tile_id": 35,
+  "name": "wheelie_bin_blue",
+  "group": "bins",
+  "tile_x": 3,
+  "tile_y": 2
+ },
+ {
+  "tile_id": 36,
+  "name": "dumpster",
+  "group": "bins",
+  "tile_x": 4,
+  "tile_y": 2
+ },
+ {
+  "tile_id": 37,
+  "name": "grit_bin",
+  "group": "bins",
+  "tile_x": 5,
+  "tile_y": 2
+ },
+ {
+  "tile_id": 38,
+  "name": "bin_station",
+  "group": "bins",
+  "tile_x": 6,
+  "tile_y": 2
+ },
+ {
+  "tile_id": 48,
+  "name": "bollard",
+  "group": "posts and barriers",
+  "tile_x": 0,
+  "tile_y": 3
+ },
+ {
+  "tile_id": 49,
+  "name": "bollard_light",
+  "group": "posts and barriers",
+  "tile_x": 1,
+  "tile_y": 3
+ },
+ {
+  "tile_id": 50,
+  "name": "traffic_cone",
+  "group": "posts and barriers",
+  "tile_x": 2,
+  "tile_y": 3
+ },
+ {
+  "tile_id": 51,
+  "name": "post_box",
+  "group": "posts and barriers",
+  "tile_x": 3,
+  "tile_y": 3
+ },
+ {
+  "tile_id": 52,
+  "name": "phone_box",
+  "group": "posts and barriers",
+  "tile_x": 4,
+  "tile_y": 3
+ },
+ {
+  "tile_id": 53,
+  "name": "ticket_machine",
+  "group": "posts and barriers",
+  "tile_x": 5,
+  "tile_y": 3
+ },
+ {
+  "tile_id": 54,
+  "name": "chain_left",
+  "group": "posts and barriers",
+  "tile_x": 6,
+  "tile_y": 3
+ },
+ {
+  "tile_id": 55,
+  "name": "chain_middle",
+  "group": "posts and barriers",
+  "tile_x": 7,
+  "tile_y": 3
+ },
+ {
+  "tile_id": 56,
+  "name": "chain_right",
+  "group": "posts and barriers",
+  "tile_x": 8,
+  "tile_y": 3
+ },
+ {
+  "tile_id": 57,
+  "name": "barrier_left",
+  "group": "posts and barriers",
+  "tile_x": 9,
+  "tile_y": 3
+ },
+ {
+  "tile_id": 58,
+  "name": "barrier_middle",
+  "group": "posts and barriers",
+  "tile_x": 10,
+  "tile_y": 3
+ },
+ {
+  "tile_id": 59,
+  "name": "barrier_right",
+  "group": "posts and barriers",
+  "tile_x": 11,
+  "tile_y": 3
+ }
+]

@@ -1,0 +1,78 @@
+{
+ "name": "Campus_Props",
+ "out": ".",
+ "sheets": [
+  {
+   "id": "bike_racks",
+   "src": "source/racks.png",
+   "scale": 8.2,
+   "sat": 1.6,
+   "names": [
+    "rack3_empty",
+    "rack3_1bike",
+    "rack3_2bikes",
+    "rack3_full",
+    "rack5_empty",
+    "rack5_3bikes"
+   ]
+  },
+  {
+   "id": "bikes",
+   "src": "source/bikes.png",
+   "scale": 17,
+   "sat": 1.6,
+   "names": [
+    "bike_red",
+    "bike_blue",
+    "bike_yellow_basket",
+    "bike_green_lying",
+    "bike_abandoned",
+    "escooter"
+   ]
+  },
+  {
+   "id": "benches",
+   "src": "source/benches.png",
+   "scale": 12.5,
+   "names": [
+    "bench_facing_down",
+    "bench_facing_up",
+    "bench_facing_left",
+    "bench_facing_right",
+    "bench_metal_green",
+    "picnic_table",
+    "tree_ring_bench"
+   ]
+  },
+  {
+   "id": "bins",
+   "src": "source/bins.png",
+   "scale": 19.5,
+   "names": [
+    "litter_bin_black",
+    "litter_bin_green",
+    "wheelie_bin_green",
+    "wheelie_bin_blue",
+    "dumpster",
+    "grit_bin",
+    "bin_station"
+   ]
+  },
+  {
+   "id": "posts",
+   "src": "source/posts.png",
+   "scale": 16,
+   "names": [
+    "bollard",
+    "bollard_light",
+    "traffic_cone",
+    "post_box",
+    "phone_box",
+    "ticket_machine",
+    "post_and_chain",
+    "pedestrian_barrier"
+   ]
+  }
+ ],
+ "assets": "/Users/sidneycritch/Documents/Goose Game Assets"
+}
