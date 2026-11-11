@@ -1,3 +1,13 @@
+CollisionMap.tmx
+Goose Game Tilemap.tmx
+Goose.png
+bread.png
+feather.png
+gooseSheet.png
+gooseSheet2.png
+gooseSheet3.png
 libgdx.png
+studentSheet.png
+test_background - Copy.png
 test_background.png
 test_player.png

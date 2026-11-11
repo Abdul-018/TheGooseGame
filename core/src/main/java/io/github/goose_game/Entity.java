@@ -21,20 +21,19 @@ public class Entity {
         sprite.draw(spriteBatch);
     }
 
-    public void onCollision() {
+    public void onCollision(Entity other_Entity) {
         // this will be inherited by the player and goose? maybe also item?
     }
 
-    public Vector2 getPosition(){
-        return new Vector2(sprite.getX(), sprite.getY());
-        // I added a method to get the x/y positions of an entity
+    public Vector2 getPosition() {
+        return new Vector2(sprite.getX() + sprite.getWidth() / 2f, sprite.getY() + sprite.getHeight() / 2f);
     }
 
     public Sprite getSprite() {
         return sprite;
     }
 
-    public int getHealth(){
+    public int getHealth() {
         return health;
     }
 
