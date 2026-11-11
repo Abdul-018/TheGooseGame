@@ -19,7 +19,9 @@ public class Game {
     private OrthogonalTiledMapRenderer mapRenderer;
     private TiledMapTileLayer collisionLayer;
     private int[] backgroundLayers;
-    private int[] foregroundLayers;
+    private TiledMapTileLayer foreground1;
+    private TiledMapTileLayer foreground2;
+    private TiledMapTileLayer foreground3;
     private final Rectangle spawnCheck = new Rectangle();
 
     private SpriteBatch spriteBatch;
@@ -38,6 +40,16 @@ public class Game {
 
         mapWidth = map.getProperties().get("width", Integer.class);
         mapHeight = map.getProperties().get("height", Integer.class);
+
+        collisionLayer = (TiledMapTileLayer) map.getLayers().get("Collision");
+
+        foreground1 = (TiledMapTileLayer) map.getLayers().get("Foreground1");
+        foreground2 = (TiledMapTileLayer) map.getLayers().get("Foreground2");
+        foreground3 = (TiledMapTileLayer) map.getLayers().get("Foreground3");
+
+        foreground1.setVisible(false);
+        foreground2.setVisible(false);
+        foreground3.setVisible(false);
 
         viewport = new FitViewport(15, 10);
         viewport.getCamera().position.set(mapWidth / 2f, mapHeight / 2f, 0);
@@ -96,6 +108,12 @@ public class Game {
         // g.draw(spriteBatch);
         // }
         spriteBatch.end();
+
+        mapRenderer.getBatch().begin();
+        mapRenderer.renderTileLayer(foreground3);
+        mapRenderer.renderTileLayer(foreground2);
+        mapRenderer.renderTileLayer(foreground1);
+        mapRenderer.getBatch().end();
     }
 
     public void dispose() {
@@ -116,4 +134,22 @@ public class Game {
         return this.items;
     }
 
+    public boolean collisionChecker(Rectangle rectangle) {
+        int x0 = (int) Math.floor(rectangle.x);
+        int x1 = (int) Math.floor(rectangle.x + rectangle.width - 0.001f);
+        int y0 = (int) Math.floor(rectangle.y);
+        int y1 = (int) Math.floor(rectangle.y + rectangle.height - 0.001f);
+
+        for (int y = y0; y <= y1; y++) {
+            for (int x = x0; x <= x1; x++) {
+                if (x < 0 || y < 0 || x >= collisionLayer.getWidth() || y >= collisionLayer.getHeight()) {
+                    return true;
+                }
+                if (collisionLayer.getCell(x, y) != null) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

@@ -11,7 +11,7 @@ public class GoldenFeather extends Item {
     public Texture featherTexture;
     Sprite featherSprite;
 
-    public GoldenFeather(float xCoord, float yCoord){
+    public GoldenFeather(float xCoord, float yCoord) {
         super("feather.png", 0.4f);
         this.itemId = 2;
         this.inInventory = false;
@@ -20,7 +20,7 @@ public class GoldenFeather extends Item {
         this.collected = false;
 
         sprite.setPosition(xCoord, yCoord);
-        
+
         updateBounds();
     }
 
@@ -29,23 +29,21 @@ public class GoldenFeather extends Item {
 
         float delta = Gdx.graphics.getDeltaTime();
 
-        player.getSprite().setSize(3,3);
+        player.getSprite().setSize(3, 3);
         player.setSpeed(6f);
 
         timeRemaining -= delta;
 
-        if (timeRemaining <= 0){
+        if (timeRemaining <= 0) {
             timeRemaining = 0;
             endEffect(player);
         }
     }
 
-    public void endEffect(Player player){
-        player.getSprite().setSize(1,1);
+    public void endEffect(Player player) {
+        player.getSprite().setSize(1, 1);
         player.setSpeed(4f);
-        
+
     }
-
-
 
 }

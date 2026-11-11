@@ -1,16 +1,17 @@
 package io.github.goose_game;
+
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
 public class Wall {
-    
+
     public int xPos;
     public int yPos;
     public int width;
     public int height;
     public Rectangle wall;
 
-    public Wall(int newxPos, int newyPos, int newWidth, int newHeight){
+    public Wall(int newxPos, int newyPos, int newWidth, int newHeight) {
         this.xPos = newxPos;
         this.yPos = newyPos;
         this.width = newWidth;
@@ -24,7 +25,8 @@ public class Wall {
 
 // Array<Rectangle> walls = new Array<>();
 
-// wall1 = new Wall(100,100,200,20); // set these to wherever there's a building/ wall on the game map
+// wall1 = new Wall(100,100,200,20); // set these to wherever there's a
+// building/ wall on the game map
 // wall2 = new Wall(300,200,20,150);
 // wall3 = new Wall(50,300,200,20);
 
@@ -37,8 +39,8 @@ public class Wall {
 
 // for (Rectangle Wall : walls){
 
-//     if (player.getBoundingRectangle().overlaps(wall)){
-//         player.setPosition(oldX, oldY);
-//         break;
-//     }
-//}
+// if (player.getBoundingRectangle().overlaps(wall)){
+// player.setPosition(oldX, oldY);
+// break;
+// }
+// }

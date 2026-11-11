@@ -38,6 +38,8 @@ public class Player extends Entity {
     private boolean moving = false;
     private float flashTimer = 0f;
     private Rectangle playerBounds = new Rectangle();
+    private final Rectangle feetBounds = new Rectangle();
+    private Game game;
     private boolean isFlashing = false;
     private static final float FLASH_BLINK_RATE = 0.08f;
     private BitmapFont collisionFont;
@@ -72,7 +74,9 @@ public class Player extends Entity {
         standDown = frames[2][0];
 
         sprite.setSize(2f, 2f);
-        sprite.setPosition((mapWidth - sprite.getWidth()) / 2f, (mapHeight - sprite.getHeight()) / 2f);
+        // Spawn on Tiled tile (47, 32). Tiled counts rows from the top, libGDX from the bottom,
+        // so row 32 is y = 99 - 32 = 67. x is offset by half a tile so she's centred on the tile.
+        sprite.setPosition(46.5f, 67f);
         playerBounds.setSize(sprite.getWidth(), sprite.getHeight());
         playerBounds.setPosition(sprite.getX(), sprite.getY());
 
@@ -83,6 +87,7 @@ public class Player extends Entity {
     }
 
     public void update(FitViewport viewport, float mapWidth, float mapHeight, Game game) {
+        this.game = game;
         input();
         playerGameLogic(viewport, mapWidth, mapHeight);
 
@@ -137,8 +142,7 @@ public class Player extends Entity {
             xMovement /= length;
             yMovement /= length;
 
-            sprite.translateX(xMovement * speed * delta);
-            sprite.translateY(yMovement * speed * delta);
+            move(xMovement * speed * delta, yMovement * speed * delta);
 
             moving = true;
             if (Math.abs(xMovement) >= Math.abs(yMovement)) {
@@ -257,5 +261,34 @@ public class Player extends Entity {
         spriteSheet.dispose();
         collisionFont.dispose();
         fontBatch.dispose();
+    }
+
+    private void updateFeet() {
+        float w = sprite.getWidth();
+        float h = sprite.getHeight();
+
+        feetBounds.set(sprite.getX() + w * 0.3f,
+                sprite.getY() + h * 0.4f, w * 0.4f, h * 0.15f);
+
+    }
+
+    private void move(float dx, float dy) {
+        int steps = Math.max(1, (int) Math.ceil(Math.max(Math.abs(dx), Math.abs(dy)) / 0.25f));
+        float stepX = dx / steps;
+        float stepY = dy / steps;
+
+        for (int i = 0; i < steps; i++) {
+            sprite.translateX(stepX);
+            updateFeet();
+            if (game.collisionChecker(feetBounds)) {
+                sprite.translateX(-stepX);
+            }
+
+            sprite.translateY(stepY);
+            updateFeet();
+            if (game.collisionChecker(feetBounds)) {
+                sprite.translateY(-stepY);
+            }
+        }
     }
 }
