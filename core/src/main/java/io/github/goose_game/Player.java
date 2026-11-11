@@ -74,8 +74,10 @@ public class Player extends Entity {
         standDown = frames[2][0];
 
         sprite.setSize(2f, 2f);
-        // Spawn on Tiled tile (47, 32). Tiled counts rows from the top, libGDX from the bottom,
-        // so row 32 is y = 99 - 32 = 67. x is offset by half a tile so she's centred on the tile.
+        // Spawn on Tiled tile (47, 32). Tiled counts rows from the top, libGDX from the
+        // bottom,
+        // so row 32 is y = 99 - 32 = 67. x is offset by half a tile so she's centred on
+        // the tile.
         sprite.setPosition(46.5f, 67f);
         playerBounds.setSize(sprite.getWidth(), sprite.getHeight());
         playerBounds.setPosition(sprite.getX(), sprite.getY());
@@ -267,8 +269,8 @@ public class Player extends Entity {
         float w = sprite.getWidth();
         float h = sprite.getHeight();
 
-        feetBounds.set(sprite.getX() + w * 0.3f,
-                sprite.getY() + h * 0.4f, w * 0.4f, h * 0.15f);
+        feetBounds.set(sprite.getX() + w * 0.28f,
+                sprite.getY() + h * 0.125f, w * 0.44f, h * 0.235f);
 
     }
 
