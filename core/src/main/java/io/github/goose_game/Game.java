@@ -2,123 +2,95 @@ package io.github.goose_game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class Game {
 
-    // map size definitions in world units
-    private final float mapWidth = 24f;
-    private final float mapHeight = 13.5f;
+    private final float VIEWPORT_WIDTH = 24f;
+    private final float VIEWPORT_HEIGHT = 13.5f;
+    private final float mapUnitScale = VIEWPORT_WIDTH / (64f * 16f);
+    
+    private final float worldMapWidth = 100f * 16f * mapUnitScale;
+    private final float worldMapHeight = 100f * 16f * mapUnitScale;
 
     private TiledMap tiledMap;
+    private OrthogonalTiledMapRenderer mapRenderer;
     private MapCollision mapCollision;
     private PathFinder pathfinder;
 
     private SpriteBatch spriteBatch;
-    private ShapeRenderer shapeRenderer;
     private FitViewport viewport;
 
     private Player player;
-    private Array<Goose> geese = new Array<>();
+    private GooseWaveManager waveManager;
 
-    // setup everything when the game boots up
     public void create() {
         spriteBatch = new SpriteBatch();
-        shapeRenderer = new ShapeRenderer();
-        viewport = new FitViewport(mapWidth, mapHeight);
+        viewport = new FitViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
 
-        // load the tile map and setup collision and pathfinding systems
-        tiledMap = new TmxMapLoader().load("CollisionMap.tmx");
-        mapCollision = new MapCollision(tiledMap, mapWidth, mapHeight);
-        pathfinder = new PathFinder(mapCollision, mapWidth, mapHeight);
+        tiledMap = new TmxMapLoader().load("map/Goose Game Map.tmx");
+        mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, mapUnitScale, spriteBatch);
 
-        // spawn player
-        player = new Player(mapWidth, mapHeight);
+        mapCollision = new MapCollision(tiledMap, worldMapWidth, worldMapHeight);
+        pathfinder = new PathFinder(mapCollision, worldMapWidth, worldMapHeight);
 
-        // spawn a few initial geese around the map
-        geese.add(new Goose("goose.png", 22f, 1.5f, 3));
-        geese.add(new Goose("goose.png", 2f, 11.5f, 3));
-        geese.add(new Goose("goose.png", 22f, 11.5f, 3));
+        player = new Player(worldMapWidth, worldMapHeight);
+        player.getSprite().setPosition(10f, 9f); 
+
+        // Initialize the wave manager instead of the raw array
+        waveManager = new GooseWaveManager("goose.png", worldMapWidth, worldMapHeight, mapCollision, pathfinder);
     }
 
-    // handle window resizing to keep the viewport scaling correctly
     public void resize(int width, int height) {
         viewport.update(width, height, true);
     }
 
-    // updates player and all geese positions/states and then triggers draw
     public void render() {
         float delta = Gdx.graphics.getDeltaTime();
 
-        player.update(viewport, mapWidth, mapHeight, this, mapCollision);
-        for (int i = 0; i < geese.size; i++) {
-            geese.get(i).update(delta, player.getCenterPosition(), geese, mapCollision, pathfinder);
-        }
+        player.update(viewport, worldMapWidth, worldMapHeight, this, mapCollision);
+        
+        // Let the wave manager handle updating all geese and checking wave timers
+        waveManager.update(delta, player.getCenterPosition());
 
         draw();
     }
 
-    // renders background, collision walls, grid lines, player, and geese
     private void draw() {
-        ScreenUtils.clear(Color.WHITE);
+        ScreenUtils.clear(Color.BLACK);
         viewport.apply();
 
-        // draw collision walls using shape renderer
-        shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.BLACK);
+        OrthographicCamera cam = (OrthographicCamera) viewport.getCamera();
+        mapRenderer.setView(cam);
+        mapRenderer.render();
 
-        for (int i = 0; i < mapCollision.getCollisionBoxes().size; i++) {
-            Rectangle box = mapCollision.getCollisionBoxes().get(i);
-            shapeRenderer.rect(box.x, box.y, box.width, box.height);
-        }
-        shapeRenderer.end();
-
-        // draw grid lines for debugging
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(Color.LIGHT_GRAY);
-
-        float tileW = mapWidth / 64f;
-        float tileH = mapHeight / 36f;
-
-        for (int x = 0; x <= 64; x++) {
-            shapeRenderer.line(x * tileW, 0, x * tileW, mapHeight);
-        }
-        for (int y = 0; y <= 36; y++) {
-            shapeRenderer.line(0, y * tileH, mapWidth, y * tileH);
-        }
-        shapeRenderer.end();
-
-        // draw sprites using sprite batch
-        spriteBatch.setProjectionMatrix(viewport.getCamera().combined);
+        spriteBatch.setProjectionMatrix(cam.combined);
         spriteBatch.begin();
 
         player.draw(spriteBatch);
-        for (int i = 0; i < geese.size; i++) {
-            geese.get(i).draw(spriteBatch);
-        }
+        
+        // Let the wave manager handle drawing the geese
+        waveManager.draw(spriteBatch);
 
         spriteBatch.end();
     }
 
     public void dispose() {
         spriteBatch.dispose();
-        shapeRenderer.dispose();
+        if (mapRenderer != null) mapRenderer.dispose();
         if (tiledMap != null) tiledMap.dispose();
         player.dispose();
-        for (int i = 0; i < geese.size; i++) {
-            geese.get(i).dispose();
-        }
+        if (waveManager != null) waveManager.dispose();
     }
 
     public Array<Goose> getGeese() {
-        return this.geese;
+        return waveManager.getActiveGeese();
     }
 }

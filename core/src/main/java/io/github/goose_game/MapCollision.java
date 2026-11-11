@@ -20,7 +20,7 @@ public class MapCollision {
     public void loadCollisions(TiledMap map, float mapWidth, float mapHeight) {
         collisionBoxes.clear();
 
-        MapLayer layer = map.getLayers().get("CollisionLayer");
+        MapLayer layer = map.getLayers().get("Collision");
         if (layer instanceof TiledMapTileLayer) {
             TiledMapTileLayer tLayer = (TiledMapTileLayer) layer;
 
