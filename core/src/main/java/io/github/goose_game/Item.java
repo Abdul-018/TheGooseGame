@@ -37,9 +37,9 @@ public class Item extends Entity { // Is there any point in extending here? - ye
         
     }
 
-    public void useItem(){
-        if(this.inInventory || !this.itemUsed){
-            this.itemAction(null, null, spriteBatch);
+    public void useItem(Player player, Array<Goose> geese, SpriteBatch spriteBatch){
+        if(this.inInventory && !this.itemUsed){
+            this.itemAction(player, geese, spriteBatch);
 
             int currentScore = player.getScore();
             player.setScore(currentScore + 10);

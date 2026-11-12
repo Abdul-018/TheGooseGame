@@ -85,9 +85,9 @@ public class Game {
             float y = (float)(Math.random() * (worldMapHeight - 0.2f));
             items.add(new GoldenFeather(x, y,this));
         }
-
-        setInputProcessor();
         inventory = new Inventory();
+        setInputProcessor();
+        
     }
 
     public void resize(int width, int height) {
@@ -142,6 +142,22 @@ public class Game {
                 }
                 return false;
             }
+
+            @Override
+            public boolean keyDown(int keycode) {
+                if (keycode == Input.Keys.E){
+                   
+                    Item selected = inventory.getSelected();
+
+                    if (selected != null){
+                        selected.useItem(player, getGeese(), spriteBatch);
+                        System.out.println("USED");
+                    }
+                }
+                return false;
+            }
+
+
         });
     }
 

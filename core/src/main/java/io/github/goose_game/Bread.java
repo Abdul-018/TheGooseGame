@@ -17,6 +17,9 @@ public class Bread extends Item {
         this.inInventory = false;
         this.effectDuration = 10f;
         this.collected = false;
+
+        breadSprite = new Sprite(new Texture("bread.png"));
+        //breadSprite.setPosition(xCoord, yCoord);
     
         sprite.setPosition(xCoord, yCoord);
     
