@@ -37,7 +37,7 @@ public class Bread extends Item {
 
         this.effectArea = new Circle(player.getPosition().x, player.getPosition().y, 10);
 
-        sprite.setPosition(player.getPosition().x+1, player.getPosition().y);  // Throws slightly to the side of the player
+        sprite.setPosition(player.getPosition().x, player.getPosition().y);  // Throws slightly to the side of the player
         //draw(spriteBatch);
 
         throwing = true;
@@ -59,7 +59,7 @@ public class Bread extends Item {
 
     public void update(float delta){
         if (throwing){
-            sprite.translateX(throwSpeed*delta);
+            sprite.translateY(-throwSpeed*delta);
 
             throwTimer -= delta;
 
