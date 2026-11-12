@@ -45,6 +45,7 @@ public class Game {
     public static Player currentPlayer;
     private Player player;
     private Timer timer;
+    private Inventory inventory;
     private Array<Item> items = new Array<>();
     public boolean isPaused = true;
     public static boolean gameOver = false;
@@ -76,16 +77,17 @@ public class Game {
         for (int i = 0; i < 100; i++) {
             float x = (float)(Math.random() * (worldMapWidth - 0.2f));
             float y = (float)(Math.random() * (worldMapHeight - 0.2f));
-            items.add(new Bread(x, y));
+            items.add(new Bread(x, y, this));
         }
 
         for (int i = 0; i < 20; i++) {
             float x = (float)(Math.random() * (worldMapWidth - 0.2f));
             float y = (float)(Math.random() * (worldMapHeight - 0.2f));
-            items.add(new GoldenFeather(x, y));
+            items.add(new GoldenFeather(x, y,this));
         }
 
         setInputProcessor();
+        inventory = new Inventory();
     }
 
     public void resize(int width, int height) {
@@ -107,8 +109,8 @@ public class Game {
             waveManager.update(delta, player.getCenterPosition());
         }
 
-        System.out.println("instance health" + player.getHealth());
-        System.out.println("static health" + currentPlayer.getHealth());
+        //("instance health" + player.getHealth());
+        //System.out.println("static health" + currentPlayer.getHealth());
 
         Menu.Updateall();
         draw();
@@ -118,7 +120,7 @@ public class Game {
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean touchUp(int x, int y, int pointer, int button) {
-                System.out.println("click!!!");
+                //System.out.println("click!!!");
                 return Menu.Inputall(x, y, menuViewport);
             }
 
@@ -187,6 +189,10 @@ public class Game {
 
     public Array<Goose> getGeese() {
         return waveManager.getActiveGeese();
+    }
+
+    public Inventory getInventory(){
+        return this.inventory;
     }
 
     public Array<Item> getItems() {

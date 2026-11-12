@@ -15,11 +15,14 @@ public class Item extends Entity { // Is there any point in extending here? - ye
     public float yCoord;
     private Rectangle itemBounds = new Rectangle();
     public boolean collected;
+    protected Game game;
 
 
-    public Item(String texturePath, float scale) {
+    public Item(String texturePath, float scale, Game game) {
         super(texturePath, 1, scale);
         sprite.setSize(scale,scale);
+        this.game = game;
+        
     }
 
     public void updateBounds(){
@@ -30,6 +33,7 @@ public class Item extends Entity { // Is there any point in extending here? - ye
     public void pickUp(){
         this.collected = true;
         this.inInventory = true;
+        game.getInventory().addItem(this);
         
     }
 
@@ -42,7 +46,8 @@ public class Item extends Entity { // Is there any point in extending here? - ye
 
             this.inInventory = false;
             this.itemUsed = true;
-            //player.Inventory.remove(this);
+            game.getInventory().removeItem(this);
+           
         }
     }
 
@@ -59,12 +64,6 @@ public class Item extends Entity { // Is there any point in extending here? - ye
     public void itemAction(Player player, Array<Goose> geese, SpriteBatch spriteBatch){
 
     }
-
-    //public void renderItem(float xCoord, float yCoord){
-
-    //}
-
-
 
 
     public void endEffect(){

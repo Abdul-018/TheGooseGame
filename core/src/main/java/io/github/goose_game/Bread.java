@@ -12,8 +12,8 @@ public class Bread extends Item {
     public Texture breadTexture;
     private Sprite breadSprite;
 
-    public Bread(float xCoord, float yCoord){
-        super("bread.png", 0.4f);
+    public Bread(float xCoord, float yCoord, Game game){
+        super("bread.png", 0.4f, game);
         this.inInventory = false;
         this.effectDuration = 10f;
         this.collected = false;

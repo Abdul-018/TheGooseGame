@@ -11,8 +11,8 @@ public class GoldenFeather extends Item {
     public Texture featherTexture;
     Sprite featherSprite;
 
-    public GoldenFeather(float xCoord, float yCoord){
-        super("feather.png", 0.4f);
+    public GoldenFeather(float xCoord, float yCoord, Game game){
+        super("feather.png", 0.4f, game);
         this.inInventory = false;
         this.effectDuration = 10f;
 
