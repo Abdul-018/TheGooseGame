@@ -1,12 +1,13 @@
 package io.github.goose_game;
 
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 
 public class Item extends Entity { // Is there any point in extending here? - yeah, even if we arent pulling anything it fits the class structure and allows us to later on
 
     public boolean inInventory;
+    public String invGraphicInternalAddress;
     public boolean itemUsed = false;
     public static float effectDuration;
     private Player player;
@@ -22,7 +23,7 @@ public class Item extends Entity { // Is there any point in extending here? - ye
         super(texturePath, 1, scale);
         sprite.setSize(scale,scale);
         this.game = game;
-        
+        invGraphicInternalAddress = "empty.png";
     }
 
     public void updateBounds(){

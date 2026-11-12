@@ -25,7 +25,7 @@ public class Bread extends Item {
 
         //breadSprite = new Sprite(new Texture("bread.png"));
         //breadSprite.setPosition(xCoord, yCoord);
-    
+        invGraphicInternalAddress = "bread_loaf.png";
         sprite.setPosition(xCoord, yCoord);
     
         updateBounds();

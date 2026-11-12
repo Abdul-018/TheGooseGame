@@ -3,8 +3,8 @@ package io.github.goose_game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 
 public class GoldenFeather extends Item {
     float timeRemaining = effectDuration;
@@ -17,7 +17,7 @@ public class GoldenFeather extends Item {
         this.effectDuration = 10f;
 
         this.collected = false;
-
+        invGraphicInternalAddress = "golden_feather.png";
         sprite.setPosition(xCoord, yCoord);
         
         updateBounds();

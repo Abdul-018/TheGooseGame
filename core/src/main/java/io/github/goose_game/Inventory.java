@@ -43,14 +43,19 @@ public class Inventory {
     public void removeItem(Item item) {
         items.remove(item);
         if (currItemIndex >= items.size()) {
-            currItemIndex = Math.max(0, items.size() - 1);
+            currItemIndex = Math.max(0, currItemIndex - 1);
+            
         }
+        System.out.println(currItemIndex+"items.size"+items.size());
     }
 
     public ArrayList<Item> getItems() {
         return items;
     };
 
+    public int GetCurrItemIndex(){
+        return currItemIndex;
+    }
     public int numberofitems() {
         return items.size();
     }
