@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 
 import io.github.goose_game.Game;
+import io.github.goose_game.Inventory;
 import io.github.goose_game.Uimenu.Menu;
 import io.github.goose_game.Uimenu.Uielement;
 public class UIMenu {
@@ -69,6 +70,13 @@ public class UIMenu {
                         this.setTexture(MakeScoreTexture(scoreNum));
                         lastScoreUpdate = scoreNum;
                     }
+                }
+            });
+            gameUIElements.add(new Uielement(MakeInventoryTexture(),new float[]{64,360},Uielement.Align.LEFT,1f,4f,1){
+                @Override 
+                public void Update(){
+                    this.pos[1] = 720-4*(4+(24+(Game.currentInventory.getItems().size()-1)*28f)/2);
+                    this.setTexture(MakeInventoryTexture());
                 }
             });
             gameUIElements.add(new Uielement(healthBook,new float[]{1206,healthy},Uielement.Align.RIGHT,1f,4f,1){
@@ -152,6 +160,33 @@ public class UIMenu {
             gameUI.Open();
         }
     };
+
+    public static Texture MakeInventoryTexture(){
+        Inventory inv = Game.currentInventory;
+        if (inv.getItems().isEmpty()){
+            return empty;
+        }else{
+            int size = inv.getItems().size();
+            int curIndex = inv.GetCurrItemIndex();
+            Pixmap inventoryBG = new Pixmap(Gdx.files.internal("itembg.png"));
+            Pixmap inventorySelect = new Pixmap(Gdx.files.internal("itemselect.png"));
+            Pixmap pixmap = new Pixmap(24,24+(size-1)*(28),Pixmap.Format.RGBA8888);
+            for (int i = 0; i < size; i++) {
+                pixmap.drawPixmap(inventoryBG, 0, i*28);
+                Pixmap itemGraphic = new Pixmap(Gdx.files.internal(inv.getItems().get(i).invGraphicInternalAddress));
+                pixmap.drawPixmap(itemGraphic, 4, i*28+4);
+                if (i == curIndex){
+                    pixmap.drawPixmap(inventorySelect, 1, i*28+1);
+                }
+                itemGraphic.dispose();
+            }
+            Texture output = new Texture(pixmap);
+            pixmap.dispose();
+            inventoryBG.dispose();
+            inventorySelect.dispose();
+            return output;
+        }
+    }
 
     public static Texture MakeScoreTexture(int num){
         String str = Integer.toString(num);

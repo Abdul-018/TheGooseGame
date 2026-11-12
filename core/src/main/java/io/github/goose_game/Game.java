@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -45,6 +44,7 @@ public class Game {
     public static Player currentPlayer;
     private Player player;
     private Timer timer;
+    public static Inventory currentInventory;
     private Inventory inventory;
     private Array<Item> items = new Array<>();
     public boolean isPaused = true;
@@ -72,7 +72,7 @@ public class Game {
         currentPlayer = player;
 
         // Initialize Goose Wave Manager (from Code 2) instead of raw array
-        waveManager = new GooseWaveManager("goose.png", worldMapWidth, worldMapHeight, mapCollision, pathfinder, player);
+        waveManager = new GooseWaveManager("goose2.png", worldMapWidth, worldMapHeight, mapCollision, pathfinder, player);
         // Spawn Items (from Code 1)
         for (int i = 0; i < 100; i++) {
             float x = (float)(Math.random() * (worldMapWidth - 0.2f));
@@ -86,6 +86,7 @@ public class Game {
             items.add(new GoldenFeather(x, y,this));
         }
         inventory = new Inventory();
+        currentInventory = inventory;
         setInputProcessor();
         
     }
