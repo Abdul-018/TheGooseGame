@@ -73,4 +73,11 @@ public class Item extends Entity { // Is there any point in extending here? - ye
     public Rectangle getItemBounds(){
         return itemBounds;
     }
+
+    @Override
+    public void draw(SpriteBatch spriteBatch) {
+        if (!collected){
+            super.draw(spriteBatch);
+        }
+    }
 }

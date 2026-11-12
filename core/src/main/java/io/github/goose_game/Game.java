@@ -107,6 +107,12 @@ public class Game {
             
             // Wave manager updates geese using pathfinding/collision
             waveManager.update(delta, player.getCenterPosition());
+
+            for (Item i : items){
+                if (i instanceof Bread){
+                    ((Bread) i).update(delta);
+                }
+            }
         }
 
         //("instance health" + player.getHealth());
@@ -175,9 +181,9 @@ public class Game {
 
         // Draw Items (Code 1)
         for (Item i : items) {
-            if (!i.collected) {
-                i.draw(spriteBatch);
-            }
+            
+            i.draw(spriteBatch);
+            
         }
 
         // Draw Player & Geese via WaveManager
