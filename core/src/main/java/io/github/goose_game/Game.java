@@ -28,10 +28,11 @@ public class Game {
     private static final int MAX_BREAD = 50;
     private static final int MAX_GOLDEN_FEATHERS = 2;
 
-    // Map and viewport dimensions
-    private final float VIEWPORT_WIDTH = 24f;
-    private final float VIEWPORT_HEIGHT = 13.5f;
-    private final float mapUnitScale = VIEWPORT_WIDTH / (64f * 16f);
+    private final float VIEWPORT_WIDTH = 14f;
+    private final float VIEWPORT_HEIGHT = 7.875f;
+
+    // keep mapUnitScale fixed so the world stays 37.5f x 37.5f regardless of zoom
+    private final float mapUnitScale = 24f / (64f * 16f);
     
     private final float worldMapWidth = 100f * 16f * mapUnitScale;
     private final float worldMapHeight = 100f * 16f * mapUnitScale;
