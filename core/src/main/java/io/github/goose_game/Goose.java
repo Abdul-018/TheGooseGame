@@ -1,10 +1,14 @@
 package io.github.goose_game;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
+import java.util.Random;
 
 public class Goose extends Entity {
 
@@ -15,20 +19,21 @@ public class Goose extends Entity {
     }
     // i used enum because its the quickest and easiest way to manage geese states
 
-    public static final float SIZE = 0.8f;
-    private static final float NIGHT_SPEED_MULTIPLIER = 1.3f; // placeholder, still needs tuning
-
     private GooseState state;
     private float speed;
     private Vector2 direction;
     private float distractionTimer; // countdown for how long the goose stays distracted for
 
-    private final GooseSprites sprites;
-    private final int variant;
+    private Texture spriteSheet;
+    private Texture spriteSheet2;
+    private Texture spriteSheet3;
+    private Animation<TextureRegion> walkRight;
+    private Animation<TextureRegion> walkLeft;
+    private TextureRegion standRight;
+    private TextureRegion standLeft;
     private float stateTime = 0f;
     private boolean facingRight = true;
     private boolean moving = false;
-    private boolean night = false;
 
     // hit box and collision bounds
     private Rectangle gooseBounds = new Rectangle();
@@ -45,12 +50,34 @@ public class Goose extends Entity {
 
     private Player player;
 
-    public Goose(GooseSprites sprites, float x, float y, int health, Player player) {
-        super(health);
-        this.sprites = sprites;
-        this.variant = MathUtils.random(sprites.getVariantCount() - 1);
+    public Goose(String texturePath, float x, float y, int health, Player player) {
+        /*
+        this line is basically just an inheritance bridge
+        it calls on the entity class so we can load health and assets
+        ive put the documentation for it on the resources channel
+        */
+        super(texturePath, health, 1);
 
-        this.sprite.setSize(SIZE, SIZE);
+        spriteSheet = new Texture("gooseSheet.png");
+        spriteSheet2 = new Texture("gooseSheet2.png");
+        spriteSheet3 = new Texture("gooseSheet3.png");
+
+        Random random = new Random();
+        Texture[] textures = {spriteSheet, spriteSheet2, spriteSheet3};
+        Texture selectedTexture = textures[random.nextInt(textures.length)];
+
+        TextureRegion[][] frames = TextureRegion.split(selectedTexture, 128, 128);
+
+        // row 2 index 1 is walk right row 5 index 4 is walk left other rows for blinking and mouth
+        walkRight = new Animation<>(0.15f, frames[1]);
+        walkRight.setPlayMode(Animation.PlayMode.LOOP);
+        walkLeft = new Animation<>(0.15f, frames[4]);
+        walkLeft.setPlayMode(Animation.PlayMode.LOOP);
+
+        standRight = frames[1][0];
+        standLeft = frames[4][0];
+
+        this.sprite.setSize(0.8f, 0.8f);
         this.sprite.setPosition(x, y);
         
         this.speed = 1.8f + MathUtils.random(0.0f, 0.4f);
@@ -132,11 +159,10 @@ public class Goose extends Entity {
                 float distance = Vector2.dst(gooseCenter.x, gooseCenter.y, targetPoint.x, targetPoint.y);
                 if (distance > 0.05f) {
                     direction.set(targetPoint.x - gooseCenter.x, targetPoint.y - gooseCenter.y).nor();
-                    float currentSpeed = night ? speed * NIGHT_SPEED_MULTIPLIER : speed;
 
                     // move on x axis and check wall collisions
                     float oldX = sprite.getX();
-                    sprite.setX(oldX + direction.x * currentSpeed * delta);
+                    sprite.setX(oldX + direction.x * speed * delta);
                     updateBounds();
                     if (mapCollision != null && mapCollision.collides(gooseBounds)) {
                         sprite.setX(oldX);
@@ -145,7 +171,7 @@ public class Goose extends Entity {
 
                     // move on y axis and check wall collisions
                     float oldY = sprite.getY();
-                    sprite.setY(oldY + direction.y * currentSpeed * delta);
+                    sprite.setY(oldY + direction.y * speed * delta);
                     updateBounds();
                     if (mapCollision != null && mapCollision.collides(gooseBounds)) {
                         sprite.setY(oldY);
@@ -206,8 +232,13 @@ public class Goose extends Entity {
     @Override
     public void draw(SpriteBatch spriteBatch) {
         if (state != GooseState.Dispersed) {
-            spriteBatch.draw(sprites.getFrame(variant, night, moving, facingRight, stateTime),
-                sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
+            TextureRegion frame;
+            if (moving) {
+                frame = facingRight ? walkRight.getKeyFrame(stateTime) : walkLeft.getKeyFrame(stateTime);
+            } else {
+                frame = facingRight ? standRight : standLeft;
+            }
+            spriteBatch.draw(frame, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
         }
     }
 
@@ -228,9 +259,6 @@ public class Goose extends Entity {
     }
 
     public void distract(float duration) {
-        if (state == GooseState.Dispersed) {
-            return;
-        }
         this.state = GooseState.Distracted;
         this.distractionTimer = duration;
     }
@@ -243,8 +271,11 @@ public class Goose extends Entity {
         return gooseBounds;
     }
 
-    // night gives the geese red eyes and makes them faster
-    public void setNight(boolean night) {
-        this.night = night;
+    @Override
+    public void dispose() {
+        super.dispose();
+        spriteSheet.dispose();
+        spriteSheet2.dispose();
+        spriteSheet3.dispose();
     }
 }

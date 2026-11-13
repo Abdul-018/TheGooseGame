@@ -53,10 +53,6 @@ public class Game {
     public static Player currentPlayer;
     private Player player;
     private Timer timer;
-    private GooseSprites gooseSprites;
-    private GooseSwarmEvent swarmEvent;
-    private NightEvent nightEvent;
-    private final Color nightTint = new Color(0.25f, 0.25f, 0.45f, 1f);
     public static Inventory currentInventory;
     private Inventory inventory;
     private Array<Item> items = new Array<>();
@@ -84,10 +80,7 @@ public class Game {
         player.setHealth(10);
         currentPlayer = player;
 
-        gooseSprites = new GooseSprites();
-
-        waveManager = new GooseWaveManager(gooseSprites, worldMapWidth, worldMapHeight, mapCollision, pathfinder, player);
-        createEvents();
+        waveManager = new GooseWaveManager("goose2.png", worldMapWidth, worldMapHeight, mapCollision, pathfinder, player);
         
         spawnInitialItems();
         
@@ -107,12 +100,6 @@ public class Game {
      * Checks a "Fence" tile layer first if present, otherwise uses the outer
      * bounds of the "Collision" layer.
      */
-    private void createEvents() {
-        // placeholder zone, still needs a real spot on the map
-        swarmEvent = new GooseSwarmEvent(18f, 10f, 2f, 2f, gooseSprites, mapCollision, player);
-        nightEvent = new NightEvent();
-    }
-
     private void calculateFenceInterior() {
         float minX = worldMapWidth;
         float minY = worldMapHeight;
@@ -306,12 +293,6 @@ public class Game {
             player.update(viewport, worldMapWidth, worldMapHeight, this, mapCollision);
             waveManager.update(delta, player.getCenterPosition());
 
-            nightEvent.update(delta);
-            swarmEvent.update(player.getCenterPosition(), waveManager.getActiveGeese(), worldMapWidth, worldMapHeight);
-            for (Goose g : waveManager.getActiveGeese()) {
-                g.setNight(nightEvent.isNight());
-            }
-
             for (Item i : items) {
                 if (i instanceof Bread) {
                     ((Bread) i).update(delta);
@@ -384,10 +365,7 @@ public class Game {
         viewport.apply();
         OrthographicCamera cam = (OrthographicCamera) viewport.getCamera();
         mapRenderer.setView(cam);
-        // only the map is tinted, so the geese and their red eyes stand out
-        spriteBatch.setColor(nightEvent.isNight() ? nightTint : Color.WHITE);
         mapRenderer.render();
-        spriteBatch.setColor(Color.WHITE);
 
         spriteBatch.setProjectionMatrix(cam.combined);
         spriteBatch.begin();
@@ -415,7 +393,6 @@ public class Game {
         player.dispose();
         if (waveManager != null) waveManager.dispose();
         for (Item i : items) i.dispose();
-        gooseSprites.dispose();
     }
 
     public Array<Goose> getGeese() {
@@ -458,8 +435,7 @@ public class Game {
         if (waveManager != null) {
             waveManager.dispose();
         }
-        waveManager = new GooseWaveManager(gooseSprites, worldMapWidth, worldMapHeight, mapCollision, pathfinder, player);
-        createEvents();
+        waveManager = new GooseWaveManager("goose2.png", worldMapWidth, worldMapHeight, mapCollision, pathfinder, player);
     }
     public int getActiveBreadCount() {
         int count = 0;
