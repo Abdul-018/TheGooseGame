@@ -1,5 +1,8 @@
 package io.github.goose_game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 
 public class Item extends Entity { // Is there any point in extending here? - yeah, even if we arent pulling anything it fits the class structure and allows us to later on
@@ -8,9 +11,28 @@ public class Item extends Entity { // Is there any point in extending here? - ye
     public boolean inInventory;
     public boolean itemUsed = false;
     public static float effectDuration;
+    public String invGraphicInternalAddress = "items/empty.png";
+
+    // bounce animation stuff
+    private float bounceTimer;
+    private static final float BOUNCE_HEIGHT = 3f;
+    private static final float BOUNCE_SPEED = 3f;
 
     public Item(String texturePath) {
         super(texturePath, 1);
+        // random offset so they dont all bounce in sync
+        bounceTimer = MathUtils.random(0f, MathUtils.PI2);
+    }
+
+    @Override
+    public void draw(SpriteBatch spriteBatch) {
+        if (!inInventory && !itemUsed) {
+            bounceTimer += Gdx.graphics.getDeltaTime() * BOUNCE_SPEED;
+            float offset = MathUtils.sin(bounceTimer) * BOUNCE_HEIGHT;
+            sprite.translateY(offset);
+            sprite.draw(spriteBatch);
+            sprite.translateY(-offset);
+        }
     }
 
     public void pickUp() throws InvalidItemException{
@@ -43,6 +65,7 @@ public class Item extends Entity { // Is there any point in extending here? - ye
         }else if (otherEntity instanceof Player){ // If there is a collision between item and player, the player picks the item up
             try{
                 pickUp();
+                Game.currentInventory.addItem(this);
             }catch (InvalidItemException e){
                 System.out.println("Item error: " + e.getMessage());
             }

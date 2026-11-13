@@ -13,6 +13,7 @@ public class Entity {
 
     public Entity(String texturePath, int health) {
         this.texture = new Texture(texturePath);
+        this.texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         this.sprite = new Sprite(texture);
         this.health = health;
     }

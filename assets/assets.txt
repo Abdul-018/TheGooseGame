@@ -1,8 +1,420 @@
-Goose.png
-bread.png
-feather.png
-gooseSheet.png
-libgdx.png
-studentSheet.png
-test_background.png
-test_player.png
+goose/duck_brown_sheet_1x.png
+goose/duck_grey_sheet_1x.png
+goose/goose.png
+goose/goose_sheet_1x.png
+items/bread.png
+items/bread_loaf.png
+items/empty.png
+items/feather.png
+items/golden_feather.png
+items/itembg.png
+items/itemselect.png
+map/Goose Game Assets/Collision Block .png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Chicken/Chicken_baby_1.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Chicken/Chicken_baby_2.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Chicken/Chicken_brown.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Chicken/Chicken_eggs.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Chicken/Chicken_white.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Cow/Cow_blackwhite.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Cow/Cow_blackwhite_baby.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Cow/Cow_brownwhite.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Cow/Cow_brownwhite_baby.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Cow/Cow_highlander.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Cow/Cow_highlander_baby.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Duck/Duck_baby.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Duck/Duck_mallard.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Duck/Duck_white.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Fish/Fish_big.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Fish/Fish_big_outline.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Fish/Fish_misc.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Fish/Fish_misc_outline.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Fish/Fish_small.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Fish/Fish_small_outline.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Goose/Goose_baby.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Goose/Goose_canada.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Goose/Goose_white.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Sheep/Sheep_blacknose.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Sheep/Sheep_blacknose_baby.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Sheep/Sheep_blacknose_sheared.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Sheep/Sheep_brown.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Sheep/Sheep_brown_baby.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Sheep/Sheep_brown_sheared.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Sheep/Sheep_white.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Sheep/Sheep_white_baby.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Sheep/Sheep_white_sheared.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/-- Pre-assembled Characters/char1.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/-- Pre-assembled Characters/char2.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/-- Pre-assembled Characters/char3.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/-- Pre-assembled Characters/char4.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/-- Pre-assembled Characters/char5.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/-- Pre-assembled Characters/char6.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/-- Pre-assembled Characters/char7.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/-- Pre-assembled Characters/char8.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/-- Pre-assembled Characters/char9.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Base/Base1_body.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Base/Base1_hand_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Base/Base1_hand_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Base/Base2_body.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Base/Base2_hand_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Base/Base2_hand_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Base/Base3_body.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Base/Base3_hand_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Base/Base3_hand_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_long_1.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_long_2.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_long_3.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_long_4.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_long_5.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_long_6.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_shorts_1.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_shorts_2.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_shorts_3.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_shorts_4.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_shorts_5.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_shorts_6.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_skirt_1.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_skirt_2.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_skirt_3.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_skirt_4.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_skirt_5.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Bottoms/Bottoms_skirt_6.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Character_animation_guide.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Character_assembly_guide.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_middlePart_1.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_middlePart_2.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_middlePart_3.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_middlePart_4.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_middlePart_5.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_middlePart_6.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_ponytail_1.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_ponytail_2.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_ponytail_3.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_ponytail_4.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_ponytail_5.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_ponytail_6.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_short_1.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_short_2.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_short_3.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_short_4.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_short_5.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Hairstyles/Hairstyles_short_6.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/axe/axe_diamond_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/axe/axe_diamond_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/axe/axe_gold_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/axe/axe_gold_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/axe/axe_iron_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/axe/axe_iron_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/axe/axe_ruby_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/axe/axe_ruby_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/axe/axe_stone_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/axe/axe_stone_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/axe/axe_wood_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/axe/axe_wood_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/fishingRod_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/fishingRod_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/hoe_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/hoe_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/pickaxe/pickaxe_diamond_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/pickaxe/pickaxe_diamond_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/pickaxe/pickaxe_gold_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/pickaxe/pickaxe_gold_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/pickaxe/pickaxe_iron_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/pickaxe/pickaxe_iron_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/pickaxe/pickaxe_ruby_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/pickaxe/pickaxe_ruby_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/pickaxe/pickaxe_stone_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/pickaxe/pickaxe_stone_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/pickaxe/pickaxe_wood_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/pickaxe/pickaxe_wood_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/stick_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/stick_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/sword/sword_diamond_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/sword/sword_diamond_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/sword/sword_gold_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/sword/sword_gold_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/sword/sword_iron_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/sword/sword_iron_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/sword/sword_ruby_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/sword/sword_ruby_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/sword/sword_stone_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/sword/sword_stone_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/sword/sword_wood_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/sword/sword_wood_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/torch_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/torch_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/wateringCan_back.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tools/wateringCan_front.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_hoodie_1.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_hoodie_2.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_hoodie_3.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_hoodie_4.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_hoodie_5.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_hoodie_6.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_shirt_1.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_shirt_2.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_shirt_3.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_shirt_4.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_shirt_5.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_shirt_6.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_striped_1.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_striped_2.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_striped_3.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_striped_4.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_striped_5.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Characters/Tops/Tops_striped_6.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Icons/Icons.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Icons/Icons_outline.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Icons/Icons_tools.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Icons/Icons_tools_outline.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Monsters/Rat.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Monsters/Rat_king.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Monsters/Skeleton.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Monsters/Skeleton_withered.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Monsters/Slime.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Monsters/Slime_blue.png
+map/Goose Game Assets/CozyValley_Premium_1.3/README.txt
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Barn.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Beach.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Boats.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Caveprops.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Chests.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Chickencoop.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Crafters.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Crops/Crops_appletree.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Crops/Crops_carrot.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Crops/Crops_compact.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Crops/Crops_dead.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Crops/Crops_lemontree.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Crops/Crops_parsnip.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Crops/Crops_pepper.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Crops/Crops_potato.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Crops/Crops_pumpkin.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Crops/Crops_sunflower.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Crops/Crops_tomato.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/DocksBridges.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Farmprops.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Feedingtroughs.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Flowers.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Grounddecor.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Mushrooms.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Ores.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Seaprops.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Soil.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Stonebridge.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Stonefence.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Terrain.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Terrain_cave.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Tileset.tsx
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Toolprops.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Trees/Trees_birch.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Trees/Trees_birch_young.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Trees/Trees_cherryblossom.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Trees/Trees_cherryblossom_young.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Trees/Trees_oak.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Trees/Trees_oak_young.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Trees/Trees_palm.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Trees/Trees_palm_young.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Trees/Trees_spruce.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Trees/Trees_spruce_young.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Water.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Water_cave.png
+map/Goose Game Assets/CozyValley_Premium_1.3/Tilesets/Woodenfence.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/Campus_Ground.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/Campus_Ground.tsx
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/Campus_Ground_example_scene.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/Campus_Ground_index.json
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/Campus_Ground_preview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/Gravel_preview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/old_v1/Campus_Ground.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/old_v1/Campus_Ground.tsx
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/old_v1/Campus_Ground_example_scene.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/old_v1/Campus_Ground_preview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/old_v2/Campus_Ground.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/old_v2/Campus_Ground_preview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/source/G1_Pavements_and_Plazas.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/source/G2_Roads_and_Car_Parks.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/source/build_ground.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/source/gravel_fix.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/source/masonry.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/source/modeshrink.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Ground/source/scene.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/Batch5_preview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/Building_Signs_preview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/Campus_Props.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/Campus_Props.tsx
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/Campus_Props_index.json
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/Campus_Props_preview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/Kits_preview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch1/Campus_Props.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch1/Campus_Props.tsx
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch1/Campus_Props_index.json
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch1/Campus_Props_preview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch2/Campus_Props.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch2/Campus_Props.tsx
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch2/Campus_Props_index.json
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch2/Campus_Props_preview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch3/Campus_Props.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch3/Campus_Props.tsx
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch3/Campus_Props_index.json
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch4/Campus_Props.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch4/Campus_Props.tsx
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch4/Campus_Props_index.json
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch5/Campus_Props.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch5/Campus_Props.tsx
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch5/Campus_Props_index.json
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch5/Campus_Props_preview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch6/Campus_Props.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch6/Campus_Props.tsx
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch6/Campus_Props_index.json
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_batch6/Campus_Props_preview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_blended/Campus_Props.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_blended/Campus_Props_preview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_multitile/Campus_Props.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_multitile/Campus_Props.tsx
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_multitile/Campus_Props_index.json
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_multitile/Campus_Props_preview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_signs_v1/Building_Signs_preview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_signs_v1/Campus_Props.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_signs_v2_large/Building_Signs_preview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_signs_v2_large/Campus_Props.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/old_signs_v2_large/Campus_Props_index.json
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/benches.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/bikes.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/bins.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/build_batch5.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/build_kits.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/build_more.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/build_v2.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/build_v3.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/building_signs.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/building_signs_v2.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/busstop.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/cafe.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/campus_props_cfg.json
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/carpark.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/cars.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/construction.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/fountains.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/freshers.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/garden.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/graduation.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/kiosks.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/kits_detect.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/kits_overview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/lake.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/lamps.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/make_campus_props.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/modeshrink.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/pools.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/posts.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/racks.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/recentre.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/seasonal.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/segments.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/signs.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/signs.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/signs_small.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/signs_v2.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/specs_batch2.json
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/specs_batch3.json
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/specs_batch5.json
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/specs_kits.json
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/sports.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Props/source/study.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Trees/Campus_Trees.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Trees/Campus_Trees.tsx
+map/Goose Game Assets/Tilesets (merged)/Campus_Trees/Campus_Trees_index.json
+map/Goose Game Assets/Tilesets (merged)/Campus_Trees/Campus_Trees_preview.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Trees/source/T1_big_trees.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Trees/source/build_trees.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Trees/source/treelib.py
+map/Goose Game Assets/Tilesets (merged)/Campus_Trees/source/trees_sheet_a.png
+map/Goose Game Assets/Tilesets (merged)/Campus_Trees/source/trees_sheet_b.png
+map/Goose Game Assets/Tilesets (merged)/Fences and Bridges.png
+map/Goose Game Assets/Tilesets (merged)/Ground.png
+map/Goose Game Assets/Tilesets (merged)/Planters_and_Hedges/Planters_and_Hedges.png
+map/Goose Game Assets/Tilesets (merged)/Planters_and_Hedges/Planters_and_Hedges.tsx
+map/Goose Game Assets/Tilesets (merged)/Planters_and_Hedges/Planters_and_Hedges_index.json
+map/Goose Game Assets/Tilesets (merged)/Planters_and_Hedges/Planters_and_Hedges_preview.png
+map/Goose Game Assets/Tilesets (merged)/Props.png
+map/Goose Game Assets/Tilesets (merged)/Trees.png
+map/Goose Game Assets/campus_v5/central_hall.png
+map/Goose Game Assets/campus_v5/derwent_college.png
+map/Goose Game Assets/campus_v5/heslington_hall.png
+map/Goose Game Assets/campus_v5/ian_wand.png
+map/Goose Game Assets/campus_v5/ian_wand_pod.png
+map/Goose Game Assets/campus_v5/jb_morrell_library.png
+map/Goose Game Assets/campus_v5/piazza_building.png
+map/Goose Game Assets/campus_v5/previews/central_hall.png
+map/Goose Game Assets/campus_v5/previews/derwent_college.png
+map/Goose Game Assets/campus_v5/previews/heslington_hall.png
+map/Goose Game Assets/campus_v5/previews/ian_wand.png
+map/Goose Game Assets/campus_v5/previews/ian_wand_pod.png
+map/Goose Game Assets/campus_v5/previews/jb_morrell_library.png
+map/Goose Game Assets/campus_v5/previews/piazza_building.png
+map/Goose Game Assets/campus_v5/previews/ron_cooke_hub.png
+map/Goose Game Assets/campus_v5/ron_cooke_hub.png
+map/Goose Game Map.tmx
+map/Goose Game Tilemap/Boats.tsx
+map/Goose Game Tilemap/Building_Signs_preview.tsx
+map/Goose Game Tilemap/Campus_Ground.tsx
+map/Goose Game Tilemap/Campus_Props.tsx
+map/Goose Game Tilemap/Campus_Trees.tsx
+map/Goose Game Tilemap/Chests.tsx
+map/Goose Game Tilemap/Collision Block.tsx
+map/Goose Game Tilemap/DocksBridges.tsx
+map/Goose Game Tilemap/Farmprops.tsx
+map/Goose Game Tilemap/Feedingtroughs.tsx
+map/Goose Game Tilemap/Fences and Bridges.tsx
+map/Goose Game Tilemap/Flowers.tsx
+map/Goose Game Tilemap/Ground.tsx
+map/Goose Game Tilemap/Grounddecor.tsx
+map/Goose Game Tilemap/Mushrooms.tsx
+map/Goose Game Tilemap/Planters_and_Hedges.tsx
+map/Goose Game Tilemap/Props.tsx
+map/Goose Game Tilemap/Seaprops.tsx
+map/Goose Game Tilemap/Soil.tsx
+map/Goose Game Tilemap/Stonebridge.tsx
+map/Goose Game Tilemap/Stonefence.tsx
+map/Goose Game Tilemap/Terrain.tsx
+map/Goose Game Tilemap/Toolprops.tsx
+map/Goose Game Tilemap/Trees, stumps and bushes v2.tsx
+map/Goose Game Tilemap/Trees.tsx
+map/Goose Game Tilemap/Trees_birch.tsx
+map/Goose Game Tilemap/Trees_birch_young.tsx
+map/Goose Game Tilemap/Trees_cherryblossom.tsx
+map/Goose Game Tilemap/Trees_cherryblossom_young.tsx
+map/Goose Game Tilemap/Trees_oak.tsx
+map/Goose Game Tilemap/Trees_oak_young.tsx
+map/Goose Game Tilemap/Trees_spruce.tsx
+map/Goose Game Tilemap/Trees_spruce_young.tsx
+map/Goose Game Tilemap/Water.tsx
+map/Goose Game Tilemap/Woodenfence.tsx
+map/Goose Game Tilemap/central_hall.tsx
+map/Goose Game Tilemap/derwent_college.tsx
+map/Goose Game Tilemap/heslington_hall.tsx
+map/Goose Game Tilemap/ian_wand.tsx
+map/Goose Game Tilemap/jb_morrell_library.tsx
+map/Goose Game Tilemap/piazza_building.tsx
+map/Goose Game Tilemap/ron_cooke_hub.tsx
+menus/gameoverscreen.png
+menus/gamewinscreen.png
+menus/health_book.png
+menus/health_book_torn1_darkened.png
+menus/health_book_torn2_darkened.png
+menus/mainmenu_background.png
+menus/mainmenu_background_left.png
+menus/mainmenu_background_right.png
+menus/mainmenu_button.png
+menus/mainmenu_button_down.png
+menus/mainmenu_gear.png
+menus/mainmenu_gear_down.png
+menus/pausemenu_background.png
+menus/pausemenu_mainmenu.png
+menus/pausemenu_mainmenu_down.png
+menus/pausemenu_resume.png
+menus/pausemenu_resume_down.png
+menus/pausemenu_text.png
+menus/uimenu_nums.png
+menus/uimenu_score.png
+player/playerSheet.png
