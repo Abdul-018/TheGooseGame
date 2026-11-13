@@ -11,7 +11,7 @@ public class MapCollision {
     // list of all collision boxes across the map
     private Array<Rectangle> collisionBoxes = new Array<>();
 
-    //  loads collision boxes when the map is provided
+    // loads collision boxes when the map is provided
     public MapCollision(TiledMap map, float mapWidth, float mapHeight) {
         loadCollisions(map, mapWidth, mapHeight);
     }

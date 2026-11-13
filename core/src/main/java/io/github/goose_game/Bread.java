@@ -1,21 +1,19 @@
 package io.github.goose_game;
 
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.Gdx;
 
 public class Bread extends Item {
+    
+    // static reference so the wave manager can easily locate the active distraction
+    public static Bread activeBread = null;
+    public boolean isConsumed = false;
 
-    private Circle effectArea;
-    public Texture breadTexture;
-    //private Sprite breadSprite;
     private boolean throwing = false;
     private float throwTimer = 0.15f;
     private float throwSpeed = 3f;
-    private boolean breadVisible = false;
+    public boolean breadVisible = false;
 
     public Bread(float xCoord, float yCoord, Game game){
         super("bread.png", 0.4f, game);
@@ -23,55 +21,42 @@ public class Bread extends Item {
         this.effectDuration = 10f;
         this.collected = false;
 
-        //breadSprite = new Sprite(new Texture("bread.png"));
-        //breadSprite.setPosition(xCoord, yCoord);
         invGraphicInternalAddress = "bread_loaf.png";
         sprite.setPosition(xCoord, yCoord);
     
         updateBounds();
-
     }
 
     @Override
     public void itemAction(Player player, Array<Goose> geese, SpriteBatch spriteBatch) {
-
-        this.effectArea = new Circle(player.getPosition().x, player.getPosition().y, 10);
-
-        sprite.setPosition(player.getPosition().x, player.getPosition().y);  // Throws slightly to the side of the player
-        //draw(spriteBatch);
-
+        sprite.setPosition(player.getPosition().x, player.getPosition().y); 
+        
         throwing = true;
         breadVisible = true;
-
-
-        for (Goose g : geese){
-            if (effectArea.contains(g.getPosition().x, g.getPosition().y)){
-                g.distract(effectDuration);
-            }
-        }
-
-        effectDuration -= Gdx.graphics.getDeltaTime();
-        if(effectDuration <= 0){
-            endEffect();
-        }
-
+        isConsumed = false;
+        activeBread = this;       
+        // set this bread as the active target
+        effectDuration = 10f;
+        throwTimer = 0.15f;
     }
 
     public void update(float delta){
         if (throwing){
-            sprite.translateY(-throwSpeed*delta);
-
+            sprite.translateY(-throwSpeed * delta);
             throwTimer -= delta;
 
             if (throwTimer <= 0){
                 throwing = false;
-                effectDuration = 10f;
             }
-        }else if (breadVisible){
+        } else if (breadVisible){
             effectDuration -= delta;
 
-            if (effectDuration <= 0){
+            // bread disappears if time runs out or if a goose eats it
+            if (effectDuration <= 0 || isConsumed){
                 breadVisible = false;
+                if (activeBread == this) {
+                    activeBread = null;
+                }
             }
         }
     }
@@ -80,9 +65,8 @@ public class Bread extends Item {
     public void draw(SpriteBatch spriteBatch) {
         if (throwing || breadVisible){
             sprite.draw(spriteBatch);
-        }else{
+        } else {
             super.draw(spriteBatch);
         }
     }
-
 }

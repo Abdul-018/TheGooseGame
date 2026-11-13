@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
-public class Item extends Entity { // Is there any point in extending here? - yeah, even if we arent pulling anything it fits the class structure and allows us to later on
+public class Item extends Entity {
 
     public boolean inInventory;
     public String invGraphicInternalAddress;
@@ -32,11 +32,14 @@ public class Item extends Entity { // Is there any point in extending here? - ye
     }
 
     public void pickUp(){
-        this.collected = true;
-        this.inInventory = true;
-        game.getInventory().addItem(this);
-        
+    //fixed the error causing ghost inventory
+    if (this.collected) {
+        return;
     }
+    this.collected = true;
+    this.inInventory = true;
+    game.getInventory().addItem(this);
+}
 
     public void useItem(Player player, Array<Goose> geese, SpriteBatch spriteBatch){
         if(this.inInventory && !this.itemUsed){
@@ -52,11 +55,12 @@ public class Item extends Entity { // Is there any point in extending here? - ye
         }
     }
 
-    public void onCollision(Entity otherEntity){ // Dictates what happens when the item is in the game world and a player/goose touches it
+    public void onCollision(Entity otherEntity){ 
 
         if (otherEntity instanceof Goose){
-            //TODO item interacts with goose
-        }else if (otherEntity instanceof Player){ // If there is a collision between item and player, the player picks the item up
+            // todo item interacts with goose
+        }else if (otherEntity instanceof Player){ 
+            // player picks it up if they crash into it
             pickUp();
             
         }

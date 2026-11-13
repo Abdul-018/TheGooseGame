@@ -14,7 +14,7 @@ public class GooseWaveManager {
     
     private MapCollision mapCollision;
     private PathFinder pathfinder;
-    private Player player; // Added player reference
+    private Player player; 
 
     private float spawnTimer = 0f;
     private float waveTimer = 0f;
@@ -25,7 +25,6 @@ public class GooseWaveManager {
     private int geeseDispersed = 0;
     private boolean gameOver = false;
 
-    // Added Player parameter to constructor
     public GooseWaveManager(String texturePath, float worldMapWidth, float worldMapHeight, MapCollision mapCollision, PathFinder pathfinder, Player player) {
         this.texturePath = texturePath;
         this.worldMapWidth = worldMapWidth;
@@ -34,7 +33,6 @@ public class GooseWaveManager {
         this.pathfinder = pathfinder;
         this.player = player;
 
-        // Spawn initial 3 geese
         spawnGeese(3);
     }
 
@@ -49,11 +47,25 @@ public class GooseWaveManager {
 
         waveTimer += delta;
 
-        // update active geese and remove dispersed ones
+        // target override point to bread if it exists and hasnt been eaten otherwise point to player
+        Vector2 currentTarget = playerPosition;
+        if (Bread.activeBread != null && !Bread.activeBread.isConsumed && Bread.activeBread.breadVisible) {
+            currentTarget = Bread.activeBread.getPosition();
+        }
+
         for (int i = activeGeese.size - 1; i >= 0; i--) {
             Goose goose = activeGeese.get(i);
             
-            goose.update(delta, playerPosition, activeGeese, mapCollision, pathfinder);
+            // geese will naturally pathfind to whichever target was assigned above
+            goose.update(delta, currentTarget, activeGeese, mapCollision, pathfinder);
+
+            // bread collision if this goose reaches the bread it eats it and disperses
+            if (Bread.activeBread != null && !Bread.activeBread.isConsumed && Bread.activeBread.breadVisible) {
+                if (goose.getCenterPosition().dst(Bread.activeBread.getPosition()) < 0.5f) {
+                    goose.disperse();
+                    Bread.activeBread.isConsumed = true; // flags bread so it disappears and other geese drop aggro
+                }
+            }
 
             if (goose.getState() == Goose.GooseState.Dispersed) {
                 goose.dispose();
@@ -64,7 +76,6 @@ public class GooseWaveManager {
 
         int maxForWave = 2 + currentWave;
 
-        // spawn 2 geese every 5 seconds until wave cap is reached
         if (spawnedInWave < maxForWave) {
             spawnTimer += delta;
             if (spawnTimer >= 5f) {
@@ -96,7 +107,6 @@ public class GooseWaveManager {
             float spawnX = 10.5f + MathUtils.random(1.0f);
             float spawnY = 5.8f + MathUtils.random(1.0f);
 
-            // Pass the player reference to the Goose constructor
             activeGeese.add(new Goose(texturePath, spawnX, spawnY, 3, player));
             spawnedInWave++;
         }

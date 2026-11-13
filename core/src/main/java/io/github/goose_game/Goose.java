@@ -17,12 +17,12 @@ public class Goose extends Entity {
         Distracted,
         Dispersed
     }
-    // I used enum because its the quickest and easiest way to manage geese states
+    // i used enum because its the quickest and easiest way to manage geese states
 
     private GooseState state;
     private float speed;
     private Vector2 direction;
-    private float distractionTimer; // Countdown for how long the goose stays distracted for
+    private float distractionTimer; // countdown for how long the goose stays distracted for
 
     private Texture spriteSheet;
     private Texture spriteSheet2;
@@ -35,12 +35,12 @@ public class Goose extends Entity {
     private boolean facingRight = true;
     private boolean moving = false;
 
-    // Hit box & collision bounds
+    // hit box and collision bounds
     private Rectangle gooseBounds = new Rectangle();
     private final float boundsWidth = 0.3f;
     private final float boundsHeight = 0.3f;
 
-    // Pathfinding & anti-stuck variables (from Code 2)
+    // pathfinding and anti stuck variables from code 2
     private Array<Vector2> currentPath = new Array<>();
     private float pathRecalcTimer = 0f;
     private static final float RECALC_INTERVAL = 0.3f;
@@ -52,9 +52,9 @@ public class Goose extends Entity {
 
     public Goose(String texturePath, float x, float y, int health, Player player) {
         /*
-        This line is basically just an inheritance bridge
-        It calls on the entity class so we can load health and assets
-        I've put the documentation for it on the resources channel
+        this line is basically just an inheritance bridge
+        it calls on the entity class so we can load health and assets
+        ive put the documentation for it on the resources channel
         */
         super(texturePath, health, 1);
 
@@ -68,7 +68,7 @@ public class Goose extends Entity {
 
         TextureRegion[][] frames = TextureRegion.split(selectedTexture, 128, 128);
 
-        // row 2 (index 1) = walk right, row 5 (index 4) = walk left. other rows for blinking and mouth
+        // row 2 index 1 is walk right row 5 index 4 is walk left other rows for blinking and mouth
         walkRight = new Animation<>(0.15f, frames[1]);
         walkRight.setPlayMode(Animation.PlayMode.LOOP);
         walkLeft = new Animation<>(0.15f, frames[4]);
@@ -80,10 +80,9 @@ public class Goose extends Entity {
         this.sprite.setSize(0.8f, 0.8f);
         this.sprite.setPosition(x, y);
         
-        // Varied speed to prevent clustering (from Code 2) + base speed
         this.speed = 1.8f + MathUtils.random(0.0f, 0.4f);
         this.direction = new Vector2();
-        this.state = GooseState.Chasing; // The goose has to be in a chasing state when it spawns
+        this.state = GooseState.Chasing; // the goose has to be in a chasing state when it spawns
         this.distractionTimer = 0f;
 
         updateBounds();
@@ -92,30 +91,30 @@ public class Goose extends Entity {
         this.player = player;
     }
 
-    // Syncs the collision bounds with the sprite's current position
+    // syncs the collision bounds with the sprites current position
     private void updateBounds() {
         float offsetX = (sprite.getWidth() - boundsWidth) / 2f;
         float offsetY = (sprite.getHeight() - boundsHeight) / 2f;
         gooseBounds.set(sprite.getX() + offsetX, sprite.getY() + offsetY, boundsWidth, boundsHeight);
     }
 
-    // Gets the exact middle of the goose for distance checks
+    // gets the exact middle of the goose for distance checks
     public Vector2 getCenterPosition() {
         return gooseBounds.getCenter(new Vector2());
     }
 
-    // Overloaded update method supporting PathFinder and MapCollision (Code 2) while keeping player context
+    // overloaded update method supporting pathfinder and mapcollision code 2 while keeping player context
     public void update(float delta, Vector2 targetPosition, Array<Goose> geese, MapCollision mapCollision, PathFinder pathfinder) {
         switch (state) {
             case Dispersed:
-                // No updates if goose is "dead"
+                // no updates if goose is dead
                 moving = false;
                 break;
             case Distracted:
                 moving = false;
                 distractionTimer -= delta; // essentially decreasing the timer since the last frame
                 if (distractionTimer <= 0) {
-                    state = GooseState.Chasing; // So the goose starts chasing the player again
+                    state = GooseState.Chasing; // so the goose starts chasing the player again
                 }
                 return;
             case Chasing:
@@ -124,7 +123,7 @@ public class Goose extends Entity {
                 Vector2 gooseCenter = getCenterPosition();
                 pathRecalcTimer += delta;
 
-                // Make sure geese don't get stuck in corners / obstacles
+                // make sure geese dont get stuck in corners or obstacles
                 if (gooseCenter.dst(lastPosition) < 0.03f) {
                     stuckTimer += delta;
                     if (stuckTimer > 0.2f) {
@@ -140,7 +139,7 @@ public class Goose extends Entity {
                     lastPosition.set(gooseCenter);
                 }
 
-                // Ask the pathfinder for a new route if timer is up or we have no path
+                // ask the pathfinder for a new route if timer is up or we have no path
                 if (pathfinder != null && (pathRecalcTimer >= RECALC_INTERVAL || currentPath.isEmpty())) {
                     pathRecalcTimer = 0f;
                     currentPath = pathfinder.findPath(gooseCenter, targetPosition);
@@ -161,7 +160,7 @@ public class Goose extends Entity {
                 if (distance > 0.05f) {
                     direction.set(targetPoint.x - gooseCenter.x, targetPoint.y - gooseCenter.y).nor();
 
-                    // Move on X axis and check wall collisions
+                    // move on x axis and check wall collisions
                     float oldX = sprite.getX();
                     sprite.setX(oldX + direction.x * speed * delta);
                     updateBounds();
@@ -170,7 +169,7 @@ public class Goose extends Entity {
                         updateBounds();
                     }
 
-                    // Move on Y axis and check wall collisions
+                    // move on y axis and check wall collisions
                     float oldY = sprite.getY();
                     sprite.setY(oldY + direction.y * speed * delta);
                     updateBounds();
@@ -187,7 +186,7 @@ public class Goose extends Entity {
                     moving = false;
                 }
 
-                // Entity separation loop so geese don't stack on top of each other
+                // entity separation loop so geese dont stack on top of each other
                 if (geese != null) {
                     for (int i = 0; i < geese.size; i++) {
                         Goose other = geese.get(i);
@@ -200,7 +199,7 @@ public class Goose extends Entity {
                             }
                             push.nor().scl(1.2f * delta);
 
-                            // Push away on X
+                            // push away on x
                             float sepX = sprite.getX();
                             sprite.setX(sepX + push.x);
                             updateBounds();
@@ -209,7 +208,7 @@ public class Goose extends Entity {
                                 updateBounds();
                             }
 
-                            // Push away on Y
+                            // push away on y
                             float sepY = sprite.getY();
                             sprite.setY(sepY + push.y);
                             updateBounds();
@@ -225,7 +224,7 @@ public class Goose extends Entity {
         updateBounds();
     }
 
-    // Keep original update signature compatible if called without pathfinder/collision
+    // keep original update signature compatible if called without pathfinder or collision
     public void update(float delta, Vector2 targetPosition, Array<Goose> geese) {
         update(delta, targetPosition, geese, null, null);
     }

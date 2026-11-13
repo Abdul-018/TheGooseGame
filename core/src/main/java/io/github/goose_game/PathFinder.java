@@ -13,7 +13,7 @@ public class PathFinder {
         int x, y;
         boolean walkable;
         float gCost; // distance from start
-        float hCost; // estimated distance to target (heuristic)
+        float hCost; // estimated distance to target heuristic
         Node parent; // previous node in the path trail
 
         public Node(int x, int y, boolean walkable) {
@@ -22,7 +22,7 @@ public class PathFinder {
             this.walkable = walkable;
         }
 
-        // total cost g + h used to figure out which node to check next
+        // total cost g plus h used to figure out which node to check next
         public float getFCost() {
             return gCost + hCost;
         }
@@ -163,7 +163,7 @@ public class PathFinder {
         return null;
     }
 
-    // manhattan distance heuristic formula for astar
+    // manhattan distance heuristic formula for a star
     private float getHeuristic(Node a, Node b) {
         return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
     }
