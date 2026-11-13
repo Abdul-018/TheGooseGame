@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Array;
 public class GooseWaveManager {
 
     private Array<Goose> activeGeese = new Array<>();
-    private String texturePath;
+    private GooseSprites gooseSprites;
     private float worldMapWidth;
     private float worldMapHeight;
     
@@ -25,8 +25,8 @@ public class GooseWaveManager {
     private int geeseDispersed = 0;
     private boolean gameOver = false;
 
-    public GooseWaveManager(String texturePath, float worldMapWidth, float worldMapHeight, MapCollision mapCollision, PathFinder pathfinder, Player player) {
-        this.texturePath = texturePath;
+    public GooseWaveManager(GooseSprites gooseSprites, float worldMapWidth, float worldMapHeight, MapCollision mapCollision, PathFinder pathfinder, Player player) {
+        this.gooseSprites = gooseSprites;
         this.worldMapWidth = worldMapWidth;
         this.worldMapHeight = worldMapHeight;
         this.mapCollision = mapCollision;
@@ -107,7 +107,7 @@ public class GooseWaveManager {
             float spawnX = 10.5f + MathUtils.random(1.0f);
             float spawnY = 5.8f + MathUtils.random(1.0f);
 
-            activeGeese.add(new Goose(texturePath, spawnX, spawnY, 3, player));
+            activeGeese.add(new Goose(gooseSprites, spawnX, spawnY, 3, player));
             spawnedInWave++;
         }
     }
