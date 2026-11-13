@@ -53,6 +53,8 @@ public class Game {
     public static Player currentPlayer;
     private Player player;
     private Timer timer;
+    private NightEvent nightEvent;
+    private GooseSwarmEvent swarmEvent;
     public static Inventory currentInventory;
     private Inventory inventory;
     private Array<Item> items = new Array<>();
@@ -81,6 +83,8 @@ public class Game {
         currentPlayer = player;
 
         waveManager = new GooseWaveManager("goose2.png", worldMapWidth, worldMapHeight, mapCollision, pathfinder, player);
+        nightEvent = new NightEvent();
+        swarmEvent = new GooseSwarmEvent(mapCollision, player);
         
         spawnInitialItems();
         
@@ -292,6 +296,8 @@ public class Game {
         if (!isPaused) {
             player.update(viewport, worldMapWidth, worldMapHeight, this, mapCollision);
             waveManager.update(delta, player.getCenterPosition());
+            nightEvent.update(delta);
+            swarmEvent.update(player.getCenterPosition(), waveManager.getActiveGeese(), worldMapWidth, worldMapHeight);
 
             for (Item i : items) {
                 if (i instanceof Bread) {
@@ -369,6 +375,7 @@ public class Game {
 
         spriteBatch.setProjectionMatrix(cam.combined);
         spriteBatch.begin();
+        nightEvent.draw(spriteBatch, cam);
 
         for (Item i : items) {
             i.draw(spriteBatch);
@@ -393,6 +400,7 @@ public class Game {
         player.dispose();
         if (waveManager != null) waveManager.dispose();
         for (Item i : items) i.dispose();
+        nightEvent.dispose();
     }
 
     public Array<Goose> getGeese() {
@@ -436,6 +444,9 @@ public class Game {
             waveManager.dispose();
         }
         waveManager = new GooseWaveManager("goose2.png", worldMapWidth, worldMapHeight, mapCollision, pathfinder, player);
+        nightEvent.dispose();
+        nightEvent = new NightEvent();
+        swarmEvent = new GooseSwarmEvent(mapCollision, player);
     }
     public int getActiveBreadCount() {
         int count = 0;
