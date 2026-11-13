@@ -12,7 +12,6 @@ public class Main extends ApplicationAdapter {
         game = new Game();
         game.create();
         
-        // Load UI assets and menu objects from Code 1
         Methods.LoadAllAssets();
         Methods.LoadAllObjects();
     }

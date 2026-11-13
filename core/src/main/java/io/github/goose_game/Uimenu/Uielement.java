@@ -78,4 +78,7 @@ public class Uielement {
         sprite.draw(batch);
         //System.out.println("drawing"+String.valueOf(pos[0])+" "+String.valueOf(pos[1]));
     }
+    public Texture getTexture() {
+        return this.texture;
+    }
 }

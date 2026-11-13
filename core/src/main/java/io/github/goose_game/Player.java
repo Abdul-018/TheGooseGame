@@ -31,10 +31,10 @@ public class Player extends Entity {
     private boolean moving = false;
     private float flashTimer = 0f;
 
-    // Precise collision bounds and sizing (from Code 2)
+    // Removed the "final" keyword so they can be resized by the buff and reset!
     private Rectangle playerBounds = new Rectangle();
-    private final float boundsWidth = 0.35f;
-    private final float boundsHeight = 0.35f;
+    private float boundsWidth = 0.35f;
+    private float boundsHeight = 0.35f;
 
     private boolean isFlashing = false;
     private static final float FLASH_BLINK_RATE = 0.08f;
@@ -43,6 +43,10 @@ public class Player extends Entity {
 
     private static int score;
     private int maxHealth = 10;
+
+    // Golden Feather variables
+    private boolean isImmune = false;
+    private float immuneTimer = 0f;
 
     public Player(float mapWidth, float mapHeight) {
         super("test_player.png", 100, 1);
@@ -78,11 +82,46 @@ public class Player extends Entity {
         return playerBounds.getCenter(new Vector2());
     }
 
+    public boolean isGolden() {
+        return isImmune;
+    }
+
+    public void applyGoldenFeather(float duration) {
+        isImmune = true;
+        immuneTimer = duration;
+        isFlashing = false; 
+        
+        sprite.setX(sprite.getX() - 0.4f);
+        sprite.setY(sprite.getY() - 0.4f);
+        sprite.setSize(1.6f, 1.6f);
+        
+        boundsWidth = 0.4f;
+        boundsHeight = 0.4f;
+        
+        sprite.setColor(Color.GOLD);
+        updateBounds();
+    }
+
     public void update(Viewport viewport, float mapWidth, float mapHeight, Game game, MapCollision mapCollision) {
+        // Handle Golden Feather Timer
+        if (isImmune) {
+            immuneTimer -= Gdx.graphics.getDeltaTime();
+            if (immuneTimer <= 0) {
+                isImmune = false;
+                
+                sprite.setX(sprite.getX() + 0.4f);
+                sprite.setY(sprite.getY() + 0.4f);
+                sprite.setSize(0.8f, 0.8f);
+                sprite.setColor(Color.WHITE);
+                boundsWidth = 0.35f;
+                boundsHeight = 0.35f;
+                updateBounds();
+            }
+        }
+
         input(mapCollision);
         playerGameLogic(viewport, mapWidth, mapHeight);
 
-        // Check collisions with geese
         for (int i = 0; i < game.getGeese().size; i++) {
             Goose g = game.getGeese().get(i);
             if (playerBounds.overlaps(g.getGooseBounds())) {
@@ -90,7 +129,6 @@ public class Player extends Entity {
             }
         }
 
-        // Check collisions with items (from Code 1)
         for (Item item : game.getItems()) {
             if (playerBounds.overlaps(item.getItemBounds())) {
                 if (!item.inInventory) {
@@ -99,7 +137,7 @@ public class Player extends Entity {
             }
         }
 
-        if (isFlashing) {
+        if (isFlashing && !isImmune) {
             flashTimer -= Gdx.graphics.getDeltaTime();
             boolean visible = ((int)(flashTimer / FLASH_BLINK_RATE)) % 2 == 0;
             sprite.setColor(visible ? Color.WHITE : Color.CLEAR);
@@ -121,11 +159,9 @@ public class Player extends Entity {
 
     private void input(MapCollision mapCollision) {
         float delta = Gdx.graphics.getDeltaTime();
-
         float xMovement = 0f;
         float yMovement = 0f;
 
-        // Combined WASD and Arrow key support (from Code 1)
         if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)) xMovement += 1f;
         if (Gdx.input.isKeyPressed(Keys.LEFT)  || Gdx.input.isKeyPressed(Keys.A)) xMovement -= 1f;
         if (Gdx.input.isKeyPressed(Keys.UP)    || Gdx.input.isKeyPressed(Keys.W)) yMovement += 1f;
@@ -136,7 +172,6 @@ public class Player extends Entity {
             xMovement /= length;
             yMovement /= length;
 
-            // X-axis movement and map collision sliding (from Code 2)
             float oldX = sprite.getX();
             sprite.setX(oldX + xMovement * speed * delta);
             updateBounds();
@@ -145,7 +180,6 @@ public class Player extends Entity {
                 updateBounds();
             }
 
-            // Y-axis movement and map collision sliding (from Code 2)
             float oldY = sprite.getY();
             sprite.setY(oldY + yMovement * speed * delta);
             updateBounds();
@@ -214,14 +248,10 @@ public class Player extends Entity {
         return playerBounds;
     }
 
-    public void useItem() {
-        // Reserved for future item usage logic
-    }
+    public void useItem() { }
 
     @Override
-    public void onCollision(Entity other_Entity) {
-        // Fallback overload
-    }
+    public void onCollision(Entity other_Entity) { }
 
     public void onCollision(Entity other_Entity, MapCollision mapCollision) {
         if (other_Entity instanceof Goose) {
@@ -230,6 +260,12 @@ public class Player extends Entity {
     }
 
     private void gooseHit(Goose goose, MapCollision mapCollision) {
+        // Disperse goose immediately if we touch them while golden!
+        if (isImmune) {
+            goose.disperse();
+            return;
+        }
+
         if (isFlashing) return;
 
         this.health -= 1;
@@ -252,7 +288,6 @@ public class Player extends Entity {
             knockback.set(0, 1.2f);
         }
 
-        // Incremental knockback to prevent pushing into map collision walls (from Code 2)
         float totalDist = knockback.len();
         Vector2 stepDir = new Vector2(knockback).nor();
         float stepSize = 0.05f;
@@ -272,10 +307,6 @@ public class Player extends Entity {
             float oldY = sprite.getY();
             sprite.setY(oldY + stepDir.y * nextStep);
             updateBounds();
-            if (mapCollision != null && mapCollision.collides(mapCollision.collides(playerBounds) ? playerBounds : playerBounds) == true) { // simplified safely below
-                // handled by mapCollision check
-            }
-            // Correct block for Y axis check:
             if (mapCollision != null && mapCollision.collides(playerBounds)) {
                 sprite.setY(oldY);
                 updateBounds();
@@ -291,6 +322,30 @@ public class Player extends Entity {
 
     public void setScore(int newScore) {
         this.score = newScore;
+    }
+
+    public void resetPlayer(float startX, float startY) {
+        this.health = maxHealth;
+        this.score = 0;
+        
+        // Reset buff states
+        this.isImmune = false;
+        this.immuneTimer = 0f;
+        this.isFlashing = false;
+        this.flashTimer = 0f;
+        
+        // Reset sizing and visual state
+        this.sprite.setSize(0.8f, 0.8f);
+        this.sprite.setColor(com.badlogic.gdx.graphics.Color.WHITE);
+        this.boundsWidth = 0.35f;
+        this.boundsHeight = 0.35f;
+        
+        // Reset position and movement
+        this.sprite.setPosition(startX, startY);
+        this.moving = false;
+        this.stateTime = 0f;
+        
+        updateBounds();
     }
 
     @Override

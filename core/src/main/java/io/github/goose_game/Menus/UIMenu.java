@@ -11,22 +11,21 @@ import io.github.goose_game.Game;
 import io.github.goose_game.Inventory;
 import io.github.goose_game.Uimenu.Menu;
 import io.github.goose_game.Uimenu.Uielement;
+
 public class UIMenu {
     public static Menu gameUI;
     static Texture healthBook;
-    //static Texture healthBookTorn1;
-    //static Texture healthBookTorn2;
     static Texture healthBookTorn1Darkened;
     static Texture healthBookTorn2Darkened;
-    //static Texture healthBookClosed;
     static Texture empty;
     static ArrayList<Pixmap> numTextures;
     public static int scoreNum = 0;
-    //static int healthy = 695;
     static int healthy = 62;
-    private static int lastScoreUpdate = 0;
+    private static int lastScoreUpdate = -1;
+
     static Pixmap score;
     static ArrayList<Uielement> gameUIElements;
+
     public static MenuGenerator gameUIMethods = new MenuGenerator(0){
         @Override 
         public void LoadAssets(){
@@ -36,18 +35,16 @@ public class UIMenu {
                 Pixmap pixmap = new Pixmap( 7, 15, Pixmap.Format.RGBA8888 );
                 pixmap.drawPixmap(numSheet, -9*i, 0);
                 numTextures.add(pixmap);
-                //pixmap.dispose();
             }
             numSheet.dispose();
-            healthBook =  new Texture("health_book.png");
+            healthBook = new Texture("health_book.png");
             score = new Pixmap(Gdx.files.internal("uimenu_score.png"));
-            //healthBookTorn1 =  new Texture("health_book_torn1.png");
-            //healthBookTorn2 =  new Texture("health_book_torn2.png");
-            healthBookTorn1Darkened =  new Texture("health_book_torn1_darkened.png");
-            healthBookTorn2Darkened =  new Texture("health_book_torn2_darkened.png");
-            //healthBookClosed =  new Texture("health_book_closed.png");
+            
+            healthBookTorn1Darkened = new Texture("health_book_torn1_darkened.png");
+            healthBookTorn2Darkened = new Texture("health_book_torn2_darkened.png");
             empty = new Texture("empty.png");
         }
+
         @Override 
         public void LoadObjects(){
             gameUIElements = new ArrayList<>();
@@ -62,6 +59,8 @@ public class UIMenu {
                     return true;
                 }
             });
+
+            // Existing Score UI
             gameUIElements.add(new Uielement(MakeScoreTexture(0),new float[]{640,695},Uielement.Align.MIDDLE,1f,2f,1){
                 @Override 
                 public void Update(){
@@ -72,6 +71,8 @@ public class UIMenu {
                     }
                 }
             });
+
+            // Existing Inventory UI
             gameUIElements.add(new Uielement(MakeInventoryTexture(),new float[]{64,360},Uielement.Align.LEFT,1f,4f,1){
                 @Override 
                 public void Update(){
@@ -79,22 +80,12 @@ public class UIMenu {
                     this.setTexture(MakeInventoryTexture());
                 }
             });
+
+            // Existing Health Books UI
             gameUIElements.add(new Uielement(healthBook,new float[]{1206,healthy},Uielement.Align.RIGHT,1f,4f,1){
                 @Override 
                 public void Update(){
                     int health = Game.currentPlayer.getHealth()-0;
-                    //if (health > 1){
-                    //    if (health > 2){
-                    //        this.setTexture(healthBook);
-                    //    }
-                    //    else{
-                    //        this.setTexture(healthBookTorn1);
-                    //    }
-                    //}else if(health>0){
-                    //    this.setTexture(healthBookTorn2);
-                    //}else{
-                    //    this.setTexture(healthBookClosed);
-                    //}
                     if (health > 1){
                         this.setTexture(healthBook);
                     }else if(health>0){
@@ -160,6 +151,8 @@ public class UIMenu {
             gameUI.Open();
         }
     };
+
+    
 
     public static Texture MakeInventoryTexture(){
         Inventory inv = Game.currentInventory;

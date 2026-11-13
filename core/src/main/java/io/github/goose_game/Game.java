@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -20,7 +22,13 @@ import io.github.goose_game.Uimenu.Menu;
 
 public class Game {
 
-    // map and viewport dimensions unified from both versions
+    public static Game instance;
+
+    // Item spawn caps
+    private static final int MAX_BREAD = 50;
+    private static final int MAX_GOLDEN_FEATHERS = 2;
+
+    // Map and viewport dimensions
     private final float VIEWPORT_WIDTH = 24f;
     private final float VIEWPORT_HEIGHT = 13.5f;
     private final float mapUnitScale = VIEWPORT_WIDTH / (64f * 16f);
@@ -28,19 +36,20 @@ public class Game {
     private final float worldMapWidth = 100f * 16f * mapUnitScale;
     private final float worldMapHeight = 100f * 16f * mapUnitScale;
 
-    // tiled map components from code 2
+    // Tiled map components
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer mapRenderer;
     private MapCollision mapCollision;
     private PathFinder pathfinder;
     private GooseWaveManager waveManager;
+    private Rectangle fenceInterior;
 
-    // rendering and viewports code 1 viewports plus code 2 map rendering
+    // Rendering and viewports
     private SpriteBatch spriteBatch;
     private ExtendViewport viewport;
     public static ExtendViewport menuViewport;
 
-    // game entities and status code 1 ui menus items plus code 2 systems
+    // Game entities and status
     public static Player currentPlayer;
     private Player player;
     private Timer timer;
@@ -51,44 +60,223 @@ public class Game {
     public static boolean gameOver = false;
 
     public void create() {
+        instance = this;
         spriteBatch = new SpriteBatch();
         
-        // setup viewports code 1 style extendviewports for flexible ui and game scaling
         viewport = new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         menuViewport = new ExtendViewport(16, 9);
 
-        // load tiled map and systems from code 2
         tiledMap = new TmxMapLoader().load("map/Goose Game Map.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, mapUnitScale, spriteBatch);
 
         mapCollision = new MapCollision(tiledMap, worldMapWidth, worldMapHeight);
         pathfinder = new PathFinder(mapCollision, worldMapWidth, worldMapHeight);
 
-        // initialize player
+        calculateFenceInterior();
+
         player = new Player(worldMapWidth, worldMapHeight);
         player.getSprite().setPosition(10f, 9f);
         player.setScore(0);
         player.setHealth(10);
         currentPlayer = player;
 
-        // initialize goose wave manager from code 2 instead of raw array
         waveManager = new GooseWaveManager("goose2.png", worldMapWidth, worldMapHeight, mapCollision, pathfinder, player);
-        // spawn items from code 1
-        for (int i = 0; i < 100; i++) {
-            float x = (float)(Math.random() * (worldMapWidth - 0.2f));
-            float y = (float)(Math.random() * (worldMapHeight - 0.2f));
-            items.add(new Bread(x, y, this));
-        }
-
-        for (int i = 0; i < 20; i++) {
-            float x = (float)(Math.random() * (worldMapWidth - 0.2f));
-            float y = (float)(Math.random() * (worldMapHeight - 0.2f));
-            items.add(new GoldenFeather(x, y,this));
-        }
+        
+        spawnInitialItems();
+        
         inventory = new Inventory();
         currentInventory = inventory;
         setInputProcessor();
-        
+    }
+
+    /**
+     * Finds a random position on the map that does not overlap with any collision tile.
+     * Uses a slightly larger padded box (0.6f x 0.6f for a 0.4f x 0.4f item) so items 
+     * spawn comfortably away from walls.
+     */
+    
+    /**
+     * Finds the interior bounding box enclosed by the outer fence perimeter.
+     * Checks a "Fence" tile layer first if present, otherwise uses the outer
+     * bounds of the "Collision" layer.
+     */
+    private void calculateFenceInterior() {
+        float minX = worldMapWidth;
+        float minY = worldMapHeight;
+        float maxX = 0f;
+        float maxY = 0f;
+        boolean found = false;
+
+        // 1. Check if there is a dedicated "Fence" layer in Tiled
+        com.badlogic.gdx.maps.MapLayer fenceLayer = tiledMap.getLayers().get("Fence");
+        if (fenceLayer instanceof com.badlogic.gdx.maps.tiled.TiledMapTileLayer) {
+            com.badlogic.gdx.maps.tiled.TiledMapTileLayer tLayer = (com.badlogic.gdx.maps.tiled.TiledMapTileLayer) fenceLayer;
+            float cellW = worldMapWidth / tLayer.getWidth();
+            float cellH = worldMapHeight / tLayer.getHeight();
+
+            for (int x = 0; x < tLayer.getWidth(); x++) {
+                for (int y = 0; y < tLayer.getHeight(); y++) {
+                    com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell cell = tLayer.getCell(x, y);
+                    if (cell != null && cell.getTile() != null) {
+                        minX = Math.min(minX, x * cellW);
+                        minY = Math.min(minY, y * cellH);
+                        maxX = Math.max(maxX, (x + 1) * cellW);
+                        maxY = Math.max(maxY, (y + 1) * cellH);
+                        found = true;
+                    }
+                }
+            }
+        }
+
+        // 2. Otherwise derive the perimeter from the outer collision boxes
+        if (!found && mapCollision != null) {
+            for (Rectangle box : mapCollision.getCollisionBoxes()) {
+                minX = Math.min(minX, box.x);
+                minY = Math.min(minY, box.y);
+                maxX = Math.max(maxX, box.x + box.width);
+                maxY = Math.max(maxY, box.y + box.height);
+                found = true;
+            }
+        }
+
+        // Shrink inward by 1 tile (worldMapWidth / 100f = 0.375f) so spawns stay inside the fence
+        float tileSize = worldMapWidth / 100f;
+        if (found && (maxX - minX) > tileSize * 2f && (maxY - minY) > tileSize * 2f) {
+            fenceInterior = new Rectangle(
+                minX + tileSize,
+                minY + tileSize,
+                (maxX - minX) - (tileSize * 2f),
+                (maxY - minY) - (tileSize * 2f)
+            );
+        } else {
+            // Fallback to full map bounds if no fence/collision tiles exist
+            fenceInterior = new Rectangle(0, 0, worldMapWidth, worldMapHeight);
+        }
+    }
+
+    private Vector2 getValidSpawnPosition(float itemSize) {
+        if (fenceInterior == null) {
+            calculateFenceInterior();
+        }
+
+        float padding = 0.2f;
+        float checkSize = itemSize + (padding * 2f);
+        Rectangle testBounds = new Rectangle(0, 0, checkSize, checkSize);
+
+        com.badlogic.gdx.maps.tiled.TiledMapTileLayer waterLayer = 
+            (com.badlogic.gdx.maps.tiled.TiledMapTileLayer) tiledMap.getLayers().get("Water");
+        com.badlogic.gdx.maps.tiled.TiledMapTileLayer terrainLayer = 
+            (com.badlogic.gdx.maps.tiled.TiledMapTileLayer) tiledMap.getLayers().get("Terrain");
+
+        float minSpawnX = fenceInterior.x + padding;
+        float maxSpawnX = Math.max(minSpawnX, fenceInterior.x + fenceInterior.width - itemSize - padding);
+        float minSpawnY = fenceInterior.y + padding;
+        float maxSpawnY = Math.max(minSpawnY, fenceInterior.y + fenceInterior.height - itemSize - padding);
+
+        for (int attempt = 0; attempt < 200; attempt++) {
+            float x = minSpawnX + (float)(Math.random() * (maxSpawnX - minSpawnX));
+            float y = minSpawnY + (float)(Math.random() * (maxSpawnY - minSpawnY));
+
+            testBounds.setPosition(x - padding, y - padding);
+
+            // 1. Skip if overlapping any wall/fence/collision block
+            if (mapCollision != null && mapCollision.collides(testBounds)) {
+                continue;
+            }
+
+            // Convert world coordinates (center of the item) into Tiled grid coordinates (0-99)
+            float centerX = x + (itemSize / 2f);
+            float centerY = y + (itemSize / 2f);
+            int tileX = (int)((centerX / worldMapWidth) * 100);
+            int tileY = (int)((centerY / worldMapHeight) * 100);
+
+            // 2. Skip if a Water tile is present without terrain over it
+            if (waterLayer != null) {
+                com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell waterCell = waterLayer.getCell(tileX, tileY);
+                if (waterCell != null && waterCell.getTile() != null) {
+                    boolean hasTerrainOverWater = false;
+                    if (terrainLayer != null) {
+                        com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell terrainCell = terrainLayer.getCell(tileX, tileY);
+                        if (terrainCell != null && terrainCell.getTile() != null) {
+                            hasTerrainOverWater = true;
+                        }
+                    }
+                    if (!hasTerrainOverWater) {
+                        continue;
+                    }
+                }
+            }
+
+            return new Vector2(x, y);
+        }
+
+        // Fallback near player spawn
+        return new Vector2(10f, 9f);
+    }
+
+    private void spawnBread() {
+        Vector2 pos = getValidSpawnPosition(0.4f);
+        items.add(new Bread(pos.x, pos.y, this));
+    }
+
+    private void spawnGoldenFeather() {
+        Vector2 pos = getValidSpawnPosition(0.4f);
+        items.add(new GoldenFeather(pos.x, pos.y, this));
+    }
+
+    private void spawnInitialItems() {
+        for (int i = 0; i < MAX_BREAD; i++) {
+            spawnBread();
+        }
+        for (int i = 0; i < MAX_GOLDEN_FEATHERS; i++) {
+            spawnGoldenFeather();
+        }
+    }
+
+    /**
+     * Cleans up consumed items and replenishes Bread and Golden Feathers 
+     * so they stay at their target counts throughout the game.
+     */
+    private void maintainItems() {
+        int activeBreadCount = 0;
+        int activeFeatherCount = 0;
+
+        // Iterate backwards so we can safely remove used items
+        for (int i = items.size - 1; i >= 0; i--) {
+            Item item = items.get(i);
+
+            // If Bread was thrown and finished its 10s distraction or was eaten, mark it finished
+            if (item instanceof Bread) {
+                Bread b = (Bread) item;
+                if (b.itemUsed && !b.breadVisible) {
+                    b.dispose();
+                    items.removeIndex(i);
+                    continue;
+                }
+            } else if (item.itemUsed) {
+                item.dispose();
+                items.removeIndex(i);
+                continue;
+            }
+
+            if (item instanceof Bread) {
+                activeBreadCount++;
+            } else if (item instanceof GoldenFeather) {
+                activeFeatherCount++;
+            }
+        }
+
+        // Replenish missing Bread
+        while (activeBreadCount < MAX_BREAD) {
+            spawnBread();
+            activeBreadCount++;
+        }
+
+        // Replenish missing Golden Feathers (keeps exactly 2 active in the game)
+        while (activeFeatherCount < MAX_GOLDEN_FEATHERS) {
+            spawnGoldenFeather();
+            activeFeatherCount++;
+        }
     }
 
     public void resize(int width, int height) {
@@ -100,24 +288,20 @@ public class Game {
     public void render() {
         float delta = Gdx.graphics.getDeltaTime();
         
-        // pause handling from code 1
         isPaused = (false == UIMenu.gameUI.IsAtTop());
         if (!isPaused) {
-            // player update with collision support from code 2
             player.update(viewport, worldMapWidth, worldMapHeight, this, mapCollision);
-            
-            // wave manager updates geese using pathfinding and collision
             waveManager.update(delta, player.getCenterPosition());
 
-            for (Item i : items){
-                if (i instanceof Bread){
+            for (Item i : items) {
+                if (i instanceof Bread) {
                     ((Bread) i).update(delta);
                 }
             }
-        }
 
-        // instance health plus player gethealth
-        // system out println static health plus currentplayer gethealth
+            // Clean up used items and replenish spawns
+            maintainItems();
+        }
 
         Menu.Updateall();
         draw();
@@ -133,7 +317,6 @@ public class Game {
             @Override
             public boolean keyUp(int keycode) {
                 if (keycode == Input.Keys.ESCAPE) {
-                    System.out.println("escape pressed");
                     if (UIMenu.gameUI.IsAtTop()) {
                         PauseMenu.pauseMenu.Open();
                     } else if (MainMenu.mainMenu.IsAtTop()) {
@@ -151,30 +334,21 @@ public class Game {
 
             @Override
             public boolean keyDown(int keycode) {
-                if (keycode == Input.Keys.E){
+                if (keycode == Input.Keys.E) {
                     Item selected = inventory.getSelected();
-
-                    if (selected != null){
+                    if (selected != null) {
                         selected.useItem(player, getGeese(), spriteBatch);
-                        System.out.println("USED");
                     }
-                }
-                // cycle inventory with q and r
-                else if (keycode == Input.Keys.Q) {
+                } else if (keycode == Input.Keys.Q) {
                     inventory.selectPrevItem();
-                    System.out.println("Selected Prev Item: " + inventory.GetCurrItemIndex());
-                } 
-                else if (keycode == Input.Keys.R) {
+                } else if (keycode == Input.Keys.R) {
                     inventory.selectNextItem();
-                    System.out.println("Selected Next Item: " + inventory.GetCurrItemIndex());
                 }
                 return false;
             }
 
-            // cycle inventory with mouse scroll wheel
             @Override
             public boolean scrolled(float amountX, float amountY) {
-                // amounty is positive for scrolling down negative for scrolling up
                 if (amountY > 0) {
                     inventory.selectNextItem();
                 } else if (amountY < 0) {
@@ -188,7 +362,6 @@ public class Game {
     private void draw() {
         ScreenUtils.clear(Color.BLACK);
         
-        // apply game world viewport and render tiled map code 2
         viewport.apply();
         OrthographicCamera cam = (OrthographicCamera) viewport.getCamera();
         mapRenderer.setView(cam);
@@ -197,20 +370,15 @@ public class Game {
         spriteBatch.setProjectionMatrix(cam.combined);
         spriteBatch.begin();
 
-        // draw items code 1
         for (Item i : items) {
-            
             i.draw(spriteBatch);
-            
         }
 
-        // draw player and geese via wavemanager
         player.draw(spriteBatch);
         waveManager.draw(spriteBatch);
 
         spriteBatch.end();
 
-        // render ui menus overlay code 1
         menuViewport.apply();
         spriteBatch.setProjectionMatrix(menuViewport.getCamera().combined);
         spriteBatch.begin();
@@ -231,11 +399,51 @@ public class Game {
         return waveManager.getActiveGeese();
     }
 
-    public Inventory getInventory(){
+    public Inventory getInventory() {
         return this.inventory;
     }
 
     public Array<Item> getItems() {
         return this.items;
+    }
+
+    public static void resetGame() {
+        if (instance != null) {
+            instance.doReset();
+        }
+    }
+
+    private void doReset() {
+        Game.gameOver = false;
+        
+        if (player != null) {
+            player.resetPlayer(10f, 9f);
+        }
+        
+        if (items != null) {
+            for (Item i : items) {
+                i.dispose();
+            }
+            items.clear();
+            spawnInitialItems();
+        }
+        
+        if (currentInventory != null) {
+            currentInventory.getItems().clear();
+        }
+        
+        if (waveManager != null) {
+            waveManager.dispose();
+        }
+        waveManager = new GooseWaveManager("goose2.png", worldMapWidth, worldMapHeight, mapCollision, pathfinder, player);
+    }
+    public int getActiveBreadCount() {
+        int count = 0;
+        for (Item item : items) {
+            if (item instanceof Bread) {
+                count++;
+            }
+        }
+        return count;
     }
 }
