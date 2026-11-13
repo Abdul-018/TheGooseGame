@@ -10,6 +10,7 @@ import io.github.goose_game.Game;
 import io.github.goose_game.Uimenu.Button;
 import io.github.goose_game.Uimenu.Menu;
 import io.github.goose_game.Uimenu.Uielement;
+
 public class MainMenu {
     public static Menu mainMenu;
     static Texture mainmenuBG;
@@ -20,6 +21,7 @@ public class MainMenu {
     static Texture mainmenuGear;
     static Texture mainmenuGearDown;
     static ArrayList<Uielement> mainMenuElements;
+    
     public static MenuGenerator mainMenuMethods = new MenuGenerator(100){
         @Override 
         public void LoadAssets(){
@@ -42,7 +44,6 @@ public class MainMenu {
             mainMenu.elementsList.add(new Button(mainmenuButton,new float[]{640,214},Uielement.Align.MIDDLE,1f,1f,4f,3){
                 @Override 
                 public void Update(){
-                    //if (this.PointerOn(Button.PointerpostoLocal(Gdx.input.getX(), Gdx.input.getY(), viewport))){
                     if (this.PointerOn(Menu.mostRecentViewport)&&Gdx.input.isTouched()){
                         this.setTexture(mainmenuButtonDown);
                     }else{
@@ -63,10 +64,10 @@ public class MainMenu {
                 @Override 
                 public boolean OnClick(){
                     mainMenu.Close();
-                    //replace with game start function
-                    if (Game.gameOver)Game.currentPlayer.setHealth(10);
-                    Game.gameOver = false;
-                    //replace with game start function
+                    
+                    // Trigger the soft reset here to start a fresh game!
+                    Game.resetGame();
+                    
                     System.out.println("clicked");
                     return true;
                 }
@@ -74,8 +75,7 @@ public class MainMenu {
             mainMenu.elementsList.add(new Button(mainmenuGear,new float[]{1192,96},Uielement.Align.RIGHT,1f,1f,4f,2){
                 @Override 
                 public void Update(){
-                    //if (this.PointerOn(Button.PointerpostoLocal(Gdx.input.getX(), Gdx.input.getY(), viewport))){
-                    if (this.PointerOn(Menu.mostRecentViewport)&&Gdx.input.isTouched()){//this.PointerOn(viewport)&&Gdx.input.isTouched()){
+                    if (this.PointerOn(Menu.mostRecentViewport)&&Gdx.input.isTouched()){
                         this.setTexture(mainmenuGearDown);
                     }else{
                         this.setTexture(mainmenuGear);

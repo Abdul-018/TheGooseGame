@@ -17,10 +17,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import io.github.goose_game.Menus.LoseScreenMenu;
 import io.github.goose_game.Menus.PauseMenu;
 
-
-
-
-
 public class Player extends Entity {
 
     private float speed = 3f;
@@ -34,15 +30,24 @@ public class Player extends Entity {
     private boolean facingRight = true;
     private boolean moving = false;
     private float flashTimer = 0f;
+
+    // Removed the "final" keyword so they can be resized by the buff and reset!
     private Rectangle playerBounds = new Rectangle();
+    private float boundsWidth = 0.35f;
+    private float boundsHeight = 0.35f;
+
     private boolean isFlashing = false;
     private static final float FLASH_BLINK_RATE = 0.08f;
     private BitmapFont collisionFont;
     private SpriteBatch fontBatch;
+
     private static int score;
     private int maxHealth = 10;
 
-    
+    // Golden Feather variables
+    private boolean isImmune = false;
+    private float immuneTimer = 0f;
+
     public Player(float mapWidth, float mapHeight) {
         super("test_player.png", 100, 1);
 
@@ -59,79 +64,129 @@ public class Player extends Entity {
 
         sprite.setSize(0.8f, 0.8f);
         sprite.setPosition((mapWidth - sprite.getWidth()) / 2f, (mapHeight - sprite.getHeight()) / 2f);
-        playerBounds.setSize(sprite.getWidth(), sprite.getHeight());
-        playerBounds.setPosition(sprite.getX(), sprite.getY());
+        
+        updateBounds();
 
         collisionFont = new BitmapFont();
         collisionFont.setColor(Color.WHITE);
         fontBatch = new SpriteBatch();
-
     }
 
-    public void update(Viewport viewport, float mapWidth, float mapHeight, Game game){
-        input();
-        playerGameLogic(viewport, mapWidth, mapHeight);
+    private void updateBounds() {
+        float offsetX = (sprite.getWidth() - boundsWidth) / 2f;
+        float offsetY = (sprite.getHeight() - boundsHeight) / 2f;
+        playerBounds.set(sprite.getX() + offsetX, sprite.getY() + offsetY, boundsWidth, boundsHeight);
+    }
 
-        for (Goose g : game.getGeese()){
-            if (playerBounds.overlaps(g.getGooseBounds())){
-                onCollision(g);
+    public Vector2 getCenterPosition() {
+        return playerBounds.getCenter(new Vector2());
+    }
+
+    public boolean isGolden() {
+        return isImmune;
+    }
+
+    public void applyGoldenFeather(float duration) {
+        isImmune = true;
+        immuneTimer = duration;
+        isFlashing = false; 
+        
+        sprite.setX(sprite.getX() - 0.4f);
+        sprite.setY(sprite.getY() - 0.4f);
+        sprite.setSize(1.6f, 1.6f);
+        
+        boundsWidth = 0.4f;
+        boundsHeight = 0.4f;
+        
+        sprite.setColor(Color.GOLD);
+        updateBounds();
+    }
+
+    public void update(Viewport viewport, float mapWidth, float mapHeight, Game game, MapCollision mapCollision) {
+        // Handle Golden Feather Timer
+        if (isImmune) {
+            immuneTimer -= Gdx.graphics.getDeltaTime();
+            if (immuneTimer <= 0) {
+                isImmune = false;
+                
+                sprite.setX(sprite.getX() + 0.4f);
+                sprite.setY(sprite.getY() + 0.4f);
+                sprite.setSize(0.8f, 0.8f);
+                sprite.setColor(Color.WHITE);
+                boundsWidth = 0.35f;
+                boundsHeight = 0.35f;
+                updateBounds();
             }
         }
-        for (Item i : game.getItems()){ 
-            if (playerBounds.overlaps(i.getItemBounds())){
-                if (!i.inInventory){
-                    i.pickUp();
+
+        input(mapCollision);
+        playerGameLogic(viewport, mapWidth, mapHeight);
+
+        for (int i = 0; i < game.getGeese().size; i++) {
+            Goose g = game.getGeese().get(i);
+            if (playerBounds.overlaps(g.getGooseBounds())) {
+                onCollision(g, mapCollision);
+            }
+        }
+
+        for (Item item : game.getItems()) {
+            if (playerBounds.overlaps(item.getItemBounds())) {
+                if (!item.inInventory) {
+                    item.pickUp();
                 }
             }
         }
 
-        if (isFlashing){
+        if (isFlashing && !isImmune) {
             flashTimer -= Gdx.graphics.getDeltaTime();
             boolean visible = ((int)(flashTimer / FLASH_BLINK_RATE)) % 2 == 0;
             sprite.setColor(visible ? Color.WHITE : Color.CLEAR);
 
-            if (flashTimer <= 0){
+            if (flashTimer <= 0) {
                 isFlashing = false;
                 sprite.setColor(Color.WHITE);
             }
         }
-
-
     }
+
     public void setHealth(int healthInput) {
         if (healthInput < maxHealth) {
             health = healthInput;
-        }else {
+        } else {
             health = maxHealth;
         }
     }
-    private void input() {
-        float delta = Gdx.graphics.getDeltaTime();
 
+    private void input(MapCollision mapCollision) {
+        float delta = Gdx.graphics.getDeltaTime();
         float xMovement = 0f;
         float yMovement = 0f;
 
-        if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)) {
-            xMovement += 1f;
-        }
-        if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)) {
-            xMovement -= 1f;
-        }
-        if (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)) {
-            yMovement += 1f;
-        }
-        if (Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)) {
-            yMovement -= 1f;
-        }
+        if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)) xMovement += 1f;
+        if (Gdx.input.isKeyPressed(Keys.LEFT)  || Gdx.input.isKeyPressed(Keys.A)) xMovement -= 1f;
+        if (Gdx.input.isKeyPressed(Keys.UP)    || Gdx.input.isKeyPressed(Keys.W)) yMovement += 1f;
+        if (Gdx.input.isKeyPressed(Keys.DOWN)  || Gdx.input.isKeyPressed(Keys.S)) yMovement -= 1f;
 
         if (xMovement != 0f || yMovement != 0f) {
             float length = (float) Math.sqrt(xMovement * xMovement + yMovement * yMovement);
-
             xMovement /= length;
             yMovement /= length;
 
-            sprite.translateX(xMovement * speed * delta);
-            sprite.translateY(yMovement * speed * delta);
+            float oldX = sprite.getX();
+            sprite.setX(oldX + xMovement * speed * delta);
+            updateBounds();
+            if (mapCollision != null && mapCollision.collides(playerBounds)) {
+                sprite.setX(oldX);
+                updateBounds();
+            }
+
+            float oldY = sprite.getY();
+            sprite.setY(oldY + yMovement * speed * delta);
+            updateBounds();
+            if (mapCollision != null && mapCollision.collides(playerBounds)) {
+                sprite.setY(oldY);
+                updateBounds();
+            }
 
             moving = true;
             if (xMovement > 0f) facingRight = true;
@@ -146,8 +201,6 @@ public class Player extends Entity {
     @Override
     public void draw(SpriteBatch spriteBatch) {
         TextureRegion frame;
-
-
         if (moving) {
             frame = facingRight ? walkRight.getKeyFrame(stateTime) : walkLeft.getKeyFrame(stateTime);
         } else {
@@ -155,12 +208,8 @@ public class Player extends Entity {
         }
 
         spriteBatch.setColor(sprite.getColor());
-
-
         spriteBatch.draw(frame, sprite.getX(), sprite.getY(), sprite.getWidth(), sprite.getHeight());
-
         spriteBatch.setColor(Color.WHITE);
-
     }
 
     private void playerGameLogic(Viewport viewport, float mapWidth, float mapHeight) {
@@ -169,9 +218,7 @@ public class Player extends Entity {
 
         sprite.setX(MathUtils.clamp(sprite.getX(), 0, mapWidth - playerWidth));
         sprite.setY(MathUtils.clamp(sprite.getY(), 0, mapHeight - playerHeight));
-
-        playerBounds.setPosition(sprite.getX(), sprite.getY());
-
+        updateBounds();
 
         OrthographicCamera camera = (OrthographicCamera) viewport.getCamera();
         float targetX = sprite.getX() + playerWidth / 2f;
@@ -197,19 +244,30 @@ public class Player extends Entity {
         this.speed = speed;
     }
 
-    public void useItem() {
-        // not sure how the item logic will work yet
+    public Rectangle getPlayerBounds() {
+        return playerBounds;
     }
 
+    public void useItem() { }
+
     @Override
-    public void onCollision(Entity other_Entity) {
-        if (other_Entity instanceof Goose){
-            gooseHit((Goose) other_Entity);
+    public void onCollision(Entity other_Entity) { }
+
+    public void onCollision(Entity other_Entity, MapCollision mapCollision) {
+        if (other_Entity instanceof Goose) {
+            gooseHit((Goose) other_Entity, mapCollision);
         }
     }
 
-    private void gooseHit(Goose goose){
+    private void gooseHit(Goose goose, MapCollision mapCollision) {
+        // Disperse goose immediately if we touch them while golden!
+        if (isImmune) {
+            goose.disperse();
+            return;
+        }
+
         if (isFlashing) return;
+
         this.health -= 1;
         if (health <= 0) {
             Game.gameOver = true;
@@ -217,28 +275,78 @@ public class Player extends Entity {
             LoseScreenMenu.loseMenu.Open();
             return;
         }
+
         isFlashing = true;
         flashTimer = 1.5f;
 
-        Vector2 playerCenter = getPosition();
-        Vector2 gooseCenter = goose.getPosition();
+        Vector2 playerCenter = getCenterPosition();
+        Vector2 gooseCenter = goose.getCenterPosition();
         Vector2 knockback = new Vector2(playerCenter.x - gooseCenter.x, playerCenter.y - gooseCenter.y);
         if (knockback.len2() > 0) {
-            knockback.nor().scl(1.5f);
+            knockback.nor().scl(1.2f);
         } else {
-            knockback.set(0, 1.5f);
+            knockback.set(0, 1.2f);
         }
-        sprite.translate(knockback.x, knockback.y);
+
+        float totalDist = knockback.len();
+        Vector2 stepDir = new Vector2(knockback).nor();
+        float stepSize = 0.05f;
+        float moved = 0f;
+
+        while (moved < totalDist) {
+            float nextStep = Math.min(stepSize, totalDist - moved);
+
+            float oldX = sprite.getX();
+            sprite.setX(oldX + stepDir.x * nextStep);
+            updateBounds();
+            if (mapCollision != null && mapCollision.collides(playerBounds)) {
+                sprite.setX(oldX);
+                updateBounds();
+            }
+
+            float oldY = sprite.getY();
+            sprite.setY(oldY + stepDir.y * nextStep);
+            updateBounds();
+            if (mapCollision != null && mapCollision.collides(playerBounds)) {
+                sprite.setY(oldY);
+                updateBounds();
+            }
+
+            moved += nextStep;
+        }
     }
 
-    public int getScore(){
+    public int getScore() {
         return score;
     }
 
-    public void setScore(int newScore){
+    public void setScore(int newScore) {
         this.score = newScore;
     }
 
+    public void resetPlayer(float startX, float startY) {
+        this.health = maxHealth;
+        this.score = 0;
+        
+        // Reset buff states
+        this.isImmune = false;
+        this.immuneTimer = 0f;
+        this.isFlashing = false;
+        this.flashTimer = 0f;
+        
+        // Reset sizing and visual state
+        this.sprite.setSize(0.8f, 0.8f);
+        this.sprite.setColor(com.badlogic.gdx.graphics.Color.WHITE);
+        this.boundsWidth = 0.35f;
+        this.boundsHeight = 0.35f;
+        
+        // Reset position and movement
+        this.sprite.setPosition(startX, startY);
+        this.moving = false;
+        this.stateTime = 0f;
+        
+        updateBounds();
+    }
 
     @Override
     public void dispose() {
