@@ -1,5 +1,6 @@
 package io.github.goose_game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -12,7 +13,6 @@ public class Goose extends Entity {
         Distracted,
         Dispersed
     }
-    // I used enum because its the quickest and easiest way to manage geese states
 
     private GooseState state;
     private float speed;
@@ -43,12 +43,11 @@ public class Goose extends Entity {
         switch (state) 
         {
             case Dispersed:
-                //No updates if goose is "dead"
                 break;
             case Distracted:
-                distractionTimer = distractionTimer - delta; //essentially decreasing the timer since the last frame
+                distractionTimer = distractionTimer - delta; //essentially decreasing the timer since the last fram
                 if (distractionTimer <= 0){
-                    state = GooseState.Chasing; // So the goose starts chasing the player again
+                    state = GooseState.Chasing;
                 }
                 return;
             case Chasing:
@@ -77,6 +76,7 @@ public class Goose extends Entity {
     public void onCollision(){
         health--;
         collisionSound.play(1.0f);
+        collisionSound.dispose(); 
         if (health<=0){
             disperse();
         }
@@ -95,10 +95,9 @@ public class Goose extends Entity {
     public GooseState getState(){
         return state;
     }
-     public void dispose() {
+
+    public void dispose() {
         super.dispose();
         collisionSound.dispose();
-
-    //collision detection 
-
+    }
 }
