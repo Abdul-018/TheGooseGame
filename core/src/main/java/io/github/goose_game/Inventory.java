@@ -56,6 +56,10 @@ public class Inventory {
     public int GetCurrItemIndex(){
         return currItemIndex;
     }
+    public boolean isFull() {
+        return items.size() >= capacity;
+    }
+
     public int numberofitems() {
         return items.size();
     }

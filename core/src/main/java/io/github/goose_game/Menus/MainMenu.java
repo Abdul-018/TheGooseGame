@@ -25,13 +25,13 @@ public class MainMenu {
     public static MenuGenerator mainMenuMethods = new MenuGenerator(100){
         @Override 
         public void LoadAssets(){
-            mainmenuBG =  new Texture("mainmenu_background.png");
-            mainmenuBGLeft =  new Texture("mainmenu_background_left.png");
-            mainmenuBGRight =  new Texture("mainmenu_background_right.png");
-            mainmenuButton =  new Texture("mainmenu_button.png");
-            mainmenuButtonDown =  new Texture("mainmenu_button_down.png");
-            mainmenuGear =  new Texture("mainmenu_gear.png");
-            mainmenuGearDown =  new Texture("mainmenu_gear_down.png");
+            mainmenuBG =  new Texture("menus/mainmenu_background.png");
+            mainmenuBGLeft =  new Texture("menus/mainmenu_background_left.png");
+            mainmenuBGRight =  new Texture("menus/mainmenu_background_right.png");
+            mainmenuButton =  new Texture("menus/mainmenu_button.png");
+            mainmenuButtonDown =  new Texture("menus/mainmenu_button_down.png");
+            mainmenuGear =  new Texture("menus/mainmenu_gear.png");
+            mainmenuGearDown =  new Texture("menus/mainmenu_gear_down.png");
         }
         @Override 
         public void LoadObjects(){

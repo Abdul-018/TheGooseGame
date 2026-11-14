@@ -48,10 +48,10 @@ public class Main3 implements ApplicationListener {
         backgroundTexture = new Texture("background.png"); 
         bucketTexture = new Texture("bucket.png");
         dropTexture = new Texture("drop.png");
-        //dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.mp3"));
-        paperTearSound = Gdx.audio.newSound(Gdx.files.internal("tearing_paper.mp3"));
-        paperShuffleSound = Gdx.audio.newSound(Gdx.files.internal("shuffle_paper.mp3"));
-        music = Gdx.audio.newMusic(Gdx.files.internal("Just Nasty.mp3"));
+        //dropSound = Gdx.audio.newSound(Gdx.files.internal("sounds/drop.mp3"));
+        paperTearSound = Gdx.audio.newSound(Gdx.files.internal("sounds/tearing_paper.mp3"));
+        paperShuffleSound = Gdx.audio.newSound(Gdx.files.internal("sounds/shuffle_paper.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/Just Nasty.mp3"));
         spriteBatch = new SpriteBatch(); 
         viewport = new ExtendViewport(16, 9);
         bucketSprite = new Sprite(bucketTexture);

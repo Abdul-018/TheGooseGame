@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import io.github.goose_game.Menus.MainMenu;
 import io.github.goose_game.Menus.PauseMenu;
 import io.github.goose_game.Menus.UIMenu;
+import io.github.goose_game.Menus.WinScreenMenu;
 import io.github.goose_game.Uimenu.Menu;
 
 public class Game {
@@ -28,8 +29,8 @@ public class Game {
     private static final int MAX_BREAD = 50;
     private static final int MAX_GOLDEN_FEATHERS = 2;
 
-    private final float VIEWPORT_WIDTH = 14f;
-    private final float VIEWPORT_HEIGHT = 7.875f;
+    private final float VIEWPORT_WIDTH = 6.5f;
+    private final float VIEWPORT_HEIGHT = 6.5f;
 
     // keep mapUnitScale fixed so the world stays 37.5f x 37.5f regardless of zoom
     private final float mapUnitScale = 24f / (64f * 16f);
@@ -42,6 +43,9 @@ public class Game {
     private OrthogonalTiledMapRenderer mapRenderer;
     private MapCollision mapCollision;
     private PathFinder pathfinder;
+    private com.badlogic.gdx.maps.tiled.TiledMapTileLayer foreground1;
+    private com.badlogic.gdx.maps.tiled.TiledMapTileLayer foreground2;
+    private com.badlogic.gdx.maps.tiled.TiledMapTileLayer foreground3;
     private GooseWaveManager waveManager;
     private Rectangle fenceInterior;
 
@@ -62,6 +66,9 @@ public class Game {
     public boolean isPaused = true;
     public static boolean gameOver = false;
 
+    public static float gameTime = 0f;
+    public static GoldenFeather activeFeather = null;
+
     public void create() {
         instance = this;
         spriteBatch = new SpriteBatch();
@@ -77,13 +84,21 @@ public class Game {
 
         calculateFenceInterior();
 
+        // foreground layers so the player can go behind trees/buildings
+        foreground1 = (com.badlogic.gdx.maps.tiled.TiledMapTileLayer) tiledMap.getLayers().get("Foreground1");
+        foreground2 = (com.badlogic.gdx.maps.tiled.TiledMapTileLayer) tiledMap.getLayers().get("Foreground2");
+        foreground3 = (com.badlogic.gdx.maps.tiled.TiledMapTileLayer) tiledMap.getLayers().get("Foreground3");
+        if (foreground1 != null) foreground1.setVisible(false);
+        if (foreground2 != null) foreground2.setVisible(false);
+        if (foreground3 != null) foreground3.setVisible(false);
+
         player = new Player(worldMapWidth, worldMapHeight);
         player.getSprite().setPosition(10f, 9f);
         player.setScore(0);
         player.setHealth(10);
         currentPlayer = player;
 
-        waveManager = new GooseWaveManager("goose2.png", worldMapWidth, worldMapHeight, mapCollision, pathfinder, player);
+        waveManager = new GooseWaveManager("goose/goose2.png", worldMapWidth, worldMapHeight, mapCollision, pathfinder, player);
         nightEvent = new NightEvent();
         swarmEvent = new GooseSwarmEvent(mapCollision, player);
         
@@ -94,17 +109,6 @@ public class Game {
         setInputProcessor();
     }
 
-    /**
-     * Finds a random position on the map that does not overlap with any collision tile.
-     * Uses a slightly larger padded box (0.6f x 0.6f for a 0.4f x 0.4f item) so items 
-     * spawn comfortably away from walls.
-     */
-    
-    /**
-     * Finds the interior bounding box enclosed by the outer fence perimeter.
-     * Checks a "Fence" tile layer first if present, otherwise uses the outer
-     * bounds of the "Collision" layer.
-     */
     private void calculateFenceInterior() {
         float minX = worldMapWidth;
         float minY = worldMapHeight;
@@ -238,10 +242,6 @@ public class Game {
         }
     }
 
-    /**
-     * Cleans up consumed items and replenishes Bread and Golden Feathers 
-     * so they stay at their target counts throughout the game.
-     */
     private void maintainItems() {
         int activeBreadCount = 0;
         int activeFeatherCount = 0;
@@ -295,10 +295,15 @@ public class Game {
         
         isPaused = (false == UIMenu.gameUI.IsAtTop());
         if (!isPaused) {
+            gameTime += delta;
             player.update(viewport, worldMapWidth, worldMapHeight, this, mapCollision);
             waveManager.update(delta, player.getCenterPosition());
             nightEvent.update(delta);
             swarmEvent.update(player.getCenterPosition(), waveManager.getActiveGeese(), worldMapWidth, worldMapHeight);
+
+            if (activeFeather != null) {
+                activeFeather.updateEffect(delta, player, waveManager.getActiveGeese());
+            }
 
             for (Item i : items) {
                 if (i instanceof Bread) {
@@ -308,6 +313,22 @@ public class Game {
 
             // Clean up used items and replenish spawns
             maintainItems();
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                Item selected = inventory.getSelected();
+                if (selected != null) {
+                    selected.useItem(player, getGeese(), spriteBatch);
+                }
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+                inventory.selectNextItem();
+            }
+
+            if (waveManager.isGameOver() && !gameOver) {
+                gameOver = true;
+                WinScreenMenu.winMenu.Open();
+            }
         }
 
         Menu.Updateall();
@@ -339,30 +360,6 @@ public class Game {
                 return false;
             }
 
-            @Override
-            public boolean keyDown(int keycode) {
-                if (keycode == Input.Keys.E) {
-                    Item selected = inventory.getSelected();
-                    if (selected != null) {
-                        selected.useItem(player, getGeese(), spriteBatch);
-                    }
-                } else if (keycode == Input.Keys.Q) {
-                    inventory.selectPrevItem();
-                } else if (keycode == Input.Keys.R) {
-                    inventory.selectNextItem();
-                }
-                return false;
-            }
-
-            @Override
-            public boolean scrolled(float amountX, float amountY) {
-                if (amountY > 0) {
-                    inventory.selectNextItem();
-                } else if (amountY < 0) {
-                    inventory.selectPrevItem();
-                }
-                return false;
-            }
         });
     }
 
@@ -386,6 +383,22 @@ public class Game {
         waveManager.draw(spriteBatch);
 
         spriteBatch.end();
+
+        if (foreground1 != null || foreground2 != null || foreground3 != null) {
+            int px = (int)(player.getSprite().getX() / (worldMapWidth / 100f));
+            int py = (int)(player.getSprite().getY() / (worldMapHeight / 100f));
+            boolean covered = false;
+            if (foreground1 != null && foreground1.getCell(px, py) != null) covered = true;
+            if (foreground2 != null && foreground2.getCell(px, py) != null) covered = true;
+            if (foreground3 != null && foreground3.getCell(px, py) != null) covered = true;
+            float alpha = covered ? 0.5f : 1f;
+
+            mapRenderer.getBatch().begin();
+            if (foreground3 != null) { foreground3.setOpacity(alpha); mapRenderer.renderTileLayer(foreground3); }
+            if (foreground2 != null) { foreground2.setOpacity(alpha); mapRenderer.renderTileLayer(foreground2); }
+            if (foreground1 != null) { foreground1.setOpacity(alpha); mapRenderer.renderTileLayer(foreground1); }
+            mapRenderer.getBatch().end();
+        }
 
         menuViewport.apply();
         spriteBatch.setProjectionMatrix(menuViewport.getCamera().combined);
@@ -416,6 +429,10 @@ public class Game {
         return this.items;
     }
 
+    public GooseWaveManager getWaveManager() {
+        return waveManager;
+    }
+
     public static void resetGame() {
         if (instance != null) {
             instance.doReset();
@@ -424,6 +441,8 @@ public class Game {
 
     private void doReset() {
         Game.gameOver = false;
+        Game.gameTime = 0f;
+        Game.activeFeather = null;
         
         if (player != null) {
             player.resetPlayer(10f, 9f);
@@ -444,7 +463,7 @@ public class Game {
         if (waveManager != null) {
             waveManager.dispose();
         }
-        waveManager = new GooseWaveManager("goose2.png", worldMapWidth, worldMapHeight, mapCollision, pathfinder, player);
+        waveManager = new GooseWaveManager("goose/goose2.png", worldMapWidth, worldMapHeight, mapCollision, pathfinder, player);
         nightEvent.dispose();
         nightEvent = new NightEvent();
         swarmEvent = new GooseSwarmEvent(mapCollision, player);

@@ -21,12 +21,12 @@ public class PauseMenu {
     public static MenuGenerator pauseMenuMethods = new MenuGenerator(101){
         @Override 
         public void LoadAssets(){
-            pausemenuBG =  new Texture("pausemenu_background.png");
-            pausemenuText =  new Texture("pausemenu_text.png");
-            pausemenuMainMenu = new Texture("pausemenu_mainmenu.png");
-            pausemenuMainMenuDown = new Texture("pausemenu_mainmenu_down.png");
-            pausemenuResume = new Texture("pausemenu_resume.png");
-            pausemenuResumeDown = new Texture("pausemenu_resume_down.png");
+            pausemenuBG =  new Texture("menus/pausemenu_background.png");
+            pausemenuText =  new Texture("menus/pausemenu_text.png");
+            pausemenuMainMenu = new Texture("menus/pausemenu_mainmenu.png");
+            pausemenuMainMenuDown = new Texture("menus/pausemenu_mainmenu_down.png");
+            pausemenuResume = new Texture("menus/pausemenu_resume.png");
+            pausemenuResumeDown = new Texture("menus/pausemenu_resume_down.png");
         }
         @Override 
         public void LoadObjects(){

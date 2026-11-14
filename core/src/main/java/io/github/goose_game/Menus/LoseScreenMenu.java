@@ -17,9 +17,9 @@ public class LoseScreenMenu {
     public static MenuGenerator loseMenuMethods = new MenuGenerator(102){
         @Override 
         public void LoadAssets(){
-            losemenuBG =  new Texture("gameoverscreen.png");
-            losemenuMainMenu = new Texture("pausemenu_mainmenu.png");
-            losemenuMainMenuDown = new Texture("pausemenu_mainmenu_down.png");
+            losemenuBG =  new Texture("menus/gameoverscreen.png");
+            losemenuMainMenu = new Texture("menus/pausemenu_mainmenu.png");
+            losemenuMainMenuDown = new Texture("menus/pausemenu_mainmenu_down.png");
         }
         @Override 
         public void LoadObjects(){

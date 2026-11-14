@@ -1,6 +1,8 @@
 package io.github.goose_game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 
@@ -18,12 +20,18 @@ public class Item extends Entity {
     public boolean collected;
     protected Game game;
 
+    // bobbing animation
+    private float bounceTimer;
+    private static final float BOUNCE_HEIGHT = 0.05f;
+    private static final float BOUNCE_SPEED = 3f;
+
 
     public Item(String texturePath, float scale, Game game) {
         super(texturePath, 1, scale);
         sprite.setSize(scale,scale);
         this.game = game;
-        invGraphicInternalAddress = "empty.png";
+        invGraphicInternalAddress = "items/empty.png";
+        bounceTimer = MathUtils.random(0f, MathUtils.PI2);
     }
 
     public void updateBounds(){
@@ -34,6 +42,9 @@ public class Item extends Entity {
     public void pickUp(){
     //fixed the error causing ghost inventory
     if (this.collected) {
+        return;
+    }
+    if (game.getInventory().isFull()) {
         return;
     }
     this.collected = true;
@@ -81,8 +92,13 @@ public class Item extends Entity {
 
     @Override
     public void draw(SpriteBatch spriteBatch) {
-        if (!collected){
+        if (!collected && !itemUsed){
+            bounceTimer += Gdx.graphics.getDeltaTime() * BOUNCE_SPEED;
+            float bounceOffset = MathUtils.sin(bounceTimer) * BOUNCE_HEIGHT;
+            float originalY = sprite.getY();
+            sprite.setY(originalY + bounceOffset);
             super.draw(spriteBatch);
+            sprite.setY(originalY);
         }
     }
 }

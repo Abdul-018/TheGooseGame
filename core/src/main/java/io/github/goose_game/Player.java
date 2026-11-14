@@ -22,19 +22,22 @@ public class Player extends Entity {
     private float speed = 3f;
 
     private Texture spriteSheet;
+    private Animation<TextureRegion> walkDown;
     private Animation<TextureRegion> walkRight;
+    private Animation<TextureRegion> walkUp;
     private Animation<TextureRegion> walkLeft;
+    private TextureRegion standDown;
     private TextureRegion standRight;
+    private TextureRegion standUp;
     private TextureRegion standLeft;
     private float stateTime = 0f;
-    private boolean facingRight = true;
+    private int facing = 0; // 0=down 1=right 2=up 3=left
     private boolean moving = false;
     private float flashTimer = 0f;
 
-    // Removed the "final" keyword so they can be resized by the buff and reset!
     private Rectangle playerBounds = new Rectangle();
-    private float boundsWidth = 0.35f;
-    private float boundsHeight = 0.35f;
+    private final float boundsWidth = 0.35f;
+    private final float boundsHeight = 0.35f;
 
     private boolean isFlashing = false;
     private static final float FLASH_BLINK_RATE = 0.08f;
@@ -44,23 +47,36 @@ public class Player extends Entity {
     private static int score;
     private int maxHealth = 10;
 
-    // Golden Feather variables
-    private boolean isImmune = false;
-    private float immuneTimer = 0f;
-
     public Player(float mapWidth, float mapHeight) {
-        super("test_player.png", 100, 1);
+        super("player/playerSheet.png", 100, 1);
 
-        spriteSheet = new Texture("studentSheet.png");
-        TextureRegion[][] frames = TextureRegion.split(spriteSheet, 128, 128);
+        spriteSheet = new Texture("player/playerSheet.png");
+        spriteSheet.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        TextureRegion[][] frames = TextureRegion.split(spriteSheet, 32, 32);
 
-        walkRight = new Animation<>(0.15f, frames[1]);
+        // rows 3,4,5 are walk up, walk right, walk down
+        walkUp = new Animation<>(0.15f, new TextureRegion[]{frames[3][0], frames[3][1], frames[3][2]});
+        walkUp.setPlayMode(Animation.PlayMode.LOOP);
+        walkRight = new Animation<>(0.15f, new TextureRegion[]{frames[4][0], frames[4][1], frames[4][2]});
         walkRight.setPlayMode(Animation.PlayMode.LOOP);
-        walkLeft = new Animation<>(0.15f, frames[4]);
+        walkDown = new Animation<>(0.15f, new TextureRegion[]{frames[5][0], frames[5][1], frames[5][2]});
+        walkDown.setPlayMode(Animation.PlayMode.LOOP);
+
+        // flip right walk frames for left
+        TextureRegion[] leftFrames = new TextureRegion[3];
+        for (int i = 0; i < 3; i++) {
+            leftFrames[i] = new TextureRegion(frames[4][i]);
+            leftFrames[i].flip(true, false);
+        }
+        walkLeft = new Animation<>(0.15f, leftFrames);
         walkLeft.setPlayMode(Animation.PlayMode.LOOP);
 
+        // rows 0,1,2 are stand up, stand right, stand down
+        standUp = frames[0][0];
         standRight = frames[1][0];
-        standLeft = frames[4][0];
+        standDown = frames[2][0];
+        standLeft = new TextureRegion(frames[1][0]);
+        standLeft.flip(true, false);
 
         sprite.setSize(0.8f, 0.8f);
         sprite.setPosition((mapWidth - sprite.getWidth()) / 2f, (mapHeight - sprite.getHeight()) / 2f);
@@ -82,50 +98,18 @@ public class Player extends Entity {
         return playerBounds.getCenter(new Vector2());
     }
 
-    public boolean isGolden() {
-        return isImmune;
-    }
-
-    public void applyGoldenFeather(float duration) {
-        isImmune = true;
-        immuneTimer = duration;
-        isFlashing = false; 
-        
-        sprite.setX(sprite.getX() - 0.4f);
-        sprite.setY(sprite.getY() - 0.4f);
-        sprite.setSize(1.6f, 1.6f);
-        
-        boundsWidth = 0.4f;
-        boundsHeight = 0.4f;
-        
-        sprite.setColor(Color.GOLD);
-        updateBounds();
-    }
-
     public void update(Viewport viewport, float mapWidth, float mapHeight, Game game, MapCollision mapCollision) {
-        // Handle Golden Feather Timer
-        if (isImmune) {
-            immuneTimer -= Gdx.graphics.getDeltaTime();
-            if (immuneTimer <= 0) {
-                isImmune = false;
-                
-                sprite.setX(sprite.getX() + 0.4f);
-                sprite.setY(sprite.getY() + 0.4f);
-                sprite.setSize(0.8f, 0.8f);
-                sprite.setColor(Color.WHITE);
-                boundsWidth = 0.35f;
-                boundsHeight = 0.35f;
-                updateBounds();
-            }
-        }
-
         input(mapCollision);
         playerGameLogic(viewport, mapWidth, mapHeight);
 
         for (int i = 0; i < game.getGeese().size; i++) {
             Goose g = game.getGeese().get(i);
             if (playerBounds.overlaps(g.getGooseBounds())) {
-                onCollision(g, mapCollision);
+                if (g.getState() == Goose.GooseState.Fleeing) {
+                    g.disperse(); // if theyre fleeing just kill them
+                } else {
+                    onCollision(g, mapCollision);
+                }
             }
         }
 
@@ -137,7 +121,7 @@ public class Player extends Entity {
             }
         }
 
-        if (isFlashing && !isImmune) {
+        if (isFlashing) {
             flashTimer -= Gdx.graphics.getDeltaTime();
             boolean visible = ((int)(flashTimer / FLASH_BLINK_RATE)) % 2 == 0;
             sprite.setColor(visible ? Color.WHITE : Color.CLEAR);
@@ -189,8 +173,12 @@ public class Player extends Entity {
             }
 
             moving = true;
-            if (xMovement > 0f) facingRight = true;
-            else if (xMovement < 0f) facingRight = false;
+            // whichever axis has more movement picks the facing
+            if (Math.abs(xMovement) > Math.abs(yMovement)) {
+                facing = xMovement > 0 ? 1 : 3;
+            } else {
+                facing = yMovement > 0 ? 2 : 0;
+            }
             stateTime += delta;
         } else {
             moving = false;
@@ -202,9 +190,19 @@ public class Player extends Entity {
     public void draw(SpriteBatch spriteBatch) {
         TextureRegion frame;
         if (moving) {
-            frame = facingRight ? walkRight.getKeyFrame(stateTime) : walkLeft.getKeyFrame(stateTime);
+            switch (facing) {
+                case 1: frame = walkRight.getKeyFrame(stateTime); break;
+                case 2: frame = walkUp.getKeyFrame(stateTime); break;
+                case 3: frame = walkLeft.getKeyFrame(stateTime); break;
+                default: frame = walkDown.getKeyFrame(stateTime); break;
+            }
         } else {
-            frame = facingRight ? standRight : standLeft;
+            switch (facing) {
+                case 1: frame = standRight; break;
+                case 2: frame = standUp; break;
+                case 3: frame = standLeft; break;
+                default: frame = standDown; break;
+            }
         }
 
         spriteBatch.setColor(sprite.getColor());
@@ -260,12 +258,6 @@ public class Player extends Entity {
     }
 
     private void gooseHit(Goose goose, MapCollision mapCollision) {
-        // Disperse goose immediately if we touch them while golden!
-        if (isImmune) {
-            goose.disperse();
-            return;
-        }
-
         if (isFlashing) return;
 
         this.health -= 1;
@@ -328,19 +320,12 @@ public class Player extends Entity {
         this.health = maxHealth;
         this.score = 0;
         
-        // Reset buff states
-        this.isImmune = false;
-        this.immuneTimer = 0f;
         this.isFlashing = false;
         this.flashTimer = 0f;
         
-        // Reset sizing and visual state
         this.sprite.setSize(0.8f, 0.8f);
-        this.sprite.setColor(com.badlogic.gdx.graphics.Color.WHITE);
-        this.boundsWidth = 0.35f;
-        this.boundsHeight = 0.35f;
-        
-        // Reset position and movement
+        this.sprite.setColor(Color.WHITE);
+
         this.sprite.setPosition(startX, startY);
         this.moving = false;
         this.stateTime = 0f;

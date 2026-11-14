@@ -16,12 +16,12 @@ public class Bread extends Item {
     public boolean breadVisible = false;
 
     public Bread(float xCoord, float yCoord, Game game){
-        super("bread.png", 0.4f, game);
+        super("items/bread.png", 0.4f, game);
         this.inInventory = false;
         this.effectDuration = 10f;
         this.collected = false;
 
-        invGraphicInternalAddress = "bread_loaf.png";
+        invGraphicInternalAddress = "items/bread_loaf.png";
         sprite.setPosition(xCoord, yCoord);
     
         updateBounds();

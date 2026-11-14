@@ -8,14 +8,14 @@ import com.badlogic.gdx.utils.Array;
 public class GooseSwarmEvent {
 
     // trigger zone on the bridge next to the library, placeholder values still need tuning
-    private static final float ZONE_X = 16.8f;
-    private static final float ZONE_Y = 12.5f;
-    private static final float ZONE_WIDTH = 1.2f;
-    private static final float ZONE_HEIGHT = 1.0f;
+    private static final float ZONE_X = 15.75f;
+    private static final float ZONE_Y = 11.7f;
+    private static final float ZONE_WIDTH = 1.1f;
+    private static final float ZONE_HEIGHT = 0.9f;
 
     private static final int SWARM_SIZE = 6;
-    private static final float SPAWN_DISTANCE = 4f;
-    private static final float MIN_SPAWN_DISTANCE = 1.5f;
+    private static final float SPAWN_DISTANCE = 3.75f;
+    private static final float MIN_SPAWN_DISTANCE = 1.4f;
     private static final float GOOSE_SIZE = 0.8f;
 
     private final Rectangle triggerArea = new Rectangle(ZONE_X, ZONE_Y, ZONE_WIDTH, ZONE_HEIGHT);
@@ -38,8 +38,7 @@ public class GooseSwarmEvent {
         for (int i = 0; i < SWARM_SIZE; i++) {
             float angle = i * 360f / SWARM_SIZE;
 
-            // pull the spawn point in towards the player until it is clear of walls
-            for (float distance = SPAWN_DISTANCE; distance >= MIN_SPAWN_DISTANCE; distance -= 1f) {
+            for (float distance = SPAWN_DISTANCE; distance >= MIN_SPAWN_DISTANCE; distance -= 40f) {
                 float x = playerCenter.x + MathUtils.cosDeg(angle) * distance - GOOSE_SIZE / 2f;
                 float y = playerCenter.y + MathUtils.sinDeg(angle) * distance - GOOSE_SIZE / 2f;
                 x = MathUtils.clamp(x, 0, mapWidth - GOOSE_SIZE);
@@ -47,7 +46,11 @@ public class GooseSwarmEvent {
 
                 bounds.setPosition(x, y);
                 if (mapCollision == null || !mapCollision.collides(bounds)) {
-                    geese.add(new Goose("goose2.png", x, y, 3, player));
+                    Goose goose = new Goose("goose/goose2.png", x, y, 3, player);
+                    if (Game.activeFeather != null && Game.activeFeather.isEffectActive()) {
+                        goose.flee();
+                    }
+                    geese.add(goose);
                     break;
                 }
             }
