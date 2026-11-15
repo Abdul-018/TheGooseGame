@@ -65,8 +65,8 @@ public class Goose extends Entity {
     public Goose(String texturePath, float x, float y, int health, Player player) {
         super(texturePath, health, 1);
 
-        if (disperseSound == null && Gdx.files.internal("sounds/disperse.mp3").exists()) {
-            disperseSound = Gdx.audio.newSound(Gdx.files.internal("sounds/disperse.mp3"));
+        if (disperseSound == null && Gdx.files.internal("sounds/disperse.ogg").exists()) {
+            disperseSound = Gdx.audio.newSound(Gdx.files.internal("sounds/disperse.ogg"));
         }
 
         Random random = new Random();
