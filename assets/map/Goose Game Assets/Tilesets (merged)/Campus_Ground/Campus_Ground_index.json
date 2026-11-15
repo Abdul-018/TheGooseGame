@@ -1,0 +1,1612 @@
+[
+ {
+  "tile_id": 0,
+  "name": "concrete_slabs_0001",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 1,
+  "name": "concrete_slabs_0010",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 2,
+  "name": "concrete_slabs_0011",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 3,
+  "name": "concrete_slabs_0100",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 4,
+  "name": "concrete_slabs_0101",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 5,
+  "name": "concrete_slabs_0110",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 6,
+  "name": "concrete_slabs_0111",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 7,
+  "name": "concrete_slabs_1000",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 8,
+  "name": "concrete_slabs_1001",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 9,
+  "name": "concrete_slabs_1010",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 10,
+  "name": "concrete_slabs_1011",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 11,
+  "name": "concrete_slabs_1100",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 12,
+  "name": "concrete_slabs_1101",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 13,
+  "name": "concrete_slabs_1110",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 14,
+  "name": "concrete_slabs_1111",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 16,
+  "name": "concrete_slabs_fill_2",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 17,
+  "name": "concrete_slabs_fill_3",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 18,
+  "name": "concrete_slabs_fill_4",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 19,
+  "name": "concrete_slabs_fill_5",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 20,
+  "name": "concrete_slabs_fill_6",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 21,
+  "name": "concrete_slabs_fill_7",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 22,
+  "name": "concrete_slabs_fill_8",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 23,
+  "name": "concrete_slabs_fill_9",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 24,
+  "name": "concrete_slabs_fill_10",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 25,
+  "name": "concrete_slabs_fill_11",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 26,
+  "name": "concrete_slabs_fill_12",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 27,
+  "name": "concrete_slabs_fill_13",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 28,
+  "name": "concrete_slabs_fill_14",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 29,
+  "name": "concrete_slabs_fill_15",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 30,
+  "name": "concrete_slabs_fill_16",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 31,
+  "name": "concrete_slabs_fill_17",
+  "material": "concrete_slabs",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 32,
+  "name": "york_stone_0001",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 33,
+  "name": "york_stone_0010",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 34,
+  "name": "york_stone_0011",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 35,
+  "name": "york_stone_0100",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 36,
+  "name": "york_stone_0101",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 37,
+  "name": "york_stone_0110",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 38,
+  "name": "york_stone_0111",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 39,
+  "name": "york_stone_1000",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 40,
+  "name": "york_stone_1001",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 41,
+  "name": "york_stone_1010",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 42,
+  "name": "york_stone_1011",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 43,
+  "name": "york_stone_1100",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 44,
+  "name": "york_stone_1101",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 45,
+  "name": "york_stone_1110",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 46,
+  "name": "york_stone_1111",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 48,
+  "name": "york_stone_fill_2",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 49,
+  "name": "york_stone_fill_3",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 50,
+  "name": "york_stone_fill_4",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 51,
+  "name": "york_stone_fill_5",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 52,
+  "name": "york_stone_fill_6",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 53,
+  "name": "york_stone_fill_7",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 54,
+  "name": "york_stone_fill_8",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 55,
+  "name": "york_stone_fill_9",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 56,
+  "name": "york_stone_fill_10",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 57,
+  "name": "york_stone_fill_11",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 58,
+  "name": "york_stone_fill_12",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 59,
+  "name": "york_stone_fill_13",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 60,
+  "name": "york_stone_fill_14",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 61,
+  "name": "york_stone_fill_15",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 62,
+  "name": "york_stone_fill_16",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 63,
+  "name": "york_stone_fill_17",
+  "material": "york_stone",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 64,
+  "name": "brick_paving_0001",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 65,
+  "name": "brick_paving_0010",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 66,
+  "name": "brick_paving_0011",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 67,
+  "name": "brick_paving_0100",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 68,
+  "name": "brick_paving_0101",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 69,
+  "name": "brick_paving_0110",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 70,
+  "name": "brick_paving_0111",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 71,
+  "name": "brick_paving_1000",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 72,
+  "name": "brick_paving_1001",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 73,
+  "name": "brick_paving_1010",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 74,
+  "name": "brick_paving_1011",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 75,
+  "name": "brick_paving_1100",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 76,
+  "name": "brick_paving_1101",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 77,
+  "name": "brick_paving_1110",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 78,
+  "name": "brick_paving_1111",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 80,
+  "name": "brick_paving_fill_2",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 81,
+  "name": "brick_paving_fill_3",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 82,
+  "name": "brick_paving_fill_4",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 83,
+  "name": "brick_paving_fill_5",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 84,
+  "name": "brick_paving_fill_6",
+  "material": "brick_paving",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 96,
+  "name": "granite_setts_0001",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 97,
+  "name": "granite_setts_0010",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 98,
+  "name": "granite_setts_0011",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 99,
+  "name": "granite_setts_0100",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 100,
+  "name": "granite_setts_0101",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 101,
+  "name": "granite_setts_0110",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 102,
+  "name": "granite_setts_0111",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 103,
+  "name": "granite_setts_1000",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 104,
+  "name": "granite_setts_1001",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 105,
+  "name": "granite_setts_1010",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 106,
+  "name": "granite_setts_1011",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 107,
+  "name": "granite_setts_1100",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 108,
+  "name": "granite_setts_1101",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 109,
+  "name": "granite_setts_1110",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 110,
+  "name": "granite_setts_1111",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 112,
+  "name": "granite_setts_fill_2",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 113,
+  "name": "granite_setts_fill_3",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 114,
+  "name": "granite_setts_fill_4",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 115,
+  "name": "granite_setts_fill_5",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 116,
+  "name": "granite_setts_fill_6",
+  "material": "granite_setts",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 128,
+  "name": "gravel_0001",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 129,
+  "name": "gravel_0010",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 130,
+  "name": "gravel_0011",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 131,
+  "name": "gravel_0100",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 132,
+  "name": "gravel_0101",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 133,
+  "name": "gravel_0110",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 134,
+  "name": "gravel_0111",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 135,
+  "name": "gravel_1000",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 136,
+  "name": "gravel_1001",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 137,
+  "name": "gravel_1010",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 138,
+  "name": "gravel_1011",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 139,
+  "name": "gravel_1100",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 140,
+  "name": "gravel_1101",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 141,
+  "name": "gravel_1110",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 142,
+  "name": "gravel_1111",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 144,
+  "name": "gravel_fill_2",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 145,
+  "name": "gravel_fill_3",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 146,
+  "name": "gravel_fill_4",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 147,
+  "name": "gravel_fill_5",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 148,
+  "name": "gravel_fill_6",
+  "material": "gravel",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 160,
+  "name": "tarmac_0001",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 161,
+  "name": "tarmac_0010",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 162,
+  "name": "tarmac_0011",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   0,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 163,
+  "name": "tarmac_0100",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 164,
+  "name": "tarmac_0101",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 165,
+  "name": "tarmac_0110",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 166,
+  "name": "tarmac_0111",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   0,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 167,
+  "name": "tarmac_1000",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 168,
+  "name": "tarmac_1001",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 169,
+  "name": "tarmac_1010",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 170,
+  "name": "tarmac_1011",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   1,
+   0,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 171,
+  "name": "tarmac_1100",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   0,
+   0
+  ]
+ },
+ {
+  "tile_id": 172,
+  "name": "tarmac_1101",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   0,
+   1
+  ]
+ },
+ {
+  "tile_id": 173,
+  "name": "tarmac_1110",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   0
+  ]
+ },
+ {
+  "tile_id": 174,
+  "name": "tarmac_1111",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 176,
+  "name": "tarmac_fill_2",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 177,
+  "name": "tarmac_fill_3",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 178,
+  "name": "tarmac_fill_4",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 179,
+  "name": "tarmac_fill_5",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 180,
+  "name": "tarmac_fill_6",
+  "material": "tarmac",
+  "corners_TL_TR_BL_BR": [
+   1,
+   1,
+   1,
+   1
+  ]
+ },
+ {
+  "tile_id": 192,
+  "name": "tactile_paving"
+ },
+ {
+  "tile_id": 193,
+  "name": "tactile_paving"
+ },
+ {
+  "tile_id": 194,
+  "name": "tactile_paving"
+ },
+ {
+  "tile_id": 195,
+  "name": "tactile_paving"
+ },
+ {
+  "tile_id": 196,
+  "name": "road_dash_horizontal"
+ },
+ {
+  "tile_id": 197,
+  "name": "road_dash_vertical"
+ },
+ {
+  "tile_id": 198,
+  "name": "double_yellow_kerb_above"
+ },
+ {
+  "tile_id": 199,
+  "name": "double_yellow_kerb_below"
+ },
+ {
+  "tile_id": 200,
+  "name": "double_yellow_kerb_left"
+ },
+ {
+  "tile_id": 201,
+  "name": "double_yellow_kerb_right"
+ },
+ {
+  "tile_id": 202,
+  "name": "manhole_cover"
+ },
+ {
+  "tile_id": 203,
+  "name": "drain_grate"
+ }
+]

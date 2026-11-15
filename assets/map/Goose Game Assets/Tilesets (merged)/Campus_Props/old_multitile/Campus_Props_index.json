@@ -1,0 +1,611 @@
+[
+ {
+  "n": 1,
+  "name": "rack3_empty",
+  "group": "bike_racks",
+  "tile_x": 0,
+  "tile_y": 0,
+  "w": 3,
+  "h": 2,
+  "first_tile_id": 0,
+  "solid_tiles": [
+   16,
+   17,
+   18
+  ],
+  "above_tiles": [
+   0,
+   1,
+   2
+  ]
+ },
+ {
+  "n": 2,
+  "name": "rack3_1bike",
+  "group": "bike_racks",
+  "tile_x": 3,
+  "tile_y": 0,
+  "w": 3,
+  "h": 3,
+  "first_tile_id": 3,
+  "solid_tiles": [
+   35,
+   36,
+   37
+  ],
+  "above_tiles": [
+   3,
+   4,
+   5,
+   19,
+   20,
+   21
+  ]
+ },
+ {
+  "n": 3,
+  "name": "rack3_2bikes",
+  "group": "bike_racks",
+  "tile_x": 6,
+  "tile_y": 0,
+  "w": 3,
+  "h": 3,
+  "first_tile_id": 6,
+  "solid_tiles": [
+   38,
+   39,
+   40
+  ],
+  "above_tiles": [
+   6,
+   7,
+   8,
+   22,
+   23,
+   24
+  ]
+ },
+ {
+  "n": 4,
+  "name": "rack3_full",
+  "group": "bike_racks",
+  "tile_x": 9,
+  "tile_y": 0,
+  "w": 3,
+  "h": 3,
+  "first_tile_id": 9,
+  "solid_tiles": [
+   41,
+   42,
+   43
+  ],
+  "above_tiles": [
+   9,
+   10,
+   11,
+   25,
+   26,
+   27
+  ]
+ },
+ {
+  "n": 5,
+  "name": "rack5_empty",
+  "group": "bike_racks",
+  "tile_x": 12,
+  "tile_y": 0,
+  "w": 4,
+  "h": 2,
+  "first_tile_id": 12,
+  "solid_tiles": [
+   28,
+   29,
+   30,
+   31
+  ],
+  "above_tiles": [
+   12,
+   13,
+   14,
+   15
+  ]
+ },
+ {
+  "n": 6,
+  "name": "rack5_3bikes",
+  "group": "bike_racks",
+  "tile_x": 12,
+  "tile_y": 2,
+  "w": 4,
+  "h": 3,
+  "first_tile_id": 44,
+  "solid_tiles": [
+   76,
+   77,
+   78,
+   79
+  ],
+  "above_tiles": [
+   44,
+   45,
+   46,
+   47,
+   60,
+   61,
+   62,
+   63
+  ]
+ },
+ {
+  "n": 7,
+  "name": "bike_red",
+  "group": "bikes",
+  "tile_x": 0,
+  "tile_y": 2,
+  "w": 1,
+  "h": 2,
+  "first_tile_id": 32,
+  "solid_tiles": [
+   48
+  ],
+  "above_tiles": [
+   32
+  ]
+ },
+ {
+  "n": 8,
+  "name": "bike_blue",
+  "group": "bikes",
+  "tile_x": 1,
+  "tile_y": 2,
+  "w": 1,
+  "h": 2,
+  "first_tile_id": 33,
+  "solid_tiles": [
+   49
+  ],
+  "above_tiles": [
+   33
+  ]
+ },
+ {
+  "n": 9,
+  "name": "bike_yellow_basket",
+  "group": "bikes",
+  "tile_x": 2,
+  "tile_y": 2,
+  "w": 1,
+  "h": 2,
+  "first_tile_id": 34,
+  "solid_tiles": [
+   50
+  ],
+  "above_tiles": [
+   34
+  ]
+ },
+ {
+  "n": 10,
+  "name": "bike_green_lying",
+  "group": "bikes",
+  "tile_x": 3,
+  "tile_y": 3,
+  "w": 2,
+  "h": 2,
+  "first_tile_id": 51,
+  "solid_tiles": [
+   67,
+   68
+  ],
+  "above_tiles": [
+   51,
+   52
+  ]
+ },
+ {
+  "n": 11,
+  "name": "bike_abandoned",
+  "group": "bikes",
+  "tile_x": 5,
+  "tile_y": 3,
+  "w": 2,
+  "h": 2,
+  "first_tile_id": 53,
+  "solid_tiles": [
+   69,
+   70
+  ],
+  "above_tiles": [
+   53,
+   54
+  ]
+ },
+ {
+  "n": 12,
+  "name": "escooter",
+  "group": "bikes",
+  "tile_x": 7,
+  "tile_y": 3,
+  "w": 1,
+  "h": 2,
+  "first_tile_id": 55,
+  "solid_tiles": [
+   71
+  ],
+  "above_tiles": [
+   55
+  ]
+ },
+ {
+  "n": 13,
+  "name": "bench_facing_down",
+  "group": "benches",
+  "tile_x": 8,
+  "tile_y": 3,
+  "w": 2,
+  "h": 2,
+  "first_tile_id": 56,
+  "solid_tiles": [
+   72,
+   73
+  ],
+  "above_tiles": [
+   56,
+   57
+  ]
+ },
+ {
+  "n": 14,
+  "name": "bench_facing_up",
+  "group": "benches",
+  "tile_x": 10,
+  "tile_y": 3,
+  "w": 2,
+  "h": 2,
+  "first_tile_id": 58,
+  "solid_tiles": [
+   74,
+   75
+  ],
+  "above_tiles": [
+   58,
+   59
+  ]
+ },
+ {
+  "n": 15,
+  "name": "bench_facing_left",
+  "group": "benches",
+  "tile_x": 0,
+  "tile_y": 4,
+  "w": 1,
+  "h": 2,
+  "first_tile_id": 64,
+  "solid_tiles": [
+   80
+  ],
+  "above_tiles": [
+   64
+  ]
+ },
+ {
+  "n": 16,
+  "name": "bench_facing_right",
+  "group": "benches",
+  "tile_x": 1,
+  "tile_y": 4,
+  "w": 1,
+  "h": 2,
+  "first_tile_id": 65,
+  "solid_tiles": [
+   81
+  ],
+  "above_tiles": [
+   65
+  ]
+ },
+ {
+  "n": 17,
+  "name": "bench_metal_green",
+  "group": "benches",
+  "tile_x": 2,
+  "tile_y": 5,
+  "w": 2,
+  "h": 2,
+  "first_tile_id": 82,
+  "solid_tiles": [
+   98,
+   99
+  ],
+  "above_tiles": [
+   82,
+   83
+  ]
+ },
+ {
+  "n": 18,
+  "name": "picnic_table",
+  "group": "benches",
+  "tile_x": 4,
+  "tile_y": 5,
+  "w": 3,
+  "h": 3,
+  "first_tile_id": 84,
+  "solid_tiles": [
+   116,
+   117,
+   118
+  ],
+  "above_tiles": [
+   84,
+   85,
+   86,
+   100,
+   101,
+   102
+  ]
+ },
+ {
+  "n": 19,
+  "name": "tree_ring_bench",
+  "group": "benches",
+  "tile_x": 7,
+  "tile_y": 5,
+  "w": 2,
+  "h": 3,
+  "first_tile_id": 87,
+  "solid_tiles": [
+   119,
+   120
+  ],
+  "above_tiles": [
+   87,
+   88,
+   103,
+   104
+  ]
+ },
+ {
+  "n": 20,
+  "name": "litter_bin_black",
+  "group": "bins",
+  "tile_x": 9,
+  "tile_y": 5,
+  "w": 1,
+  "h": 2,
+  "first_tile_id": 89,
+  "solid_tiles": [
+   105
+  ],
+  "above_tiles": [
+   89
+  ]
+ },
+ {
+  "n": 21,
+  "name": "litter_bin_green",
+  "group": "bins",
+  "tile_x": 10,
+  "tile_y": 5,
+  "w": 1,
+  "h": 2,
+  "first_tile_id": 90,
+  "solid_tiles": [
+   106
+  ],
+  "above_tiles": [
+   90
+  ]
+ },
+ {
+  "n": 22,
+  "name": "wheelie_bin_green",
+  "group": "bins",
+  "tile_x": 11,
+  "tile_y": 5,
+  "w": 1,
+  "h": 2,
+  "first_tile_id": 91,
+  "solid_tiles": [
+   107
+  ],
+  "above_tiles": [
+   91
+  ]
+ },
+ {
+  "n": 23,
+  "name": "wheelie_bin_blue",
+  "group": "bins",
+  "tile_x": 12,
+  "tile_y": 5,
+  "w": 1,
+  "h": 2,
+  "first_tile_id": 92,
+  "solid_tiles": [
+   108
+  ],
+  "above_tiles": [
+   92
+  ]
+ },
+ {
+  "n": 24,
+  "name": "dumpster",
+  "group": "bins",
+  "tile_x": 13,
+  "tile_y": 5,
+  "w": 2,
+  "h": 2,
+  "first_tile_id": 93,
+  "solid_tiles": [
+   109,
+   110
+  ],
+  "above_tiles": [
+   93,
+   94
+  ]
+ },
+ {
+  "n": 25,
+  "name": "grit_bin",
+  "group": "bins",
+  "tile_x": 0,
+  "tile_y": 6,
+  "w": 2,
+  "h": 1,
+  "first_tile_id": 96,
+  "solid_tiles": [
+   96,
+   97
+  ],
+  "above_tiles": []
+ },
+ {
+  "n": 26,
+  "name": "bin_station",
+  "group": "bins",
+  "tile_x": 0,
+  "tile_y": 7,
+  "w": 2,
+  "h": 2,
+  "first_tile_id": 112,
+  "solid_tiles": [
+   128,
+   129
+  ],
+  "above_tiles": [
+   112,
+   113
+  ]
+ },
+ {
+  "n": 27,
+  "name": "bollard",
+  "group": "posts",
+  "tile_x": 15,
+  "tile_y": 5,
+  "w": 1,
+  "h": 2,
+  "first_tile_id": 95,
+  "solid_tiles": [
+   111
+  ],
+  "above_tiles": [
+   95
+  ]
+ },
+ {
+  "n": 28,
+  "name": "bollard_light",
+  "group": "posts",
+  "tile_x": 2,
+  "tile_y": 7,
+  "w": 1,
+  "h": 2,
+  "first_tile_id": 114,
+  "solid_tiles": [
+   130
+  ],
+  "above_tiles": [
+   114
+  ]
+ },
+ {
+  "n": 29,
+  "name": "traffic_cone",
+  "group": "posts",
+  "tile_x": 3,
+  "tile_y": 7,
+  "w": 1,
+  "h": 2,
+  "first_tile_id": 115,
+  "solid_tiles": [
+   131
+  ],
+  "above_tiles": [
+   115
+  ]
+ },
+ {
+  "n": 30,
+  "name": "post_box",
+  "group": "posts",
+  "tile_x": 9,
+  "tile_y": 7,
+  "w": 1,
+  "h": 2,
+  "first_tile_id": 121,
+  "solid_tiles": [
+   137
+  ],
+  "above_tiles": [
+   121
+  ]
+ },
+ {
+  "n": 31,
+  "name": "phone_box",
+  "group": "posts",
+  "tile_x": 10,
+  "tile_y": 7,
+  "w": 1,
+  "h": 2,
+  "first_tile_id": 122,
+  "solid_tiles": [
+   138
+  ],
+  "above_tiles": [
+   122
+  ]
+ },
+ {
+  "n": 32,
+  "name": "ticket_machine",
+  "group": "posts",
+  "tile_x": 11,
+  "tile_y": 7,
+  "w": 1,
+  "h": 2,
+  "first_tile_id": 123,
+  "solid_tiles": [
+   139
+  ],
+  "above_tiles": [
+   123
+  ]
+ },
+ {
+  "n": 33,
+  "name": "post_and_chain",
+  "group": "posts",
+  "tile_x": 12,
+  "tile_y": 7,
+  "w": 3,
+  "h": 1,
+  "first_tile_id": 124,
+  "solid_tiles": [
+   124,
+   125,
+   126
+  ],
+  "above_tiles": []
+ },
+ {
+  "n": 34,
+  "name": "pedestrian_barrier",
+  "group": "posts",
+  "tile_x": 4,
+  "tile_y": 8,
+  "w": 3,
+  "h": 1,
+  "first_tile_id": 132,
+  "solid_tiles": [
+   132,
+   133,
+   134
+  ],
+  "above_tiles": []
+ }
+]

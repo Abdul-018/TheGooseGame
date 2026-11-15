@@ -10,8 +10,10 @@ import io.github.goose_game.Game;
 import io.github.goose_game.Uimenu.Button;
 import io.github.goose_game.Uimenu.Menu;
 import io.github.goose_game.Uimenu.Uielement;
+
 public class MainMenu {
     public static Menu mainMenu;
+    static Texture mainmenuTitle;
     static Texture mainmenuBG;
     static Texture mainmenuBGLeft;
     static Texture mainmenuBGRight;
@@ -20,16 +22,18 @@ public class MainMenu {
     static Texture mainmenuGear;
     static Texture mainmenuGearDown;
     static ArrayList<Uielement> mainMenuElements;
+    
     public static MenuGenerator mainMenuMethods = new MenuGenerator(100){
         @Override 
         public void LoadAssets(){
-            mainmenuBG =  new Texture("mainmenu_background.png");
-            mainmenuBGLeft =  new Texture("mainmenu_background_left.png");
-            mainmenuBGRight =  new Texture("mainmenu_background_right.png");
-            mainmenuButton =  new Texture("mainmenu_button.png");
-            mainmenuButtonDown =  new Texture("mainmenu_button_down.png");
-            mainmenuGear =  new Texture("mainmenu_gear.png");
-            mainmenuGearDown =  new Texture("mainmenu_gear_down.png");
+            mainmenuTitle =  new Texture("menus/title.png");
+            mainmenuBG =  new Texture("menus/mainmenu_background.png");
+            mainmenuBGLeft =  new Texture("menus/mainmenu_background_left.png");
+            mainmenuBGRight =  new Texture("menus/mainmenu_background_right.png");
+            mainmenuButton =  new Texture("menus/mainmenu_button.png");
+            mainmenuButtonDown =  new Texture("menus/mainmenu_button_down.png");
+            mainmenuGear =  new Texture("menus/mainmenu_gear.png");
+            mainmenuGearDown =  new Texture("menus/mainmenu_gear_down.png");
         }
         @Override 
         public void LoadObjects(){
@@ -37,12 +41,12 @@ public class MainMenu {
             mainMenuElements.add(new Uielement(mainmenuBG,new float[]{640,360},Uielement.Align.MIDDLE,1f,4f));
             mainMenuElements.add(new Uielement(mainmenuBGLeft,new float[]{8,360},Uielement.Align.LEFT,1f,4f,1));
             mainMenuElements.add(new Uielement(mainmenuBGRight,new float[]{1272,360},Uielement.Align.RIGHT,1f,4f,1));
+            mainMenuElements.add(new Uielement(mainmenuTitle,new float[]{640,494},Uielement.Align.MIDDLE,1f,4f,4));
             mainMenu = new Menu(mainMenuElements,Menu.Passtype.NONE,true);
             mainMenu.Open();
             mainMenu.elementsList.add(new Button(mainmenuButton,new float[]{640,214},Uielement.Align.MIDDLE,1f,1f,4f,3){
                 @Override 
                 public void Update(){
-                    //if (this.PointerOn(Button.PointerpostoLocal(Gdx.input.getX(), Gdx.input.getY(), viewport))){
                     if (this.PointerOn(Menu.mostRecentViewport)&&Gdx.input.isTouched()){
                         this.setTexture(mainmenuButtonDown);
                     }else{
@@ -63,10 +67,10 @@ public class MainMenu {
                 @Override 
                 public boolean OnClick(){
                     mainMenu.Close();
-                    //replace with game start function
-                    if (Game.gameOver)Game.currentPlayer.setHealth(10);
-                    Game.gameOver = false;
-                    //replace with game start function
+                    
+                    // Trigger the soft reset here to start a fresh game!
+                    Game.resetGame();
+                    
                     System.out.println("clicked");
                     return true;
                 }
@@ -74,8 +78,7 @@ public class MainMenu {
             mainMenu.elementsList.add(new Button(mainmenuGear,new float[]{1192,96},Uielement.Align.RIGHT,1f,1f,4f,2){
                 @Override 
                 public void Update(){
-                    //if (this.PointerOn(Button.PointerpostoLocal(Gdx.input.getX(), Gdx.input.getY(), viewport))){
-                    if (this.PointerOn(Menu.mostRecentViewport)&&Gdx.input.isTouched()){//this.PointerOn(viewport)&&Gdx.input.isTouched()){
+                    if (this.PointerOn(Menu.mostRecentViewport)&&Gdx.input.isTouched()){
                         this.setTexture(mainmenuGearDown);
                     }else{
                         this.setTexture(mainmenuGear);

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
+import io.github.goose_game.Game;
 import io.github.goose_game.Uimenu.Button;
 import io.github.goose_game.Uimenu.Menu;
 import io.github.goose_game.Uimenu.Uielement;
@@ -17,9 +18,9 @@ public class LoseScreenMenu {
     public static MenuGenerator loseMenuMethods = new MenuGenerator(102){
         @Override 
         public void LoadAssets(){
-            losemenuBG =  new Texture("gameoverscreen.png");
-            losemenuMainMenu = new Texture("pausemenu_mainmenu.png");
-            losemenuMainMenuDown = new Texture("pausemenu_mainmenu_down.png");
+            losemenuBG =  new Texture("menus/gameoverscreen.png");
+            losemenuMainMenu = new Texture("menus/pausemenu_mainmenu.png");
+            losemenuMainMenuDown = new Texture("menus/pausemenu_mainmenu_down.png");
         }
         @Override 
         public void LoadObjects(){
@@ -45,7 +46,12 @@ public class LoseScreenMenu {
                     return true;
                 }
             });
-
+            loseMenu.elementsList.add(new Uielement(UIMenu.MakeScoreTexture(0),new float[]{640,442-4*55},Uielement.Align.MIDDLE,1f,4f,1){
+                @Override 
+                public void Update(){
+                    this.setTexture(UIMenu.MakeScoreTexture(Game.currentPlayer.getScore()));
+                }
+            });
         }
     };
 }

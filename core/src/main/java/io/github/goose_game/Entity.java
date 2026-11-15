@@ -24,7 +24,7 @@ public class Entity {
     }
 
     public void onCollision(Entity other_Entity) {
-        // this will be inherited by the player and goose? maybe also item?
+        // this will be inherited by the player and goose maybe also item
     }
 
     public Vector2 getPosition() {

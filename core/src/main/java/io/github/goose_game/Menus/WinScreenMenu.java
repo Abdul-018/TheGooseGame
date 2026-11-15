@@ -18,9 +18,9 @@ public class WinScreenMenu {
     public static MenuGenerator winMenuMethods = new MenuGenerator(102){
         @Override 
         public void LoadAssets(){
-            winmenuBG =  new Texture("gamewinscreen.png");
-            winmenuMainMenu = new Texture("pausemenu_mainmenu.png");
-            winmenuMainMenuDown = new Texture("pausemenu_mainmenu_down.png");
+            winmenuBG =  new Texture("menus/gamewinscreen.png");
+            winmenuMainMenu = new Texture("menus/pausemenu_mainmenu.png");
+            winmenuMainMenuDown = new Texture("menus/pausemenu_mainmenu_down.png");
         }
         @Override 
         public void LoadObjects(){
