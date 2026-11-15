@@ -15,6 +15,7 @@ public class NightEvent {
 
     private final Texture pixel;
     private float elapsed = 0f;
+    private boolean wasNight = false;
 
     public NightEvent() {
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
@@ -35,8 +36,14 @@ public class NightEvent {
     // call right after the map is drawn and before the entities, so only the map gets darker
     public void draw(SpriteBatch spriteBatch, OrthographicCamera camera) {
         if (!isNight()) {
+            wasNight = false;
             return;
         }
+        if (!wasNight) {
+            Game.lastEventID = 1;
+            Game.lastEventOverlayTime = 3f;
+        }
+        wasNight = true;
         float width = camera.viewportWidth * camera.zoom;
         float height = camera.viewportHeight * camera.zoom;
         Color previous = spriteBatch.getColor().cpy();

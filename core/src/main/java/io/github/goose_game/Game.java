@@ -65,7 +65,8 @@ public class Game {
     private Array<Item> items = new Array<>();
     public boolean isPaused = true;
     public static boolean gameOver = false;
-
+    public static int lastEventID = -1;
+    public static float lastEventOverlayTime = 0f;
     public static float gameTime = 0f;
     public static GoldenFeather activeFeather = null;
 
@@ -296,6 +297,7 @@ public class Game {
         isPaused = (false == UIMenu.gameUI.IsAtTop());
         if (!isPaused) {
             gameTime += delta;
+            lastEventOverlayTime -= delta;
             player.update(viewport, worldMapWidth, worldMapHeight, this, mapCollision);
             waveManager.update(delta, player.getCenterPosition());
             nightEvent.update(delta);
@@ -354,7 +356,12 @@ public class Game {
                     } else {
                         Menu.Inputall(keycode);
                     }
-                } else {
+                } //else if(keycode == Input.Keys.K){
+                    //if (UIMenu.gameUI.IsAtTop()) {
+                        //WinScreenMenu.winMenu.Open();
+                    //}
+                //} 
+                else {
                     Menu.Inputall(keycode);
                 }
                 return false;
