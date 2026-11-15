@@ -32,8 +32,10 @@ public class GooseSwarmEvent {
         if (triggered || !triggerArea.contains(playerCenter)) {
             return;
         }
-        triggered = true;
 
+        triggered = true;
+        Game.lastEventID = 2;
+        Game.lastEventOverlayTime = 3f;
         Rectangle bounds = new Rectangle(0, 0, GOOSE_SIZE, GOOSE_SIZE);
         for (int i = 0; i < SWARM_SIZE; i++) {
             float angle = i * 360f / SWARM_SIZE;
