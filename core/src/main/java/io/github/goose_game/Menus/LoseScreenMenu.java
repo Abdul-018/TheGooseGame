@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
+import io.github.goose_game.Game;
 import io.github.goose_game.Uimenu.Button;
 import io.github.goose_game.Uimenu.Menu;
 import io.github.goose_game.Uimenu.Uielement;
@@ -45,7 +46,12 @@ public class LoseScreenMenu {
                     return true;
                 }
             });
-
+            loseMenu.elementsList.add(new Uielement(UIMenu.MakeScoreTexture(0),new float[]{640,442-4*55},Uielement.Align.MIDDLE,1f,4f,1){
+                @Override 
+                public void Update(){
+                    this.setTexture(UIMenu.MakeScoreTexture(Game.currentPlayer.getScore()));
+                }
+            });
         }
     };
 }

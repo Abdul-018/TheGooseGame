@@ -13,6 +13,7 @@ import io.github.goose_game.Uimenu.Uielement;
 
 public class MainMenu {
     public static Menu mainMenu;
+    static Texture mainmenuTitle;
     static Texture mainmenuBG;
     static Texture mainmenuBGLeft;
     static Texture mainmenuBGRight;
@@ -25,6 +26,7 @@ public class MainMenu {
     public static MenuGenerator mainMenuMethods = new MenuGenerator(100){
         @Override 
         public void LoadAssets(){
+            mainmenuTitle =  new Texture("menus/title.png");
             mainmenuBG =  new Texture("menus/mainmenu_background.png");
             mainmenuBGLeft =  new Texture("menus/mainmenu_background_left.png");
             mainmenuBGRight =  new Texture("menus/mainmenu_background_right.png");
@@ -39,6 +41,7 @@ public class MainMenu {
             mainMenuElements.add(new Uielement(mainmenuBG,new float[]{640,360},Uielement.Align.MIDDLE,1f,4f));
             mainMenuElements.add(new Uielement(mainmenuBGLeft,new float[]{8,360},Uielement.Align.LEFT,1f,4f,1));
             mainMenuElements.add(new Uielement(mainmenuBGRight,new float[]{1272,360},Uielement.Align.RIGHT,1f,4f,1));
+            mainMenuElements.add(new Uielement(mainmenuTitle,new float[]{640,494},Uielement.Align.MIDDLE,1f,4f,4));
             mainMenu = new Menu(mainMenuElements,Menu.Passtype.NONE,true);
             mainMenu.Open();
             mainMenu.elementsList.add(new Button(mainmenuButton,new float[]{640,214},Uielement.Align.MIDDLE,1f,1f,4f,3){

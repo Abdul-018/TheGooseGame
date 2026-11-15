@@ -18,6 +18,8 @@ public class UIMenu {
     static Texture healthBook;
     static Texture healthBookTorn1Darkened;
     static Texture healthBookTorn2Darkened;
+    static Texture eventNight;
+    static Texture eventSwarm;
     static Texture empty;
     static ArrayList<Pixmap> numTextures;
     public static int scoreNum = 0;
@@ -26,7 +28,7 @@ public class UIMenu {
     private static int lastTimerUpdate = -1;
     private static int lastWaveUpdate = -1;
     private static int lastFeatherUpdate = -1;
-
+    private static int lastEventUpdate = -1;
     static Pixmap score;
     static Pixmap featherIcon;
     static ArrayList<Uielement> gameUIElements;
@@ -47,6 +49,8 @@ public class UIMenu {
             
             healthBookTorn1Darkened = new Texture("menus/health_book_torn1_darkened.png");
             healthBookTorn2Darkened = new Texture("menus/health_book_torn2_darkened.png");
+            eventNight = new Texture("menus/eventoverlay_night.png");
+            eventSwarm = new Texture("menus/eventoverlay_swarm.png");
             empty = new Texture("items/empty.png");
 
             Pixmap fullFeather = new Pixmap(Gdx.files.internal("items/golden_feather.png"));
@@ -94,6 +98,28 @@ public class UIMenu {
                     if (totalSeconds != lastTimerUpdate){
                         this.setTexture(MakeTimerTexture(totalSeconds));
                         lastTimerUpdate = totalSeconds;
+                    }
+                }
+            });
+            
+            gameUIElements.add(new Uielement(empty,new float[]{640,600},Uielement.Align.MIDDLE,1f,4f,1){
+                @Override
+                public void Update(){
+                    if (Game.lastEventID != -1){
+                        if (Game.lastEventOverlayTime > 0){
+                            if (lastEventUpdate != Game.lastEventID){
+                                lastEventUpdate = Game.lastEventID;
+                                if (lastEventUpdate == 1){
+                                    this.setTexture(eventNight);
+                                }else if(lastEventUpdate == 2){
+                                    this.setTexture(eventSwarm);
+                                }
+                            }
+                        }else{
+                            this.setTexture(empty);
+                            Game.lastEventID = -1;
+                            lastEventUpdate = -1;
+                        }
                     }
                 }
             });
