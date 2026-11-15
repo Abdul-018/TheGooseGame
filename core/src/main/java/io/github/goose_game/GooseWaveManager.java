@@ -1,5 +1,7 @@
 package io.github.goose_game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
@@ -14,12 +16,11 @@ public class GooseWaveManager {
     
     private MapCollision mapCollision;
     private PathFinder pathfinder;
-    private Player player; 
-
+    private Player player;  
     private float spawnTimer = 0f;
     private float waveTimer = 0f;
     private float gameTimer = 0f;
-
+    private final Sound waveSpawn = Gdx.audio.newSound(Gdx.files.internal("sounds/Geese Flyby.ogg"));
     private int currentWave = 1;
     private int spawnedInWave = 0;
     private int geeseDispersed = 0;
@@ -32,7 +33,7 @@ public class GooseWaveManager {
         this.mapCollision = mapCollision;
         this.pathfinder = pathfinder;
         this.player = player;
-
+        waveSpawn.play();
         spawnGeese(3);
     }
 
@@ -98,7 +99,7 @@ public class GooseWaveManager {
         spawnedInWave = 0;
         spawnTimer = 0f;
         waveTimer = 0f;
-
+        waveSpawn.play(); 
         spawnGeese(2);
     }
 

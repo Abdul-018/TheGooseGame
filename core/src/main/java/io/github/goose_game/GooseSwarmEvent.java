@@ -1,5 +1,7 @@
 package io.github.goose_game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -12,7 +14,7 @@ public class GooseSwarmEvent {
     private static final float ZONE_Y = 11.7f;
     private static final float ZONE_WIDTH = 1.1f;
     private static final float ZONE_HEIGHT = 0.9f;
-
+    private Sound waveSpawn = Gdx.audio.newSound(Gdx.files.internal("sounds/Geese Flyby.ogg"));
     private static final int SWARM_SIZE = 6;
     private static final float SPAWN_DISTANCE = 3.75f;
     private static final float MIN_SPAWN_DISTANCE = 1.4f;
@@ -33,6 +35,7 @@ public class GooseSwarmEvent {
             return;
         }
 
+        waveSpawn.play(); 
         triggered = true;
         Game.lastEventID = 2;
         Game.lastEventOverlayTime = 3f;
