@@ -1,5 +1,7 @@
 package io.github.goose_game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -19,12 +21,11 @@ public class Goose extends Entity {
         Dispersed,
         Fleeing
     }
-    // i used enum because its the quickest and easiest way to manage geese states
 
     private GooseState state;
     private float speed;
     private Vector2 direction;
-    private float distractionTimer; // countdown for how long the goose stays distracted for
+    private float distractionTimer;
 
     private Texture spriteSheet;
     private Animation<TextureRegion> walkRight;
@@ -40,7 +41,7 @@ public class Goose extends Entity {
     private final float boundsWidth = 0.3f;
     private final float boundsHeight = 0.3f;
 
-    // pathfinding and anti stuck variables from code 2
+    // pathfinding and anti stuck variables
     private Array<Vector2> currentPath = new Array<>();
     private float pathRecalcTimer = 0f;
     private static final float RECALC_INTERVAL = 0.3f;
@@ -53,6 +54,8 @@ public class Goose extends Entity {
     private Vector2 fleeDirection = new Vector2();
     private float fleeChangeTimer = 0f;
 
+    private static Sound disperseSound;
+
     private static final String[] GOOSE_TEXTURES = {
         "goose/goose_sheet_1x.png",
         "goose/duck_brown_sheet_1x.png",
@@ -60,12 +63,11 @@ public class Goose extends Entity {
     };
 
     public Goose(String texturePath, float x, float y, int health, Player player) {
-        /*
-        this line is basically just an inheritance bridge
-        it calls on the entity class so we can load health and assets
-        ive put the documentation for it on the resources channel
-        */
         super(texturePath, health, 1);
+
+        if (disperseSound == null && Gdx.files.internal("sounds/disperse.mp3").exists()) {
+            disperseSound = Gdx.audio.newSound(Gdx.files.internal("sounds/disperse.mp3"));
+        }
 
         Random random = new Random();
         String selectedPath = GOOSE_TEXTURES[random.nextInt(GOOSE_TEXTURES.length)];
@@ -74,7 +76,6 @@ public class Goose extends Entity {
 
         TextureRegion[][] frames = TextureRegion.split(spriteSheet, 32, 32);
 
-        // row 2 index 1 is walk right row 5 index 4 is walk left other rows for blinking and mouth
         walkRight = new Animation<>(0.15f, frames[1]);
         walkRight.setPlayMode(Animation.PlayMode.LOOP);
         walkLeft = new Animation<>(0.15f, frames[4]);
@@ -88,7 +89,7 @@ public class Goose extends Entity {
         
         this.speed = 1.8f + MathUtils.random(0.0f, 0.4f);
         this.direction = new Vector2();
-        this.state = GooseState.Chasing; // the goose has to be in a chasing state when it spawns
+        this.state = GooseState.Chasing;
         this.distractionTimer = 0f;
 
         updateBounds();
@@ -97,30 +98,26 @@ public class Goose extends Entity {
         this.player = player;
     }
 
-    // syncs the collision bounds with the sprites current position
     private void updateBounds() {
         float offsetX = (sprite.getWidth() - boundsWidth) / 2f;
         float offsetY = (sprite.getHeight() - boundsHeight) / 2f;
         gooseBounds.set(sprite.getX() + offsetX, sprite.getY() + offsetY, boundsWidth, boundsHeight);
     }
 
-    // gets the exact middle of the goose for distance checks
     public Vector2 getCenterPosition() {
         return gooseBounds.getCenter(new Vector2());
     }
 
-    // overloaded update method supporting pathfinder and mapcollision code 2 while keeping player context
     public void update(float delta, Vector2 targetPosition, Array<Goose> geese, MapCollision mapCollision, PathFinder pathfinder) {
         switch (state) {
             case Dispersed:
-                // no updates if goose is dead
                 moving = false;
                 break;
             case Distracted:
                 moving = false;
-                distractionTimer -= delta; // essentially decreasing the timer since the last frame
+                distractionTimer -= delta;
                 if (distractionTimer <= 0) {
-                    state = GooseState.Chasing; // so the goose starts chasing the player again
+                    state = GooseState.Chasing;
                 }
                 return;
             case Fleeing:
@@ -132,15 +129,14 @@ public class Goose extends Entity {
                 Vector2 gooseCenter = getCenterPosition();
                 pathRecalcTimer += delta;
 
-                // make sure geese dont get stuck in corners or obstacles
                 if (gooseCenter.dst(lastPosition) < 0.03f) {
                     stuckTimer += delta;
                     if (stuckTimer > 0.2f) {
                         stuckTimer = 0f;
                         if (currentPath.size > 0) {
-                            currentPath.removeIndex(0); // drop current waypoint and try next
+                            currentPath.removeIndex(0);
                         } else {
-                            pathRecalcTimer = RECALC_INTERVAL; // force recalculate path right now
+                            pathRecalcTimer = RECALC_INTERVAL;
                         }
                     }
                 } else {
@@ -148,7 +144,6 @@ public class Goose extends Entity {
                     lastPosition.set(gooseCenter);
                 }
 
-                // ask the pathfinder for a new route if timer is up or we have no path
                 if (pathfinder != null && (pathRecalcTimer >= RECALC_INTERVAL || currentPath.isEmpty())) {
                     pathRecalcTimer = 0f;
                     currentPath = pathfinder.findPath(gooseCenter, targetPosition);
@@ -169,7 +164,6 @@ public class Goose extends Entity {
                 if (distance > 0.05f) {
                     direction.set(targetPoint.x - gooseCenter.x, targetPoint.y - gooseCenter.y).nor();
 
-                    // move on x axis and check wall collisions
                     float oldX = sprite.getX();
                     sprite.setX(oldX + direction.x * speed * delta);
                     updateBounds();
@@ -178,7 +172,6 @@ public class Goose extends Entity {
                         updateBounds();
                     }
 
-                    // move on y axis and check wall collisions
                     float oldY = sprite.getY();
                     sprite.setY(oldY + direction.y * speed * delta);
                     updateBounds();
@@ -195,7 +188,6 @@ public class Goose extends Entity {
                     moving = false;
                 }
 
-                // entity separation loop so geese dont stack on top of each other
                 if (geese != null) {
                     for (int i = 0; i < geese.size; i++) {
                         Goose other = geese.get(i);
@@ -208,7 +200,6 @@ public class Goose extends Entity {
                             }
                             push.nor().scl(1.2f * delta);
 
-                            // push away on x
                             float sepX = sprite.getX();
                             sprite.setX(sepX + push.x);
                             updateBounds();
@@ -217,7 +208,6 @@ public class Goose extends Entity {
                                 updateBounds();
                             }
 
-                            // push away on y
                             float sepY = sprite.getY();
                             sprite.setY(sepY + push.y);
                             updateBounds();
@@ -264,7 +254,6 @@ public class Goose extends Entity {
         stateTime += delta;
     }
 
-    // keep original update signature compatible if called without pathfinder or collision
     public void update(float delta, Vector2 targetPosition, Array<Goose> geese) {
         update(delta, targetPosition, geese, null, null);
     }
@@ -281,7 +270,6 @@ public class Goose extends Entity {
                 frame = facingRight ? standRight : standLeft;
             }
 
-            // flash on and off while fleeing
             if (state == GooseState.Fleeing) {
                 boolean visible = ((int)(stateTime / FLASH_BLINK_RATE)) % 2 == 0;
                 spriteBatch.setColor(visible ? Color.WHITE : Color.CLEAR);
@@ -304,7 +292,11 @@ public class Goose extends Entity {
     }
 
     public void disperse() {
+        if (this.state == GooseState.Dispersed) return;
         this.state = GooseState.Dispersed;
+        if (disperseSound != null) {
+            disperseSound.play(0.7f);
+        }
         if (player != null) {
             int currentScore = player.getScore();
             player.setScore(currentScore + 20);
@@ -344,5 +336,12 @@ public class Goose extends Entity {
     public void dispose() {
         super.dispose();
         spriteSheet.dispose();
+    }
+
+    public static void disposeAudio() {
+        if (disperseSound != null) {
+            disperseSound.dispose();
+            disperseSound = null;
+        }
     }
 }

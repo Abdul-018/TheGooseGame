@@ -3,6 +3,7 @@ package io.github.goose_game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -54,6 +55,10 @@ public class Game {
     private ExtendViewport viewport;
     public static ExtendViewport menuViewport;
 
+    // Audio
+    private Music menuMusic;
+    private Music gameMusic;
+
     // Game entities and status
     public static Player currentPlayer;
     private Player player;
@@ -76,6 +81,19 @@ public class Game {
         
         viewport = new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         menuViewport = new ExtendViewport(16, 9);
+
+        // Load menu and gameplay music
+        if (Gdx.files.internal("sounds/music.mp3").exists()) {
+            menuMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
+            menuMusic.setLooping(true);
+            menuMusic.setVolume(0.4f);
+            menuMusic.play();
+        }
+        if (Gdx.files.internal("sounds/Just Nasty.mp3").exists()) {
+            gameMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/Just Nasty.mp3"));
+            gameMusic.setLooping(true);
+            gameMusic.setVolume(0.4f);
+        }
 
         tiledMap = new TmxMapLoader().load("map/Goose Game Map.tmx");
         mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, mapUnitScale, spriteBatch);
@@ -117,7 +135,6 @@ public class Game {
         float maxY = 0f;
         boolean found = false;
 
-        // 1. Check if there is a dedicated "Fence" layer in Tiled
         com.badlogic.gdx.maps.MapLayer fenceLayer = tiledMap.getLayers().get("Fence");
         if (fenceLayer instanceof com.badlogic.gdx.maps.tiled.TiledMapTileLayer) {
             com.badlogic.gdx.maps.tiled.TiledMapTileLayer tLayer = (com.badlogic.gdx.maps.tiled.TiledMapTileLayer) fenceLayer;
@@ -138,7 +155,6 @@ public class Game {
             }
         }
 
-        // 2. Otherwise derive the perimeter from the outer collision boxes
         if (!found && mapCollision != null) {
             for (Rectangle box : mapCollision.getCollisionBoxes()) {
                 minX = Math.min(minX, box.x);
@@ -149,7 +165,6 @@ public class Game {
             }
         }
 
-        // Shrink inward by 1 tile (worldMapWidth / 100f = 0.375f) so spawns stay inside the fence
         float tileSize = worldMapWidth / 100f;
         if (found && (maxX - minX) > tileSize * 2f && (maxY - minY) > tileSize * 2f) {
             fenceInterior = new Rectangle(
@@ -189,18 +204,18 @@ public class Game {
 
             testBounds.setPosition(x - padding, y - padding);
 
-            // 1. Skip if overlapping any wall/fence/collision block
+            // skip if overlapping any wall/fence/collision block
             if (mapCollision != null && mapCollision.collides(testBounds)) {
                 continue;
             }
 
-            // Convert world coordinates (center of the item) into Tiled grid coordinates (0-99)
+            // convert world coordinates into Tiled grid coordinates
             float centerX = x + (itemSize / 2f);
             float centerY = y + (itemSize / 2f);
             int tileX = (int)((centerX / worldMapWidth) * 100);
             int tileY = (int)((centerY / worldMapHeight) * 100);
 
-            // 2. Skip if a Water tile is present without terrain over it
+            // skip if a Water tile is present without terrain over it
             if (waterLayer != null) {
                 com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell waterCell = waterLayer.getCell(tileX, tileY);
                 if (waterCell != null && waterCell.getTile() != null) {
@@ -247,11 +262,11 @@ public class Game {
         int activeBreadCount = 0;
         int activeFeatherCount = 0;
 
-        // Iterate backwards so we can safely remove used items
+        // tterate backwards so we can safely remove used items
         for (int i = items.size - 1; i >= 0; i--) {
             Item item = items.get(i);
 
-            // If Bread was thrown and finished its 10s distraction or was eaten, mark it finished
+            // if bread was thrown and finished its 10s distraction or was eaten mark it finished
             if (item instanceof Bread) {
                 Bread b = (Bread) item;
                 if (b.itemUsed && !b.breadVisible) {
@@ -272,13 +287,13 @@ public class Game {
             }
         }
 
-        // Replenish missing Bread
+        // replenish missing Bread
         while (activeBreadCount < MAX_BREAD) {
             spawnBread();
             activeBreadCount++;
         }
 
-        // Replenish missing Golden Feathers (keeps exactly 2 active in the game)
+        // replenish missing Golden Feathers (keeps exactly 2 active in the game)
         while (activeFeatherCount < MAX_GOLDEN_FEATHERS) {
             spawnGoldenFeather();
             activeFeatherCount++;
@@ -293,6 +308,16 @@ public class Game {
 
     public void render() {
         float delta = Gdx.graphics.getDeltaTime();
+
+        // switch between title screen music and gameplay music
+        boolean onMainMenu = (MainMenu.mainMenu != null && MainMenu.mainMenu.IsAtTop());
+        if (onMainMenu) {
+            if (gameMusic != null && gameMusic.isPlaying()) gameMusic.pause();
+            if (menuMusic != null && !menuMusic.isPlaying()) menuMusic.play();
+        } else {
+            if (menuMusic != null && menuMusic.isPlaying()) menuMusic.stop();
+            if (gameMusic != null && !gameMusic.isPlaying()) gameMusic.play();
+        }
         
         isPaused = (false == UIMenu.gameUI.IsAtTop());
         if (!isPaused) {
@@ -313,7 +338,7 @@ public class Game {
                 }
             }
 
-            // Clean up used items and replenish spawns
+            // clean up used items and replenish spawns
             maintainItems();
 
             if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
@@ -356,17 +381,11 @@ public class Game {
                     } else {
                         Menu.Inputall(keycode);
                     }
-                } //else if(keycode == Input.Keys.K){
-                    //if (UIMenu.gameUI.IsAtTop()) {
-                        //WinScreenMenu.winMenu.Open();
-                    //}
-                //} 
-                else {
+                } else {
                     Menu.Inputall(keycode);
                 }
                 return false;
             }
-
         });
     }
 
@@ -422,6 +441,16 @@ public class Game {
         if (waveManager != null) waveManager.dispose();
         for (Item i : items) i.dispose();
         nightEvent.dispose();
+        if (menuMusic != null) {
+            menuMusic.stop();
+            menuMusic.dispose();
+        }
+        if (gameMusic != null) {
+            gameMusic.stop();
+            gameMusic.dispose();
+        }
+        Goose.disposeAudio();
+        Item.disposeAudio();
     }
 
     public Array<Goose> getGeese() {
@@ -475,6 +504,7 @@ public class Game {
         nightEvent = new NightEvent();
         swarmEvent = new GooseSwarmEvent(mapCollision, player);
     }
+
     public int getActiveBreadCount() {
         int count = 0;
         for (Item item : items) {

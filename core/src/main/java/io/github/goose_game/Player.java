@@ -2,6 +2,7 @@ package io.github.goose_game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -44,6 +45,8 @@ public class Player extends Entity {
     private BitmapFont collisionFont;
     private SpriteBatch fontBatch;
 
+    private Sound damageSound;
+
     private static int score;
     private int maxHealth = 10;
 
@@ -54,7 +57,7 @@ public class Player extends Entity {
         spriteSheet.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
         TextureRegion[][] frames = TextureRegion.split(spriteSheet, 32, 32);
 
-        // rows 3,4,5 are walk up, walk right, walk down
+        // rows 3,4,5 are walk up walk right walk down
         walkUp = new Animation<>(0.15f, new TextureRegion[]{frames[3][0], frames[3][1], frames[3][2]});
         walkUp.setPlayMode(Animation.PlayMode.LOOP);
         walkRight = new Animation<>(0.15f, new TextureRegion[]{frames[4][0], frames[4][1], frames[4][2]});
@@ -71,7 +74,6 @@ public class Player extends Entity {
         walkLeft = new Animation<>(0.15f, leftFrames);
         walkLeft.setPlayMode(Animation.PlayMode.LOOP);
 
-        // rows 0,1,2 are stand up, stand right, stand down
         standUp = frames[0][0];
         standRight = frames[1][0];
         standDown = frames[2][0];
@@ -86,6 +88,10 @@ public class Player extends Entity {
         collisionFont = new BitmapFont();
         collisionFont.setColor(Color.WHITE);
         fontBatch = new SpriteBatch();
+
+        if (Gdx.files.internal("sounds/damage.mp3").exists()) {
+            damageSound = Gdx.audio.newSound(Gdx.files.internal("sounds/damage.mp3"));
+        }
     }
 
     private void updateBounds() {
@@ -261,6 +267,10 @@ public class Player extends Entity {
         if (isFlashing) return;
 
         this.health -= 1;
+        if (damageSound != null) {
+            damageSound.play(0.8f);
+        }
+
         if (health <= 0) {
             Game.gameOver = true;
             PauseMenu.pauseMenu.Close();
@@ -339,5 +349,8 @@ public class Player extends Entity {
         spriteSheet.dispose();
         collisionFont.dispose();
         fontBatch.dispose();
+        if (damageSound != null) {
+            damageSound.dispose();
+        }
     }
 }
