@@ -1,10 +1,14 @@
-Goose.png
-bread.png
-feather.png
-gooseSheet.png
-gooseSheet2.png
-gooseSheet3.png
-libgdx.png
+goose/duck_brown_sheet_1x.png
+goose/duck_grey_sheet_1x.png
+goose/goose2.png
+goose/goose_sheet_1x.png
+items/bread.png
+items/bread_loaf.png
+items/empty.png
+items/feather.png
+items/golden_feather.png
+items/itembg.png
+items/itemselect.png
 map/Goose Game Assets/Collision Block .png
 map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Chicken/Chicken_baby_1.png
 map/Goose Game Assets/CozyValley_Premium_1.3/Animals/Chicken/Chicken_baby_2.png
@@ -393,6 +397,29 @@ map/Goose Game Tilemap/ian_wand.tsx
 map/Goose Game Tilemap/jb_morrell_library.tsx
 map/Goose Game Tilemap/piazza_building.tsx
 map/Goose Game Tilemap/ron_cooke_hub.tsx
-studentSheet.png
-test_background.png
-test_player.png
+menus/gameoverscreen.png
+menus/gamewinscreen.png
+menus/health_book.png
+menus/health_book_torn1_darkened.png
+menus/health_book_torn2_darkened.png
+menus/mainmenu_background.png
+menus/mainmenu_background_left.png
+menus/mainmenu_background_right.png
+menus/mainmenu_button.png
+menus/mainmenu_button_down.png
+menus/mainmenu_gear.png
+menus/mainmenu_gear_down.png
+menus/pausemenu_background.png
+menus/pausemenu_mainmenu.png
+menus/pausemenu_mainmenu_down.png
+menus/pausemenu_resume.png
+menus/pausemenu_resume_down.png
+menus/pausemenu_text.png
+menus/uimenu_nums.png
+menus/uimenu_score.png
+player/playerSheet.png
+sounds/Just Nasty.mp3
+sounds/drop.mp3
+sounds/music.mp3
+sounds/shuffle_paper.mp3
+sounds/tearing_paper.mp3

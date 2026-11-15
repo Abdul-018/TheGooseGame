@@ -14,6 +14,7 @@ public class GooseWaveManager {
     
     private MapCollision mapCollision;
     private PathFinder pathfinder;
+    private Player player; 
 
     private float spawnTimer = 0f;
     private float waveTimer = 0f;
@@ -24,14 +25,14 @@ public class GooseWaveManager {
     private int geeseDispersed = 0;
     private boolean gameOver = false;
 
-    public GooseWaveManager(String texturePath, float worldMapWidth, float worldMapHeight, MapCollision mapCollision, PathFinder pathfinder) {
+    public GooseWaveManager(String texturePath, float worldMapWidth, float worldMapHeight, MapCollision mapCollision, PathFinder pathfinder, Player player) {
         this.texturePath = texturePath;
         this.worldMapWidth = worldMapWidth;
         this.worldMapHeight = worldMapHeight;
         this.mapCollision = mapCollision;
         this.pathfinder = pathfinder;
+        this.player = player;
 
-        // Spawn initial 3 geese on the bridge
         spawnGeese(3);
     }
 
@@ -46,12 +47,25 @@ public class GooseWaveManager {
 
         waveTimer += delta;
 
-        // update active geese and remove dispersed ones
+        // target override point to bread if it exists and hasnt been eaten otherwise point to player
+        Vector2 currentTarget = playerPosition;
+        if (Bread.activeBread != null && !Bread.activeBread.isConsumed && Bread.activeBread.breadVisible) {
+            currentTarget = Bread.activeBread.getPosition();
+        }
+
         for (int i = activeGeese.size - 1; i >= 0; i--) {
             Goose goose = activeGeese.get(i);
             
-            // Pass the required pathfinding and collision references
-            goose.update(delta, playerPosition, activeGeese, mapCollision, pathfinder);
+            // geese will naturally pathfind to whichever target was assigned above
+            goose.update(delta, currentTarget, activeGeese, mapCollision, pathfinder);
+
+            // bread collision if this goose reaches the bread it eats it and disperses
+            if (Bread.activeBread != null && !Bread.activeBread.isConsumed && Bread.activeBread.breadVisible) {
+                if (goose.getCenterPosition().dst(Bread.activeBread.getPosition()) < 0.5f) {
+                    goose.disperse();
+                    Bread.activeBread.isConsumed = true; // flags bread so it disappears and other geese drop aggro
+                }
+            }
 
             if (goose.getState() == Goose.GooseState.Dispersed) {
                 goose.dispose();
@@ -62,7 +76,6 @@ public class GooseWaveManager {
 
         int maxForWave = 2 + currentWave;
 
-        // spawn 2 geese every 5 seconds until wave cap is reached
         if (spawnedInWave < maxForWave) {
             spawnTimer += delta;
             if (spawnTimer >= 5f) {
@@ -72,7 +85,6 @@ public class GooseWaveManager {
             }
         }
 
-        // next wave if all active geese are defeated OR 30 second wave limit expires
         boolean waveCleared = (spawnedInWave >= maxForWave) && activeGeese.isEmpty();
         boolean waveTimedOut = waveTimer >= 30f;
 
@@ -92,11 +104,10 @@ public class GooseWaveManager {
 
     private void spawnGeese(int count) {
         for (int i = 0; i < count; i++) {
-            // Spawn randomly clustered on the left bridge (around X:14.5 to 15.5, Y:22.8 to 23.8)
             float spawnX = 10.5f + MathUtils.random(1.0f);
             float spawnY = 5.8f + MathUtils.random(1.0f);
 
-            activeGeese.add(new Goose(texturePath, spawnX, spawnY, 3));
+            activeGeese.add(new Goose(texturePath, spawnX, spawnY, 3, player));
             spawnedInWave++;
         }
     }

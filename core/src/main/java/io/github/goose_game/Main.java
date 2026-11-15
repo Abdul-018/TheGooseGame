@@ -1,6 +1,7 @@
 package io.github.goose_game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import io.github.goose_game.Menus.Methods;
 
 public class Main extends ApplicationAdapter {
 
@@ -10,6 +11,9 @@ public class Main extends ApplicationAdapter {
     public void create() {
         game = new Game();
         game.create();
+        
+        Methods.LoadAllAssets();
+        Methods.LoadAllObjects();
     }
 
     @Override

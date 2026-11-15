@@ -10,11 +10,13 @@ public class Entity {
     protected Texture texture;
     protected Sprite sprite;
     protected int health;
+    protected float scale;
 
-    public Entity(String texturePath, int health) {
+    public Entity(String texturePath, int health, float scale) {
         this.texture = new Texture(texturePath);
         this.sprite = new Sprite(texture);
         this.health = health;
+        this.scale = scale;
     }
 
     public void draw(SpriteBatch spriteBatch) {
@@ -22,7 +24,7 @@ public class Entity {
     }
 
     public void onCollision(Entity other_Entity) {
-        // this will be inherited by the player and goose? maybe also item?
+        // this will be inherited by the player and goose maybe also item
     }
 
     public Vector2 getPosition() {

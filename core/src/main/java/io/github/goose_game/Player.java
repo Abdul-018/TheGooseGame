@@ -2,6 +2,7 @@ package io.github.goose_game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,19 +13,26 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+
+import io.github.goose_game.Menus.LoseScreenMenu;
+import io.github.goose_game.Menus.PauseMenu;
 
 public class Player extends Entity {
 
     private float speed = 3f;
 
     private Texture spriteSheet;
+    private Animation<TextureRegion> walkDown;
     private Animation<TextureRegion> walkRight;
+    private Animation<TextureRegion> walkUp;
     private Animation<TextureRegion> walkLeft;
+    private TextureRegion standDown;
     private TextureRegion standRight;
+    private TextureRegion standUp;
     private TextureRegion standLeft;
     private float stateTime = 0f;
-    private boolean facingRight = true;
+    private int facing = 0; // 0=down 1=right 2=up 3=left
     private boolean moving = false;
     private float flashTimer = 0f;
 
@@ -37,28 +45,53 @@ public class Player extends Entity {
     private BitmapFont collisionFont;
     private SpriteBatch fontBatch;
 
+    private Sound damageSound;
+
+    private static int score;
+    private int maxHealth = 10;
+
     public Player(float mapWidth, float mapHeight) {
-        super("test_player.png", 100);
+        super("player/playerSheet.png", 100, 1);
 
-        spriteSheet = new Texture("studentSheet.png");
-        TextureRegion[][] frames = TextureRegion.split(spriteSheet, 128, 128);
+        spriteSheet = new Texture("player/playerSheet.png");
+        spriteSheet.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        TextureRegion[][] frames = TextureRegion.split(spriteSheet, 32, 32);
 
-        walkRight = new Animation<>(0.15f, frames[1]);
+        // rows 3,4,5 are walk up walk right walk down
+        walkUp = new Animation<>(0.15f, new TextureRegion[]{frames[3][0], frames[3][1], frames[3][2]});
+        walkUp.setPlayMode(Animation.PlayMode.LOOP);
+        walkRight = new Animation<>(0.15f, new TextureRegion[]{frames[4][0], frames[4][1], frames[4][2]});
         walkRight.setPlayMode(Animation.PlayMode.LOOP);
-        walkLeft = new Animation<>(0.15f, frames[4]);
+        walkDown = new Animation<>(0.15f, new TextureRegion[]{frames[5][0], frames[5][1], frames[5][2]});
+        walkDown.setPlayMode(Animation.PlayMode.LOOP);
+
+        // flip right walk frames for left
+        TextureRegion[] leftFrames = new TextureRegion[3];
+        for (int i = 0; i < 3; i++) {
+            leftFrames[i] = new TextureRegion(frames[4][i]);
+            leftFrames[i].flip(true, false);
+        }
+        walkLeft = new Animation<>(0.15f, leftFrames);
         walkLeft.setPlayMode(Animation.PlayMode.LOOP);
 
+        standUp = frames[0][0];
         standRight = frames[1][0];
-        standLeft = frames[4][0];
+        standDown = frames[2][0];
+        standLeft = new TextureRegion(frames[1][0]);
+        standLeft.flip(true, false);
 
         sprite.setSize(0.8f, 0.8f);
-        sprite.setPosition(2f, 1.5f);
-
+        sprite.setPosition((mapWidth - sprite.getWidth()) / 2f, (mapHeight - sprite.getHeight()) / 2f);
+        
         updateBounds();
 
         collisionFont = new BitmapFont();
         collisionFont.setColor(Color.WHITE);
         fontBatch = new SpriteBatch();
+
+        if (Gdx.files.internal("sounds/damage.mp3").exists()) {
+            damageSound = Gdx.audio.newSound(Gdx.files.internal("sounds/damage.mp3"));
+        }
     }
 
     private void updateBounds() {
@@ -71,21 +104,32 @@ public class Player extends Entity {
         return playerBounds.getCenter(new Vector2());
     }
 
-    public void update(FitViewport viewport, float mapWidth, float mapHeight, Game game, MapCollision mapCollision) {
+    public void update(Viewport viewport, float mapWidth, float mapHeight, Game game, MapCollision mapCollision) {
         input(mapCollision);
         playerGameLogic(viewport, mapWidth, mapHeight);
 
-        // prevents conflicts
         for (int i = 0; i < game.getGeese().size; i++) {
             Goose g = game.getGeese().get(i);
             if (playerBounds.overlaps(g.getGooseBounds())) {
-                onCollision(g, mapCollision);
+                if (g.getState() == Goose.GooseState.Fleeing) {
+                    g.disperse(); // if theyre fleeing just kill them
+                } else {
+                    onCollision(g, mapCollision);
+                }
+            }
+        }
+
+        for (Item item : game.getItems()) {
+            if (playerBounds.overlaps(item.getItemBounds())) {
+                if (!item.inInventory) {
+                    item.pickUp();
+                }
             }
         }
 
         if (isFlashing) {
             flashTimer -= Gdx.graphics.getDeltaTime();
-            boolean visible = ((int) (flashTimer / FLASH_BLINK_RATE)) % 2 == 0;
+            boolean visible = ((int)(flashTimer / FLASH_BLINK_RATE)) % 2 == 0;
             sprite.setColor(visible ? Color.WHITE : Color.CLEAR);
 
             if (flashTimer <= 0) {
@@ -95,16 +139,23 @@ public class Player extends Entity {
         }
     }
 
+    public void setHealth(int healthInput) {
+        if (healthInput < maxHealth) {
+            health = healthInput;
+        } else {
+            health = maxHealth;
+        }
+    }
+
     private void input(MapCollision mapCollision) {
         float delta = Gdx.graphics.getDeltaTime();
-
         float xMovement = 0f;
         float yMovement = 0f;
 
-        if (Gdx.input.isKeyPressed(Keys.RIGHT)) xMovement += 1f;
-        if (Gdx.input.isKeyPressed(Keys.LEFT))  xMovement -= 1f;
-        if (Gdx.input.isKeyPressed(Keys.UP))    yMovement += 1f;
-        if (Gdx.input.isKeyPressed(Keys.DOWN))  yMovement -= 1f;
+        if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)) xMovement += 1f;
+        if (Gdx.input.isKeyPressed(Keys.LEFT)  || Gdx.input.isKeyPressed(Keys.A)) xMovement -= 1f;
+        if (Gdx.input.isKeyPressed(Keys.UP)    || Gdx.input.isKeyPressed(Keys.W)) yMovement += 1f;
+        if (Gdx.input.isKeyPressed(Keys.DOWN)  || Gdx.input.isKeyPressed(Keys.S)) yMovement -= 1f;
 
         if (xMovement != 0f || yMovement != 0f) {
             float length = (float) Math.sqrt(xMovement * xMovement + yMovement * yMovement);
@@ -114,7 +165,6 @@ public class Player extends Entity {
             float oldX = sprite.getX();
             sprite.setX(oldX + xMovement * speed * delta);
             updateBounds();
-
             if (mapCollision != null && mapCollision.collides(playerBounds)) {
                 sprite.setX(oldX);
                 updateBounds();
@@ -123,15 +173,18 @@ public class Player extends Entity {
             float oldY = sprite.getY();
             sprite.setY(oldY + yMovement * speed * delta);
             updateBounds();
-
             if (mapCollision != null && mapCollision.collides(playerBounds)) {
                 sprite.setY(oldY);
                 updateBounds();
             }
 
             moving = true;
-            if (xMovement > 0f) facingRight = true;
-            else if (xMovement < 0f) facingRight = false;
+            // whichever axis has more movement picks the facing
+            if (Math.abs(xMovement) > Math.abs(yMovement)) {
+                facing = xMovement > 0 ? 1 : 3;
+            } else {
+                facing = yMovement > 0 ? 2 : 0;
+            }
             stateTime += delta;
         } else {
             moving = false;
@@ -143,9 +196,19 @@ public class Player extends Entity {
     public void draw(SpriteBatch spriteBatch) {
         TextureRegion frame;
         if (moving) {
-            frame = facingRight ? walkRight.getKeyFrame(stateTime) : walkLeft.getKeyFrame(stateTime);
+            switch (facing) {
+                case 1: frame = walkRight.getKeyFrame(stateTime); break;
+                case 2: frame = walkUp.getKeyFrame(stateTime); break;
+                case 3: frame = walkLeft.getKeyFrame(stateTime); break;
+                default: frame = walkDown.getKeyFrame(stateTime); break;
+            }
         } else {
-            frame = facingRight ? standRight : standLeft;
+            switch (facing) {
+                case 1: frame = standRight; break;
+                case 2: frame = standUp; break;
+                case 3: frame = standLeft; break;
+                default: frame = standDown; break;
+            }
         }
 
         spriteBatch.setColor(sprite.getColor());
@@ -153,7 +216,7 @@ public class Player extends Entity {
         spriteBatch.setColor(Color.WHITE);
     }
 
-    private void playerGameLogic(FitViewport viewport, float mapWidth, float mapHeight) {
+    private void playerGameLogic(Viewport viewport, float mapWidth, float mapHeight) {
         float playerWidth = sprite.getWidth();
         float playerHeight = sprite.getHeight();
 
@@ -177,13 +240,22 @@ public class Player extends Entity {
         camera.update();
     }
 
-    public float getSpeed() { return speed; }
-    public void setSpeed(float speed) { this.speed = speed; }
-    public Rectangle getPlayerBounds() { return playerBounds; }
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    public Rectangle getPlayerBounds() {
+        return playerBounds;
+    }
+
+    public void useItem() { }
 
     @Override
-    public void onCollision(Entity other_Entity) {
-    }
+    public void onCollision(Entity other_Entity) { }
 
     public void onCollision(Entity other_Entity, MapCollision mapCollision) {
         if (other_Entity instanceof Goose) {
@@ -195,6 +267,17 @@ public class Player extends Entity {
         if (isFlashing) return;
 
         this.health -= 1;
+        if (damageSound != null) {
+            damageSound.play(0.8f);
+        }
+
+        if (health <= 0) {
+            Game.gameOver = true;
+            PauseMenu.pauseMenu.Close();
+            LoseScreenMenu.loseMenu.Open();
+            return;
+        }
+
         isFlashing = true;
         flashTimer = 1.5f;
 
@@ -207,7 +290,6 @@ public class Player extends Entity {
             knockback.set(0, 1.2f);
         }
 
-        //incremental knockback prevents pushing entities into collision walls
         float totalDist = knockback.len();
         Vector2 stepDir = new Vector2(knockback).nor();
         float stepSize = 0.05f;
@@ -236,11 +318,39 @@ public class Player extends Entity {
         }
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int newScore) {
+        this.score = newScore;
+    }
+
+    public void resetPlayer(float startX, float startY) {
+        this.health = maxHealth;
+        this.score = 0;
+        
+        this.isFlashing = false;
+        this.flashTimer = 0f;
+        
+        this.sprite.setSize(0.8f, 0.8f);
+        this.sprite.setColor(Color.WHITE);
+
+        this.sprite.setPosition(startX, startY);
+        this.moving = false;
+        this.stateTime = 0f;
+        
+        updateBounds();
+    }
+
     @Override
     public void dispose() {
         super.dispose();
         spriteSheet.dispose();
         collisionFont.dispose();
         fontBatch.dispose();
+        if (damageSound != null) {
+            damageSound.dispose();
+        }
     }
 }
